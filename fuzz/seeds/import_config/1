@@ -1,0 +1,10 @@
+<User a>
+ Pass = sha256#5baf7bc4af0e74a5155fa16eea25573bad825c3fb5d34169871a226d9fc18cde#somesalt#
+ <Network n>
+  Server = irc.example.org +6697 pw
+  LoadModule = simple_away -timer 30 x
+  <Chan #c>
+   Key = k
+  </Chan>
+ </Network>
+</User>

@@ -1,0 +1,73 @@
+{
+  "id": "quotes",
+  "name": "Quotes",
+  "version": "1.0.0",
+  "description": "Memorable lines of the channel: save them, find them and pull a random one.",
+  "usage": "In a channel: !quote, !quote 12, !quote search word, !quote add text, !quote del 12 (also as !cita).",
+  "author": "y2k",
+  "permissions": [
+    "send"
+  ],
+  "settings": [
+    {
+      "key": "trigger",
+      "type": "text",
+      "label": "Command",
+      "default": "!quote"
+    },
+    {
+      "key": "anyone_adds",
+      "type": "bool",
+      "label": "Anybody can add quotes",
+      "help": "Off: only you and the editors.",
+      "default": true
+    },
+    {
+      "key": "editors",
+      "type": "lines",
+      "label": "Editors",
+      "help": "Nicks who can add and delete quotes, one per line."
+    },
+    {
+      "key": "channels",
+      "type": "lines",
+      "label": "Only in these channels",
+      "help": "One per line. Empty: in every channel."
+    },
+    {
+      "key": "lang",
+      "type": "text",
+      "label": "Language of the answers",
+      "help": "Empty: your language in xBNC. Or es / en.",
+      "default": ""
+    }
+  ],
+  "translations": {
+    "es": {
+      "name": "Citas",
+      "description": "Frases memorables del canal: guárdalas, búscalas y saca una al azar.",
+      "usage": "En un canal: !cita, !cita 12, !cita buscar palabra, !cita añadir texto, !cita borrar 12 (o !quote add/search/del).",
+      "settings": {
+        "trigger": {
+          "label": "Comando"
+        },
+        "anyone_adds": {
+          "label": "Cualquiera puede añadir citas",
+          "help": "Desactivado: solo tú y los editores."
+        },
+        "editors": {
+          "label": "Editores",
+          "help": "Nicks que pueden añadir y borrar citas, uno por línea."
+        },
+        "channels": {
+          "label": "Solo en estos canales",
+          "help": "Uno por línea. Vacío: en todos."
+        },
+        "lang": {
+          "label": "Idioma de las respuestas",
+          "help": "Vacío: tu idioma en xBNC. O es / en."
+        }
+      }
+    }
+  }
+}

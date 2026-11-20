@@ -1,0 +1,41 @@
+# Local test environment: xBNC plus two different IRC servers.
+#
+#   cd testenv
+#   docker compose up -d --build
+#   ./setup.sh
+#   # IRC: localhost:6667, password test/ergo@laptop:testpassword1
+#   # Web panel: http://localhost:8080 (user test / testpassword1)
+#
+# Everything is plain text on purpose (isolated test network). Do not
+# expose these ports on a public interface.
+services:
+  ergo:
+    image: ghcr.io/ergochat/ergo:stable
+    restart: unless-stopped
+    # Reachable from xbnc as ergo:6667. Port published for direct comparison.
+    ports:
+      - "127.0.0.1:16667:6667"
+
+  inspircd:
+    image: inspircd/inspircd-docker:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:26667:6667"
+
+  xbnc:
+    build: ..
+    image: xbnc:0.2.0
+    depends_on: [ergo, inspircd]
+    environment:
+      XBNC_HOSTNAME: xbnc.test
+      XBNC_INSECURE: "1"
+      RUST_LOG: "info,xbncd=debug"
+      XBNC_PUBLIC_URL: http://localhost:8080
+    ports:
+      - "127.0.0.1:6667:6667"   # IRC clients
+      - "127.0.0.1:8080:8080"   # web panel
+    volumes:
+      - xbnc-test-data:/data
+
+volumes:
+  xbnc-test-data:

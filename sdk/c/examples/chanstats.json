@@ -1,0 +1,75 @@
+{
+  "id": "chanstats",
+  "name": "Channel stats",
+  "version": "1.1.0",
+  "description": "!stats: messages in the channel and who talks most. !stats nick: one person's count.",
+  "usage": "In a channel: !stats shows the messages and who talks most — !stats bob shows one person. /msg *chanstats #channel shows it to you privately. Counts are saved every minute.",
+  "author": "y2k",
+  "permissions": [
+    "send",
+    "timer"
+  ],
+  "settings": [
+    {
+      "key": "trigger",
+      "type": "text",
+      "label": "Command",
+      "default": "!stats"
+    },
+    {
+      "key": "top",
+      "type": "int",
+      "label": "People in the ranking",
+      "min": 1,
+      "max": 10,
+      "default": 5
+    },
+    {
+      "key": "public",
+      "type": "bool",
+      "label": "Answer other people",
+      "help": "Off: only your own !stats.",
+      "default": true
+    },
+    {
+      "key": "channels",
+      "type": "lines",
+      "label": "Only these channels",
+      "help": "One per line. Empty: every channel."
+    },
+    {
+      "key": "lang",
+      "type": "text",
+      "label": "Language of the answers",
+      "help": "Empty: your language in xBNC. Or es / en.",
+      "default": ""
+    }
+  ],
+  "translations": {
+    "es": {
+      "name": "Estadísticas del canal",
+      "description": "!stats: mensajes del canal y quién habla más. !stats nick: lo de una persona.",
+      "usage": "En un canal: !stats muestra los mensajes y quién habla más — !stats bob, lo de una persona. /msg *chanstats #canal te lo muestra en privado. Los recuentos se guardan cada minuto. También !estadisticas y !top.",
+      "settings": {
+        "trigger": {
+          "label": "Comando"
+        },
+        "top": {
+          "label": "Personas en la clasificación"
+        },
+        "public": {
+          "label": "Responder a otras personas",
+          "help": "Desactivado: solo tu propio !stats."
+        },
+        "channels": {
+          "label": "Solo en estos canales",
+          "help": "Uno por línea. Vacío: en todos."
+        },
+        "lang": {
+          "label": "Idioma de las respuestas",
+          "help": "Vacío: tu idioma en xBNC. O es / en."
+        }
+      }
+    }
+  }
+}

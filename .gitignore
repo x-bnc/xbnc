@@ -1,0 +1,21 @@
+# Build output (web/dist is committed on purpose: the panel is embedded in
+# the binary, so building xBNC does not need Node.js)
+/target
+/dist
+/fuzz/target
+/fuzz/artifacts
+/fuzz/corpus
+/sdk/rust/target
+/web/node_modules
+/sdk/c/examples/*.raw.wasm
+# Ready-made binaries: added to the release .zip, never kept in git
+/bin/xbncd-linux-*
+/bin/SHA256SUMS
+__pycache__/
+
+# Data and secrets: never in the repository
+*.db
+*.db-wal
+*.db-shm
+secret.key
+*.key

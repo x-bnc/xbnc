@@ -1,0 +1,29 @@
+{
+  "id": "stats",
+  "name": "Channel stats",
+  "version": "1.0.0",
+  "description": "Counts messages per channel. /msg *stats shows the top 10; !stats answers in the channel.",
+  "author": "xBNC SDK example",
+  "permissions": [
+    "send"
+  ],
+  "settings": [
+    {
+      "key": "trigger",
+      "type": "text",
+      "label": "Command",
+      "default": "!stats"
+    }
+  ],
+  "translations": {
+    "es": {
+      "name": "Estadísticas de canales",
+      "description": "Cuenta los mensajes de cada canal. /msg *stats muestra los 10 primeros; !stats responde en el canal.",
+      "settings": {
+        "trigger": {
+          "label": "Comando"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+name: Fuzzing
+
+on:
+  schedule:
+    - cron: "17 3 * * 1"   # weekly
+  workflow_dispatch:
+
+jobs:
+  fuzz:
+    name: cargo fuzz (${{ matrix.target }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [irc_message, dcc, import_config, plugin_manifest, search_query, plugin_runtime]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
+      - run: cargo install cargo-fuzz --locked
+      - name: Regressions found earlier still pass
+        run: |
+          if [ -d fuzz/regressions/${{ matrix.target }} ]; then
+            cd fuzz && cargo fuzz run ${{ matrix.target }} regressions/${{ matrix.target }}/* -- -runs=0
+          fi
+      - name: Corpus kept between runs
+        uses: actions/cache@v4
+        with:
+          path: fuzz/corpus/${{ matrix.target }}
+          key: fuzz-corpus-${{ matrix.target }}-${{ github.run_id }}
+          restore-keys: fuzz-corpus-${{ matrix.target }}-
+      - name: Corpus from the seeds
+        run: mkdir -p fuzz/corpus/${{ matrix.target }} && cp fuzz/seeds/${{ matrix.target }}/* fuzz/corpus/${{ matrix.target }}/
+      - name: Fuzz for 20 minutes
+        run: cd fuzz && cargo fuzz run ${{ matrix.target }} corpus/${{ matrix.target }} -- -max_total_time=1200 -rss_limit_mb=2048 -timeout=10
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: crash-${{ matrix.target }}
+          path: fuzz/artifacts/

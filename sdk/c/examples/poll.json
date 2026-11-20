@@ -1,0 +1,74 @@
+{
+  "id": "poll",
+  "name": "Polls",
+  "version": "1.1.0",
+  "description": "!poll Question? | option | option, then !vote N. Closes on its own and announces the winner.",
+  "usage": "In a channel: !poll Pizza or sushi? | pizza | sushi (up to 10 options) — vote with !vote 1 — !poll shows the count — !poll end closes it (who started it, or you). It closes on its own after the minutes in the settings.",
+  "author": "y2k",
+  "permissions": [
+    "send",
+    "timer"
+  ],
+  "settings": [
+    {
+      "key": "trigger",
+      "type": "text",
+      "label": "Command",
+      "default": "!poll"
+    },
+    {
+      "key": "vote_trigger",
+      "type": "text",
+      "label": "Vote command",
+      "default": "!vote"
+    },
+    {
+      "key": "minutes",
+      "type": "int",
+      "label": "Minutes until it closes",
+      "min": 1,
+      "max": 10080,
+      "default": 60
+    },
+    {
+      "key": "public",
+      "type": "bool",
+      "label": "Other people can start polls",
+      "help": "Off: only you start them; everyone can vote.",
+      "default": true
+    },
+    {
+      "key": "lang",
+      "type": "text",
+      "label": "Language of the answers",
+      "help": "Empty: your language in xBNC. Or es / en.",
+      "default": ""
+    }
+  ],
+  "translations": {
+    "es": {
+      "name": "Encuestas",
+      "description": "!poll ¿Pregunta? | opción | opción, y luego !vote N. Se cierra sola y anuncia la ganadora.",
+      "usage": "En un canal: !poll ¿Pizza o sushi? | pizza | sushi (hasta 10 opciones) — vota con !vote 1 — !poll muestra el recuento — !poll end la cierra (quien la creó, o tú). Se cierra sola pasados los minutos de los ajustes. También !encuesta y !votar.",
+      "settings": {
+        "trigger": {
+          "label": "Comando"
+        },
+        "vote_trigger": {
+          "label": "Comando para votar"
+        },
+        "minutes": {
+          "label": "Minutos hasta que se cierra"
+        },
+        "public": {
+          "label": "Otras personas pueden crear encuestas",
+          "help": "Desactivado: solo las creas tú; votar puede todo el mundo."
+        },
+        "lang": {
+          "label": "Idioma de las respuestas",
+          "help": "Vacío: tu idioma en xBNC. O es / en."
+        }
+      }
+    }
+  }
+}

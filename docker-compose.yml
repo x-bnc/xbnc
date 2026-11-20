@@ -1,0 +1,30 @@
+# Production-style deployment with TLS.
+#
+#   mkdir -p tls && cp /path/fullchain.pem /path/privkey.pem tls/
+#   docker compose up -d --build
+#   docker compose logs xbnc | grep "setup code"   # then open https://bnc.example.org:8443/
+#
+# For a local test environment with IRC servers, see testenv/.
+services:
+  xbnc:
+    build: .
+    image: xbnc:1.0.0
+    restart: unless-stopped
+    environment:
+      XBNC_HOSTNAME: bnc.example.org
+      XBNC_TLS_CERT: /tls/fullchain.pem
+      XBNC_TLS_KEY: /tls/privkey.pem
+      XBNC_PUBLIC_URL: https://bnc.example.org:8443
+    ports:
+      - "6697:6697"   # IRC clients
+      - "8443:8443"   # web panel
+    volumes:
+      - xbnc-data:/data
+      - ./tls:/tls:ro
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+
+volumes:
+  xbnc-data:

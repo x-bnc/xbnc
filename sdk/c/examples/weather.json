@@ -1,0 +1,68 @@
+{
+  "id": "weather",
+  "name": "Weather",
+  "version": "1.0.0",
+  "description": "The weather now and today's forecast for any city, from Open-Meteo (free, no key).",
+  "usage": "In a channel: !weather London (also !tiempo or !clima). Here: /msg *weather Paris.",
+  "author": "y2k",
+  "permissions": [
+    "send",
+    "http"
+  ],
+  "settings": [
+    {
+      "key": "trigger",
+      "type": "text",
+      "label": "Command",
+      "default": "!weather"
+    },
+    {
+      "key": "city",
+      "type": "text",
+      "label": "Default city",
+      "help": "Used when no city is written.",
+      "default": ""
+    },
+    {
+      "key": "channels",
+      "type": "lines",
+      "label": "Only in these channels",
+      "help": "One per line. Empty: in every channel."
+    },
+    {
+      "key": "lang",
+      "type": "text",
+      "label": "Language of the answers",
+      "help": "Empty: your language in xBNC. Or es / en.",
+      "default": ""
+    }
+  ],
+  "http_domains": [
+    "geocoding-api.open-meteo.com",
+    "api.open-meteo.com"
+  ],
+  "translations": {
+    "es": {
+      "name": "El tiempo",
+      "description": "El tiempo ahora y la previsión de hoy para cualquier ciudad, de Open-Meteo (gratis, sin clave).",
+      "usage": "En un canal: !tiempo Madrid o !weather London. Aquí: /msg *weather Sevilla.",
+      "settings": {
+        "trigger": {
+          "label": "Comando"
+        },
+        "city": {
+          "label": "Ciudad por defecto",
+          "help": "Se usa cuando no se escribe ninguna."
+        },
+        "channels": {
+          "label": "Solo en estos canales",
+          "help": "Uno por línea. Vacío: en todos."
+        },
+        "lang": {
+          "label": "Idioma de las respuestas",
+          "help": "Vacío: tu idioma en xBNC. O es / en."
+        }
+      }
+    }
+  }
+}

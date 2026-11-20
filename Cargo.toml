@@ -1,0 +1,15 @@
+[workspace]
+members = ["crates/xbnc-proto", "crates/xbncd", "sdk/rust"]
+resolver = "2"
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+license = "Apache-2.0"
+rust-version = "1.89"
+authors = ["y2k"]
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true

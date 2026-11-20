@@ -1,0 +1,70 @@
+# Alert rules for xBNC (Prometheus). Load them with:
+#   rule_files: [ "/etc/prometheus/xbnc-rules.yml" ]
+# and scrape /api/v1/metrics with a metrics token:
+#   - job_name: xbnc
+#     scheme: https
+#     metrics_path: /api/v1/metrics
+#     authorization: { credentials_file: /etc/prometheus/xbnc-token }
+#     static_configs: [ { targets: ["bnc.example.org:8443"] } ]
+groups:
+  - name: xbnc
+    rules:
+      - alert: XbncDown
+        expr: up{job="xbnc"} == 0
+        for: 2m
+        labels: { severity: critical }
+        annotations:
+          summary: "xBNC is not answering on {{ $labels.instance }}"
+
+      - alert: XbncNetworksDisconnected
+        expr: sum by (instance) (xbnc_networks_running{state!="connected"}) > 0
+        for: 10m
+        labels: { severity: warning }
+        annotations:
+          summary: "{{ $value }} network(s) not connected for 10 minutes on {{ $labels.instance }}"
+
+      - alert: XbncManyReconnects
+        expr: increase(xbnc_reconnects_total[15m]) > 20
+        labels: { severity: warning }
+        annotations:
+          summary: "More than 20 reconnections in 15 minutes on {{ $labels.instance }}"
+
+      - alert: XbncFailedLogins
+        expr: increase(xbnc_failed_logins_total[10m]) > 30
+        labels: { severity: warning }
+        annotations:
+          summary: "{{ $value }} failed logins in 10 minutes on {{ $labels.instance }} (password guessing?)"
+
+      - alert: XbncBlockedAddresses
+        expr: xbnc_blocked_ips > 5
+        for: 5m
+        labels: { severity: info }
+        annotations:
+          summary: "{{ $value }} addresses blocked after failed logins"
+
+      - alert: XbncMemoryHigh
+        expr: xbnc_resident_memory_bytes > 1.5e9
+        for: 15m
+        labels: { severity: warning }
+        annotations:
+          summary: "xBNC uses {{ $value | humanize1024 }}B of memory on {{ $labels.instance }}"
+
+      - alert: XbncDatabaseLarge
+        expr: xbnc_database_bytes > 20e9
+        for: 1h
+        labels: { severity: info }
+        annotations:
+          summary: "The xBNC database is {{ $value | humanize1024 }}B: review the history retention"
+
+      - alert: XbncLogLinesDropped
+        expr: increase(xbnc_log_lines_dropped_total[1h]) > 0
+        labels: { severity: warning }
+        annotations:
+          summary: "The log module dropped lines (disk too slow or full?)"
+
+      - alert: XbncInternalAlert
+        expr: sum by (instance, alert) (xbnc_alerts_firing) > 0
+        for: 1m
+        labels: { severity: warning }
+        annotations:
+          summary: "xBNC alert {{ $labels.alert }} is firing on {{ $labels.instance }}"

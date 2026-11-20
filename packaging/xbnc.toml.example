@@ -1,0 +1,91 @@
+# xBNC configuration file.
+#
+# Only process-level settings live here. Users, networks and channels are
+# stored in the database and managed with `xbncd user|network|channel ...`.
+# Validate changes with:  xbncd --config /etc/xbnc/xbnc.toml check-config
+
+# Server name shown to IRC clients.
+hostname = "bnc.example.org"
+
+# Default language of the panel and of xBNC's messages ("en", "es" or any
+# language installed in locales_dir). Each user can choose their own.
+# language = "en"
+
+# Extra languages and corrections: one <code>.json file per language (see
+# TRANSLATING.md). Read at start and on reload. XBNC_LOCALES_DIR overrides it.
+# locales_dir = "/etc/xbnc/locales"
+
+# 32-byte key that encrypts stored credentials (SASL passwords, server
+# passwords, channel keys). Created by `xbncd init`, mode 0600.
+# BACK IT UP: without it those credentials cannot be decrypted.
+secret_key_file = "/var/lib/xbnc/secret.key"
+
+[database]
+# SQLite database (users, networks, channels, history).
+path = "/var/lib/xbnc/xbnc.db"
+
+# One [[listen]] block per address. TLS is required on non-loopback
+# addresses unless `insecure = true` is set explicitly.
+[[listen]]
+address = "0.0.0.0:6697"
+tls_cert = "/etc/xbnc/tls/fullchain.pem"
+tls_key = "/etc/xbnc/tls/privkey.pem"
+
+# Plain text for clients on the local network only (others are refused
+# with a message pointing them to the TLS port).
+[[listen]]
+address = "0.0.0.0:6667"
+lan_only = true
+
+# Web administration panel and REST API (/api/v1), served directly with TLS.
+# On first start with no users, `xbncd setup-code` (and the log) shows a
+# one-time code to create the first administrator.
+[web]
+address = "0.0.0.0:8443"
+tls_cert = "/etc/xbnc/tls/fullchain.pem"
+tls_key = "/etc/xbnc/tls/privkey.pem"
+session_hours = 12
+# Behind a TLS reverse proxy instead (packaging/nginx/xbnc.conf):
+# address = "127.0.0.1:8080"
+# public_url = "https://bnc.example.org"
+# secure_cookies = true
+# trust_proxy = true
+
+[history]
+# Delete messages older than N days (0 = keep forever).
+retention_days = 30
+# Maximum messages replayed automatically when a client reconnects.
+playback_max = 1000
+# Messages shown to a device (client name) that never connected before.
+new_client_playback = 100
+# Maximum `limit` accepted by CHATHISTORY.
+chathistory_max = 500
+
+[limits]
+max_connections = 1000
+max_clients_per_user = 10
+max_networks_per_user = 10
+# Block an IP address after N failed logins within the window.
+login_max_failures = 5
+login_window_seconds = 600
+login_block_seconds = 900
+registration_timeout_seconds = 30
+# Lines buffered per client before it is disconnected as too slow.
+client_queue = 4096
+
+[log]
+# tracing filter: error, warn, info, debug, trace (RUST_LOG overrides it).
+# Credentials are masked at every level.
+level = "info"
+
+# DCC through the bouncer (the `dcc` module, off by default per network).
+# On a server with a public IP nothing is needed. Behind NAT, set the public
+# address and open this port range in the router and the firewall.
+#[dcc]
+#public_ip = "203.0.113.10"
+#ports = "50000-50100"
+
+# Notice in the panel when a new version is published (checked once a day,
+# nothing is downloaded).
+#[updates]
+#repository = "owner/xbnc"

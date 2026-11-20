@@ -1,0 +1,108 @@
+{
+  "id": "greet",
+  "name": "Welcome",
+  "version": "1.0.0",
+  "description": "Greets people who join your channels, with a different message the first time and personal greetings.",
+  "usage": "Automatic. /msg *greet test #channel nick shows what would be said. {nick} and {channel} are replaced in the messages.",
+  "author": "y2k",
+  "permissions": [
+    "send",
+    "presence"
+  ],
+  "settings": [
+    {
+      "key": "first",
+      "type": "text",
+      "label": "First time",
+      "help": "For people who have never been in the channel. {nick} and {channel} are replaced.",
+      "default": "Welcome to {channel}, {nick}! It's your first time here."
+    },
+    {
+      "key": "message",
+      "type": "text",
+      "label": "When they come back",
+      "help": "Empty: returning people are not greeted.",
+      "default": "Hi {nick}, welcome back to {channel}."
+    },
+    {
+      "key": "personal",
+      "type": "lines",
+      "label": "Personal greetings",
+      "help": "One per line: nick and message. Replaces the usual one for that person."
+    },
+    {
+      "key": "notice",
+      "type": "bool",
+      "label": "Greet privately (notice)",
+      "help": "Off: the greeting is written in the channel.",
+      "default": false
+    },
+    {
+      "key": "cooldown",
+      "type": "int",
+      "label": "Minutes before greeting the same person again",
+      "min": 0,
+      "max": 10080,
+      "default": 30
+    },
+    {
+      "key": "ignore",
+      "type": "lines",
+      "label": "Never greet",
+      "help": "Nicks, one per line (bots, services)."
+    },
+    {
+      "key": "channels",
+      "type": "lines",
+      "label": "Only in these channels",
+      "help": "One per line. Empty: in every channel."
+    },
+    {
+      "key": "lang",
+      "type": "text",
+      "label": "Language of the answers",
+      "help": "Empty: your language in xBNC. Or es / en.",
+      "default": ""
+    }
+  ],
+  "translations": {
+    "es": {
+      "name": "Bienvenida",
+      "description": "Saluda a quien entra en tus canales, con un mensaje distinto la primera vez y saludos personales.",
+      "usage": "Automático. /msg *greet test #canal nick muestra qué se diría. En los mensajes se cambian {nick} y {channel}.",
+      "settings": {
+        "first": {
+          "label": "La primera vez",
+          "help": "Para quien nunca ha estado en el canal. Se cambian {nick} y {channel}."
+        },
+        "message": {
+          "label": "Cuando vuelven",
+          "help": "Vacío: no se saluda a quien vuelve."
+        },
+        "personal": {
+          "label": "Saludos personales",
+          "help": "Uno por línea: nick y mensaje. Sustituye al habitual para esa persona."
+        },
+        "notice": {
+          "label": "Saludar en privado (notice)",
+          "help": "Desactivado: el saludo se escribe en el canal."
+        },
+        "cooldown": {
+          "label": "Minutos antes de volver a saludar a la misma persona"
+        },
+        "ignore": {
+          "label": "No saludar nunca",
+          "help": "Nicks, uno por línea (bots, servicios)."
+        },
+        "channels": {
+          "label": "Solo en estos canales",
+          "help": "Uno por línea. Vacío: en todos."
+        },
+        "lang": {
+          "label": "Idioma de las respuestas",
+          "help": "Vacío: tu idioma en xBNC. O es / en."
+        }
+      }
+    }
+  }
+}

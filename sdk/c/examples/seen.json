@@ -1,0 +1,88 @@
+{
+  "id": "seen",
+  "name": "Seen",
+  "version": "2.1.0",
+  "description": "!seen nick: when someone was last seen and what they were doing, or which channels they are in right now.",
+  "usage": "In a channel: !seen bob — when bob was last seen and whether he is here now. /msg *seen bob, or /msg *seen stats.",
+  "author": "y2k",
+  "permissions": [
+    "send",
+    "presence"
+  ],
+  "settings": [
+    {
+      "key": "trigger",
+      "type": "text",
+      "label": "Command",
+      "help": "What people write before the nick.",
+      "default": "!seen"
+    },
+    {
+      "key": "public",
+      "type": "bool",
+      "label": "Answer other people in channels",
+      "help": "Off: only answers you (your own !seen and /msg *seen).",
+      "default": true
+    },
+    {
+      "key": "cooldown",
+      "type": "int",
+      "label": "Seconds between answers in a channel",
+      "min": 0,
+      "max": 3600,
+      "default": 5
+    },
+    {
+      "key": "show_text",
+      "type": "bool",
+      "label": "Show what they last said",
+      "help": "Off: only says where and when.",
+      "default": true
+    },
+    {
+      "key": "channels",
+      "type": "lines",
+      "label": "Answer only in these channels",
+      "help": "One per line. Empty: in every channel. Activity is recorded in all of them."
+    },
+    {
+      "key": "lang",
+      "type": "text",
+      "label": "Language of the answers",
+      "help": "Empty: your language in xBNC. Or es / en.",
+      "default": ""
+    }
+  ],
+  "translations": {
+    "es": {
+      "name": "Visto por última vez",
+      "description": "!seen nick: cuándo se vio a alguien por última vez y qué hacía, o en qué canales está ahora.",
+      "usage": "En un canal: !seen bob — cuándo se vio a bob por última vez y si está ahora. /msg *seen bob, o /msg *seen stats.",
+      "settings": {
+        "trigger": {
+          "label": "Comando",
+          "help": "Lo que se escribe antes del nick."
+        },
+        "public": {
+          "label": "Responder a otras personas en los canales",
+          "help": "Desactivado: solo te responde a ti (tu propio !seen y /msg *seen)."
+        },
+        "cooldown": {
+          "label": "Segundos entre respuestas en un canal"
+        },
+        "show_text": {
+          "label": "Mostrar lo último que dijo",
+          "help": "Desactivado: solo dice dónde y cuándo."
+        },
+        "channels": {
+          "label": "Responder solo en estos canales",
+          "help": "Uno por línea. Vacío: en todos. La actividad se registra en todos."
+        },
+        "lang": {
+          "label": "Idioma de las respuestas",
+          "help": "Vacío: tu idioma en xBNC. O es / en."
+        }
+      }
+    }
+  }
+}

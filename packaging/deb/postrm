@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+case "$1" in
+    remove)
+        systemctl daemon-reload >/dev/null 2>&1 || true
+        ;;
+    purge)
+        rm -rf /etc/xbnc
+        echo "xBNC: the database and plugins in /var/lib/xbnc were kept. Delete them by hand if you no longer need them."
+        ;;
+esac
+exit 0

@@ -1,0 +1,5 @@
+#!/bin/sh
+# Configures (or reconfigures) xBNC installed from a .deb or .rpm package:
+# certificate, web panel, IRC ports and firewall. Same options as
+# scripts/install.sh; run "xbnc-setup --help".
+exec /usr/share/xbnc/scripts/install.sh --packaged "$@"

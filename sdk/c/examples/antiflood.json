@@ -1,0 +1,123 @@
+{
+  "id": "antiflood",
+  "name": "Anti-flood",
+  "version": "1.1.0",
+  "description": "Warns, kicks or bans people who flood or repeat lines in your channels (you must be a channel operator).",
+  "usage": "Works by itself in the channels you list in the settings (you must be a channel operator there). /msg *antiflood shows its settings.",
+  "author": "y2k",
+  "permissions": [
+    "raw",
+    "send",
+    "timer"
+  ],
+  "settings": [
+    {
+      "key": "channels",
+      "type": "lines",
+      "label": "Channels to protect",
+      "help": "One per line. It does nothing until you list some."
+    },
+    {
+      "key": "lines",
+      "type": "int",
+      "label": "Most lines allowed",
+      "min": 2,
+      "max": 20,
+      "default": 5
+    },
+    {
+      "key": "seconds",
+      "type": "int",
+      "label": "In this many seconds",
+      "min": 1,
+      "max": 120,
+      "default": 4
+    },
+    {
+      "key": "repeats",
+      "type": "int",
+      "label": "Same line repeated",
+      "help": "Times in a row; 0 turns it off.",
+      "min": 0,
+      "max": 20,
+      "default": 3
+    },
+    {
+      "key": "action",
+      "type": "text",
+      "label": "What to do",
+      "help": "warn (warn first, kick the second time), kick or ban.",
+      "default": "kick"
+    },
+    {
+      "key": "ban_minutes",
+      "type": "int",
+      "label": "Ban length in minutes",
+      "help": "0: the ban is not lifted.",
+      "min": 0,
+      "max": 10080,
+      "default": 10
+    },
+    {
+      "key": "reason",
+      "type": "text",
+      "label": "Kick reason",
+      "default": ""
+    },
+    {
+      "key": "exempt",
+      "type": "lines",
+      "label": "Never act on these nicks",
+      "help": "One per line."
+    },
+    {
+      "key": "lang",
+      "type": "text",
+      "label": "Language of the messages",
+      "help": "Empty: your language in xBNC. Or es / en.",
+      "default": ""
+    }
+  ],
+  "translations": {
+    "es": {
+      "name": "Anti-flood",
+      "description": "Avisa, expulsa o banea a quien hace flood o repite mensajes en tus canales (tienes que ser operador del canal).",
+      "usage": "Funciona solo, en los canales que pongas en los ajustes (tienes que ser operador allí). /msg *antiflood muestra cómo está configurado.",
+      "settings": {
+        "channels": {
+          "label": "Canales que proteger",
+          "help": "Uno por línea. No hace nada hasta que pongas alguno."
+        },
+        "lines": {
+          "label": "Máximo de líneas"
+        },
+        "seconds": {
+          "label": "En estos segundos"
+        },
+        "repeats": {
+          "label": "Misma línea repetida",
+          "help": "Veces seguidas; 0 lo desactiva."
+        },
+        "action": {
+          "label": "Qué hacer",
+          "help": "warn (avisar la primera vez y expulsar la segunda), kick o ban."
+        },
+        "ban_minutes": {
+          "label": "Duración del ban en minutos",
+          "help": "0: el ban no se quita."
+        },
+        "reason": {
+          "label": "Motivo de la expulsión"
+        },
+        "exempt": {
+          "label": "No actuar nunca contra estos nicks",
+          "help": "Uno por línea."
+        },
+        "lang": {
+          "label": "Idioma de los mensajes",
+          "help": "Vacío: tu idioma en xBNC. O es / en."
+        }
+      }
+    }
+  }
+}

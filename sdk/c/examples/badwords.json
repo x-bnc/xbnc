@@ -1,0 +1,97 @@
+{
+  "id": "badwords",
+  "name": "Forbidden words",
+  "version": "1.0.0",
+  "description": "Warns, kicks and finally bans people who write forbidden words in your channels (you need op).",
+  "usage": "Set the words in the panel. /msg *badwords test text tells whether a text would be caught.",
+  "author": "y2k",
+  "permissions": [
+    "send",
+    "raw",
+    "timer"
+  ],
+  "settings": [
+    {
+      "key": "words",
+      "type": "lines",
+      "label": "Forbidden words",
+      "help": "One per line. Case and accents do not matter; a * at the end matches the start of a word."
+    },
+    {
+      "key": "ban_minutes",
+      "type": "int",
+      "label": "Ban length (minutes)",
+      "help": "0: the ban stays.",
+      "min": 0,
+      "max": 10080,
+      "default": 10
+    },
+    {
+      "key": "reason",
+      "type": "text",
+      "label": "Kick reason",
+      "default": ""
+    },
+    {
+      "key": "warn_private",
+      "type": "bool",
+      "label": "Warn privately (notice)",
+      "default": false
+    },
+    {
+      "key": "exempt",
+      "type": "lines",
+      "label": "Never act on",
+      "help": "Nicks, one per line."
+    },
+    {
+      "key": "channels",
+      "type": "lines",
+      "label": "Only in these channels",
+      "help": "One per line. Empty: in every channel."
+    },
+    {
+      "key": "lang",
+      "type": "text",
+      "label": "Language of the answers",
+      "help": "Empty: your language in xBNC. Or es / en.",
+      "default": ""
+    }
+  ],
+  "timer_secs": 30,
+  "translations": {
+    "es": {
+      "name": "Palabras prohibidas",
+      "description": "Avisa, echa y al final banea a quien escribe palabras prohibidas en tus canales (necesitas op).",
+      "usage": "Pon las palabras en el panel. /msg *badwords test texto dice si un texto se detectaría.",
+      "settings": {
+        "words": {
+          "label": "Palabras prohibidas",
+          "help": "Una por línea. Da igual mayúsculas y tildes; un * al final vale por el principio de una palabra."
+        },
+        "ban_minutes": {
+          "label": "Duración del ban (minutos)",
+          "help": "0: el ban se queda."
+        },
+        "reason": {
+          "label": "Motivo del kick"
+        },
+        "warn_private": {
+          "label": "Avisar en privado (notice)"
+        },
+        "exempt": {
+          "label": "No actuar nunca sobre",
+          "help": "Nicks, uno por línea."
+        },
+        "channels": {
+          "label": "Solo en estos canales",
+          "help": "Uno por línea. Vacío: en todos."
+        },
+        "lang": {
+          "label": "Idioma de las respuestas",
+          "help": "Vacío: tu idioma en xBNC. O es / en."
+        }
+      }
+    }
+  }
+}

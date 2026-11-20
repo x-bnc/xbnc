@@ -1,0 +1,11 @@
+# Starts xbnc-update.service when the panel queues a signed update.
+# Only used by DEB/RPM installations with [updates] public_key set.
+[Unit]
+Description=Watch for xBNC updates queued from the panel
+
+[Path]
+PathExists=/var/lib/xbnc/updates/pending.json
+Unit=xbnc-update.service
+
+[Install]
+WantedBy=multi-user.target

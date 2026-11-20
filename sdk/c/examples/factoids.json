@@ -1,0 +1,71 @@
+{
+  "id": "factoids",
+  "name": "Definitions",
+  "version": "1.0.0",
+  "description": "The channel's memory: short answers to frequent questions that you and your editors keep up to date.",
+  "usage": "In a channel: !def word (or ?word), !def word = text, !def -word, !defs. Here: /msg *factoids word.",
+  "author": "y2k",
+  "permissions": [
+    "send"
+  ],
+  "settings": [
+    {
+      "key": "trigger",
+      "type": "text",
+      "label": "Command",
+      "default": "!def"
+    },
+    {
+      "key": "question_mark",
+      "type": "bool",
+      "label": "Answer ?word too",
+      "default": true
+    },
+    {
+      "key": "editors",
+      "type": "lines",
+      "label": "Who else can change definitions",
+      "help": "Nicks, one per line. You always can."
+    },
+    {
+      "key": "channels",
+      "type": "lines",
+      "label": "Only in these channels",
+      "help": "One per line. Empty: in every channel."
+    },
+    {
+      "key": "lang",
+      "type": "text",
+      "label": "Language of the answers",
+      "help": "Empty: your language in xBNC. Or es / en.",
+      "default": ""
+    }
+  ],
+  "translations": {
+    "es": {
+      "name": "Definiciones",
+      "description": "La memoria del canal: respuestas cortas a preguntas frecuentes que tú y tus editores mantenéis al día.",
+      "usage": "En un canal: !def palabra (o ?palabra), !def palabra = texto, !def -palabra, !defs. Aquí: /msg *factoids palabra.",
+      "settings": {
+        "trigger": {
+          "label": "Comando"
+        },
+        "question_mark": {
+          "label": "Responder también a ?palabra"
+        },
+        "editors": {
+          "label": "Quién más puede cambiar definiciones",
+          "help": "Nicks, uno por línea. Tú siempre puedes."
+        },
+        "channels": {
+          "label": "Solo en estos canales",
+          "help": "Uno por línea. Vacío: en todos."
+        },
+        "lang": {
+          "label": "Idioma de las respuestas",
+          "help": "Vacío: tu idioma en xBNC. O es / en."
+        }
+      }
+    }
+  }
+}

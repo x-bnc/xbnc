@@ -1,0 +1,32 @@
+{
+  "id": "autoresponder",
+  "name": "Autoresponder",
+  "version": "1.1.0",
+  "description": "Answers on its own when someone writes a keyword, and (optionally) private messages while you are away.",
+  "usage": "Write the rules in the settings, one per line: keyword = answer. {nick} is who wrote and {channel} the channel. The rule * = text answers any private message.\n/msg *autoresponder shows the rules; /msg *autoresponder test <text> tries them.",
+  "author": "y2k",
+  "permissions": ["send"],
+  "settings": [
+    { "key": "rules", "type": "lines", "label": "Rules", "help": "One per line: keyword = answer. Example: hola = Hello {nick}! — * = answer to any private message." },
+    { "key": "cooldown", "type": "int", "label": "Seconds before the same rule answers again", "min": 0, "max": 3600, "default": 60 },
+    { "key": "in_queries", "type": "bool", "label": "Also answer private messages", "default": true },
+    { "key": "only_when_away", "type": "bool", "label": "Only when no client is connected", "help": "So it answers for you while you are away.", "default": false },
+    { "key": "channels", "type": "lines", "label": "Only in these channels", "help": "One per line. Empty: every channel." },
+    { "key": "lang", "type": "text", "label": "Language of the messages", "help": "Empty: your language in xBNC. Or es / en.", "default": "" }
+  ],
+  "translations": {
+    "es": {
+      "name": "Respuestas automáticas",
+      "description": "Responde solo cuando alguien escribe una palabra clave y, si quieres, a los privados mientras estás ausente.",
+      "usage": "Escribe las reglas en los ajustes, una por línea: palabra = respuesta. {nick} es quien escribió y {channel} el canal. La regla * = texto responde a cualquier privado.\n/msg *autoresponder muestra las reglas; /msg *autoresponder test <texto> las prueba.",
+      "settings": {
+        "rules": { "label": "Reglas", "help": "Una por línea: palabra = respuesta. Ejemplo: hola = ¡Hola {nick}! — * = respuesta a cualquier privado." },
+        "cooldown": { "label": "Segundos antes de que la misma regla vuelva a responder" },
+        "in_queries": { "label": "Responder también a privados" },
+        "only_when_away": { "label": "Solo cuando no hay ningún cliente conectado", "help": "Así responde por ti mientras estás ausente." },
+        "channels": { "label": "Solo en estos canales", "help": "Uno por línea. Vacío: en todos." },
+        "lang": { "label": "Idioma de los mensajes", "help": "Vacío: tu idioma en xBNC. O es / en." }
+      }
+    }
+  }
+}

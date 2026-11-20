@@ -1,0 +1,65 @@
+{
+  "id": "tell",
+  "name": "Tell",
+  "version": "1.1.0",
+  "description": "!tell nick message: delivers it in the channel when that person speaks or joins.",
+  "usage": "In a channel: !tell bob the build is fixed — bob gets it in the channel as soon as he writes something or joins. Works for you and for anyone in the channel.",
+  "author": "y2k",
+  "permissions": [
+    "send",
+    "presence"
+  ],
+  "settings": [
+    {
+      "key": "trigger",
+      "type": "text",
+      "label": "Command",
+      "default": "!tell"
+    },
+    {
+      "key": "on_join",
+      "type": "bool",
+      "label": "Deliver when they join",
+      "help": "Off: only when they write something.",
+      "default": true
+    },
+    {
+      "key": "max_per_nick",
+      "type": "int",
+      "label": "Messages waiting per person",
+      "min": 1,
+      "max": 50,
+      "default": 5
+    },
+    {
+      "key": "lang",
+      "type": "text",
+      "label": "Language of the answers",
+      "help": "Empty: your language in xBNC. Or es / en.",
+      "default": ""
+    }
+  ],
+  "translations": {
+    "es": {
+      "name": "Mensajes diferidos",
+      "description": "!tell nick mensaje: se lo da en el canal cuando esa persona escriba o entre.",
+      "usage": "En un canal: !tell bob el build está arreglado — bob lo recibe en el canal en cuanto escriba algo o entre. Funciona para ti y para cualquiera del canal. También !avisa.",
+      "settings": {
+        "trigger": {
+          "label": "Comando"
+        },
+        "on_join": {
+          "label": "Entregar al entrar",
+          "help": "Desactivado: solo cuando escriba algo."
+        },
+        "max_per_nick": {
+          "label": "Mensajes esperando por persona"
+        },
+        "lang": {
+          "label": "Idioma de las respuestas",
+          "help": "Vacío: tu idioma en xBNC. O es / en."
+        }
+      }
+    }
+  }
+}

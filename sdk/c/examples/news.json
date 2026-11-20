@@ -1,0 +1,69 @@
+{
+  "id": "news",
+  "name": "News",
+  "version": "1.0.0",
+  "description": "Posts new entries from RSS and Atom feeds (news sites, blogs, YouTube channels, GitHub releases) in your channels.",
+  "usage": "Set the feeds in the panel: one per line, \"#channel https://...\". /msg *news list, /msg *news check.",
+  "author": "y2k",
+  "permissions": [
+    "send",
+    "timer",
+    "http"
+  ],
+  "settings": [
+    {
+      "key": "feeds",
+      "type": "lines",
+      "label": "Feeds",
+      "help": "One per line: channel and address, for example #xbnc https://hnrss.org/frontpage. Only these sites: YouTube, GitHub, Reddit, Hacker News (hnrss.org), BBC, El País, RTVE, WordPress, Blogspot and Substack."
+    },
+    {
+      "key": "interval",
+      "type": "int",
+      "label": "Minutes between checks",
+      "min": 5,
+      "max": 1440,
+      "default": 15
+    },
+    {
+      "key": "lang",
+      "type": "text",
+      "label": "Language of the answers",
+      "help": "Empty: your language in xBNC. Or es / en.",
+      "default": ""
+    }
+  ],
+  "http_domains": [
+    "www.youtube.com",
+    "github.com",
+    "www.reddit.com",
+    "hnrss.org",
+    "feeds.bbci.co.uk",
+    "*.elpais.com",
+    "www.rtve.es",
+    "*.wordpress.com",
+    "*.blogspot.com",
+    "*.substack.com"
+  ],
+  "timer_secs": 30,
+  "translations": {
+    "es": {
+      "name": "Noticias",
+      "description": "Publica en tus canales las novedades de fuentes RSS y Atom (periódicos, blogs, canales de YouTube, versiones de GitHub).",
+      "usage": "Configura las fuentes en el panel: una por línea, «#canal https://...». /msg *news list, /msg *news check.",
+      "settings": {
+        "feeds": {
+          "label": "Fuentes",
+          "help": "Una por línea: canal y dirección, por ejemplo #xbnc https://hnrss.org/frontpage. Solo estos sitios: YouTube, GitHub, Reddit, Hacker News (hnrss.org), BBC, El País, RTVE, WordPress, Blogspot y Substack."
+        },
+        "interval": {
+          "label": "Minutos entre comprobaciones"
+        },
+        "lang": {
+          "label": "Idioma de las respuestas",
+          "help": "Vacío: tu idioma en xBNC. O es / en."
+        }
+      }
+    }
+  }
+}

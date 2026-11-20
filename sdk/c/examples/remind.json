@@ -1,0 +1,30 @@
+{
+  "id": "remind",
+  "name": "Reminders",
+  "version": "1.1.0",
+  "description": "Reminds you (or anyone in the channel) after a while or at a time: !remind 10m take the pizza out, !remind 18:30 meeting.",
+  "usage": "In a channel: !remind 10m take the pizza out — !remind 2 hours call Bob — !remind 1h30m … — !remind 18:30 meeting — !remind list — !remind clear. Also !recuerda.\n/msg *remind 10m … reminds you privately. Reminders are checked every minute.",
+  "author": "y2k",
+  "permissions": ["send", "timer"],
+  "settings": [
+    { "key": "trigger", "type": "text", "label": "Extra command", "help": "!remind and !recuerda always work.", "default": "!remind" },
+    { "key": "public", "type": "bool", "label": "Other people can set reminders", "help": "Off: only your own and /msg *remind.", "default": true },
+    { "key": "max_per_nick", "type": "int", "label": "Pending reminders per person", "min": 1, "max": 100, "default": 10 },
+    { "key": "timezone", "type": "text", "label": "Time zone for times like 18:30", "help": "Europe/Madrid, Europe/London, UTC or a difference such as +1.", "default": "Europe/Madrid" },
+    { "key": "lang", "type": "text", "label": "Language of the answers", "help": "Empty: your language in xBNC. Or es / en.", "default": "" }
+  ],
+  "translations": {
+    "es": {
+      "name": "Recordatorios",
+      "description": "Te lo recuerda (a ti o a cualquiera del canal) pasado un tiempo o a una hora: !recuerda 10m sacar la pizza, !recuerda 18:30 reunión.",
+      "usage": "En un canal: !recuerda 10m sacar la pizza — !recuerda 2 horas llamar a Bob — !recuerda 1h30m … — !recuerda 18:30 reunión — !recuerda lista — !recuerda borrar. También !remind.\n/msg *remind 10m … te lo recuerda en privado. Los recordatorios se comprueban cada minuto.",
+      "settings": {
+        "trigger": { "label": "Comando adicional", "help": "!remind y !recuerda funcionan siempre." },
+        "public": { "label": "Otras personas pueden crear recordatorios", "help": "Desactivado: solo los tuyos y /msg *remind." },
+        "max_per_nick": { "label": "Recordatorios pendientes por persona" },
+        "timezone": { "label": "Zona horaria para horas como 18:30", "help": "Europe/Madrid, Europe/London, UTC o una diferencia como +1." },
+        "lang": { "label": "Idioma de las respuestas", "help": "Vacío: tu idioma en xBNC. O es / en." }
+      }
+    }
+  }
+}

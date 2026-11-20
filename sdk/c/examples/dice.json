@@ -1,0 +1,28 @@
+{
+  "id": "dice",
+  "name": "Dice",
+  "version": "1.1.0",
+  "description": "Rolls dice in channels and private messages: !dado, !dado 2d6, !dado d20.",
+  "usage": "In a channel or private message: !dado (one six-sided die), !dado 2d6, !dado d20. Also !roll and !dice.\n/msg *dice 3d8 rolls for you alone.",
+  "author": "y2k",
+  "permissions": ["send"],
+  "settings": [
+    { "key": "trigger", "type": "text", "label": "Extra command", "help": "!dado, !dados, !roll and !dice always work.", "default": "!roll" },
+    { "key": "max_dice", "type": "int", "label": "Most dice per roll", "min": 1, "max": 50, "default": 10 },
+    { "key": "in_queries", "type": "bool", "label": "Answer in private messages", "default": true },
+    { "key": "lang", "type": "text", "label": "Language of the answers", "help": "Empty: your language in xBNC. Or es / en.", "default": "" }
+  ],
+  "translations": {
+    "es": {
+      "name": "Dados",
+      "description": "Tira dados en canales y privados: !dado, !dado 2d6, !dado d20.",
+      "usage": "En un canal o privado: !dado (un dado de seis caras), !dado 2d6, !dado d20. También !roll y !dice.\n/msg *dice 3d8 tira solo para ti.",
+      "settings": {
+        "trigger": { "label": "Comando adicional", "help": "!dado, !dados, !roll y !dice funcionan siempre." },
+        "max_dice": { "label": "Máximo de dados por tirada" },
+        "in_queries": { "label": "Responder en privados" },
+        "lang": { "label": "Idioma de las respuestas", "help": "Vacío: tu idioma en xBNC. O es / en." }
+      }
+    }
+  }
+}

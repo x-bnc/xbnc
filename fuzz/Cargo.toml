@@ -1,0 +1,54 @@
+[package]
+name = "xbnc-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+xbnc-proto = { path = "../crates/xbnc-proto" }
+xbncd = { path = "../crates/xbncd" }
+serde_json = "1"
+rusqlite = { version = "0.41.1", features = ["bundled"] }
+
+# Not part of the main workspace: cargo-fuzz needs a nightly toolchain.
+[workspace]
+
+[[bin]]
+name = "irc_message"
+path = "fuzz_targets/irc_message.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "dcc"
+path = "fuzz_targets/dcc.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "import_config"
+path = "fuzz_targets/import_config.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "plugin_manifest"
+path = "fuzz_targets/plugin_manifest.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "search_query"
+path = "fuzz_targets/search_query.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "plugin_runtime"
+path = "fuzz_targets/plugin_runtime.rs"
+test = false
+doc = false

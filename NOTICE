@@ -1,0 +1,7 @@
+xBNC
+Copyright 2026 y2k
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+It includes third-party software listed in THIRD_PARTY_LICENSES.md (Rust
+crates, npm packages and fonts under the SIL Open Font License 1.1), and
+SQLite (public domain), compiled in via the rusqlite/libsqlite3-sys crates.

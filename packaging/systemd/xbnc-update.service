@@ -1,0 +1,16 @@
+# Installs an update queued from the panel. Runs as root because it calls
+# the package manager, but trusts nothing written by the xbnc user: it
+# copies the package out, checks its Ed25519 signature with the public key
+# from /etc/xbnc/xbnc.toml and refuses older versions.
+[Unit]
+Description=Install a signed xBNC update
+After=network-online.target
+
+[Service]
+Type=oneshot
+Environment=XBNC_CONFIG=/etc/xbnc/xbnc.toml
+ExecStart=/usr/bin/xbncd apply-update
+TimeoutStartSec=600
+PrivateTmp=yes
+StartLimitIntervalSec=300
+StartLimitBurst=3

@@ -1,0 +1,43 @@
+{
+  "id": "games",
+  "name": "Games",
+  "version": "1.0.0",
+  "description": "Hangman, magic 8 ball and rock-paper-scissors for your channels.",
+  "usage": "In a channel: !8ball question, !rps rock, !hangman and !g letter (or the whole word) to play.",
+  "author": "y2k",
+  "permissions": [
+    "send"
+  ],
+  "settings": [
+    {
+      "key": "channels",
+      "type": "lines",
+      "label": "Only in these channels",
+      "help": "One per line. Empty: in every channel."
+    },
+    {
+      "key": "lang",
+      "type": "text",
+      "label": "Language of the answers",
+      "help": "Empty: your language in xBNC. Or es / en.",
+      "default": ""
+    }
+  ],
+  "translations": {
+    "es": {
+      "name": "Juegos",
+      "description": "Ahorcado, bola 8 mágica y piedra, papel o tijera para tus canales.",
+      "usage": "En un canal: !8ball pregunta, !ppt piedra (o !rps rock), !ahorcado (o !hangman) y !a letra para jugar.",
+      "settings": {
+        "channels": {
+          "label": "Solo en estos canales",
+          "help": "Uno por línea. Vacío: en todos."
+        },
+        "lang": {
+          "label": "Idioma de las respuestas",
+          "help": "Vacío: tu idioma en xBNC. O es / en."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "id": "urltitle",
+  "name": "Link titles",
+  "version": "1.0.0",
+  "description": "Shows the title of YouTube, Vimeo, SoundCloud, Dailymotion and Spotify links, Wikipedia articles and GitHub repositories pasted in your channels.",
+  "usage": "Automatic. An administrator can block any of these sites in the panel (Plugins → «Sites it may connect to»).",
+  "author": "y2k",
+  "permissions": [
+    "send",
+    "http"
+  ],
+  "settings": [
+    {
+      "key": "cooldown",
+      "type": "int",
+      "label": "Seconds between titles in a channel",
+      "min": 0,
+      "max": 600,
+      "default": 5
+    },
+    {
+      "key": "own",
+      "type": "bool",
+      "label": "Also for your own links",
+      "default": true
+    },
+    {
+      "key": "channels",
+      "type": "lines",
+      "label": "Only in these channels",
+      "help": "One per line. Empty: in every channel."
+    },
+    {
+      "key": "lang",
+      "type": "text",
+      "label": "Language of the answers",
+      "help": "Empty: your language in xBNC. Or es / en.",
+      "default": ""
+    }
+  ],
+  "http_domains": [
+    "www.youtube.com",
+    "vimeo.com",
+    "soundcloud.com",
+    "www.dailymotion.com",
+    "open.spotify.com",
+    "*.wikipedia.org",
+    "api.github.com"
+  ],
+  "translations": {
+    "es": {
+      "name": "Títulos de enlaces",
+      "description": "Muestra el título de los enlaces de YouTube, Vimeo, SoundCloud, Dailymotion y Spotify, artículos de Wikipedia y repositorios de GitHub que se pegan en tus canales.",
+      "usage": "Automático. Un administrador puede bloquear cualquiera de estos sitios en el panel (Plugins → «Sitios a los que puede conectarse»).",
+      "settings": {
+        "cooldown": {
+          "label": "Segundos entre títulos en un canal"
+        },
+        "own": {
+          "label": "También para tus propios enlaces"
+        },
+        "channels": {
+          "label": "Solo en estos canales",
+          "help": "Uno por línea. Vacío: en todos."
+        },
+        "lang": {
+          "label": "Idioma de las respuestas",
+          "help": "Vacío: tu idioma en xBNC. O es / en."
+        }
+      }
+    }
+  }
+}
