@@ -293,8 +293,8 @@ sudo ./scripts/uninstall.sh --purge    # borra también la configuración, los d
 
 ```sh
 sudo -u xbnc xbncd user add admin --admin
-sudo -u xbnc xbncd network add admin libera --host irc.libera.chat --port 6697 --sasl-user micuenta
-sudo -u xbnc xbncd channel add admin libera '#xbnc'
+sudo -u xbnc xbncd network add admin ejemplo --host irc.ejemplo.org --port 6697 --sasl-user micuenta
+sudo -u xbnc xbncd channel add admin ejemplo '#xbnc'
 sudo systemctl reload xbnc
 ```
 

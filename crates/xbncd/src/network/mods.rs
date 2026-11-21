@@ -668,7 +668,7 @@ impl NetActor {
             return true;
         }
         // VERSION is always answered by xBNC with the configured text (by
-        // default "xBNC 1.0.0 Made by y2k - https://xbnc.org"); the other
+        // default "xBNC v1.0.0 - https://xbnc.org"); the other
         // CTCPs go to the user's client when one is connected.
         if upper != "VERSION" && !self.clients.is_empty() {
             return false; // let the user's client answer

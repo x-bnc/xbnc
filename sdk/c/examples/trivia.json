@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "A quiz game for your channels, with hints, points and a ranking.",
   "usage": "In a channel: !trivia to start, !trivia stop, !trivia top (also as !trivial). Answer by writing in the channel. /msg *trivia add Question? | answer adds your own questions; list and del N manage them.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send",
     "timer"

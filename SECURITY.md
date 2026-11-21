@@ -10,8 +10,9 @@
 ## How to report a vulnerability
 
 Do not open a public issue. Use the repository's private advisory on GitHub
-(**Security → Report a vulnerability**). If you cannot use it, write to the
-security contact address published on the project page.
+(**Security → Report a vulnerability**, https://github.com/x-bnc/xbnc/security/advisories/new).
+If you cannot use it, open an issue asking for a private contact, without
+any detail of the problem.
 
 If you can, include:
 

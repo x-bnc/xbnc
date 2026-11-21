@@ -4,7 +4,7 @@
   "version": "1.1.0",
   "description": "Answers on its own when someone writes a keyword, and (optionally) private messages while you are away.",
   "usage": "Write the rules in the settings, one per line: keyword = answer. {nick} is who wrote and {channel} the channel. The rule * = text answers any private message.\n/msg *autoresponder shows the rules; /msg *autoresponder test <text> tries them.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": ["send"],
   "settings": [
     { "key": "rules", "type": "lines", "label": "Rules", "help": "One per line: keyword = answer. Example: hola = Hello {nick}! — * = answer to any private message." },

@@ -2,7 +2,7 @@
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
-## [1.0.0] - 2026-11-19
+## [1.0.0] - 2026-11-21
 
 First complete version, ready for testing on real networks (`testenv/real/PLAN.md`).
 
@@ -13,7 +13,7 @@ First complete version, ready for testing on real networks (`testenv/real/PLAN.m
 - DCC ports: the installer writes `[dcc] ports = "50000-50100"` and opens them in the firewall (`--dcc-ports A-B|off`).
 - Let's Encrypt by DNS for machines without port 80 (`--dns cloudflare|digitalocean|ovh|linode|rfc2136 --dns-credentials FILE`, or asked in the installer).
 - Profile photos in *Your account*: cropped to 256×256 in the browser, stored by xBNC after checking the real format (PNG, JPEG or WebP, at most 256 KB and 1024×1024), shown in the panel to the user and the administrators (`PUT/DELETE /api/v1/me/avatar`, `GET/DELETE /api/v1/users/{id}/avatar`).
-- `/msg *status version` and the default CTCP VERSION reply say `xBNC 1.0.0 Made by y2k - https://xbnc.org`; the reply can be changed in the CTCP module (`{version}` is replaced by the running version).
+- The version appears everywhere as `xBNC v1.0.0 - https://xbnc.org` (panel, sign-in, IRC welcome, `/msg *status version`), taken from the version of the code: it is also the default CTCP VERSION reply (it can be changed in the CTCP module; `{version}` is replaced by the running version) and the QUIT message xBNC sends when it leaves a network (disconnect, reconnect, network turned off, shutdown).
 - Official signed plugin catalogue: when its key is set, xBNC checks it once a day and updates the installed plugins that have a newer version there, after checking the Ed25519 signature and each SHA-256.
 - Installation without installing anything first: the .zip brings the program ready-made for x86_64 in `bin/` (it runs on any distribution from 2019 on, glibc 2.28 or later, and is checked against `bin/SHA256SUMS` before use). On other machines, or with `--build`, the installer runs the new `scripts/prereqs.sh`, which installs the build tools with the system's package manager (apt, dnf, yum, pacman, zypper or apk) and Rust with rustup, and builds the program as the owner of the source folder, never as root. It warns when there is not enough memory or disk to build. `update.sh` takes the program the same way. `prereqs.sh --check` says what is missing without installing anything.
 - The installer speaks the language chosen for the installation, and English is the default. In a terminal it asks first, with a menu of the language files (`locales/*.json`); `--language CODE` chooses it without asking. That language becomes xBNC's default language, and a language that is not built in is installed in `/etc/xbnc/locales`. The texts of the installer, `prereqs.sh` and `update.sh` are in a new `installer` section of the language files, so translating xBNC into a language translates its installer too. They are read with bash and awk only, and `xbncd locales check` checks them like the other texts.
@@ -57,7 +57,7 @@ First complete version, ready for testing on real networks (`testenv/real/PLAN.m
   - `xbncd locales check` checks a file (what is missing, what is extra, placeholders and bold tags) and `xbncd locales list` shows the installed languages with their share translated.
   - `TRANSLATING.md`: guide for translators.
   - Public API `GET /api/v1/i18n` and `GET /api/v1/i18n/{code}`.
-- Wiki in English and Spanish on a single page, with a language selector, and a page per language. It is a separate project (`xbnc-wiki`), a website of its own that anyone can read without installing xBNC, built with its `build.py` from one content file per language, so it can be translated too.
+- Wiki in English and Spanish at https://xbnc.org/wiki/, a website of its own that anyone can read without installing xBNC: one page per topic (getting started, using xBNC, features, administration, development, reference, help and project), search across all of it, and the project pages (what's new, roadmap, contributing, security policy and licence).
 - The 18 official plugins come installed: xBNC installs the missing ones on the first start and after each update, and updates old ones. They stay off on every network until each user turns them on. One uninstalled on purpose does not come back until the next version.
 
 ### Fixed

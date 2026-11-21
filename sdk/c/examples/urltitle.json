@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Shows the title of YouTube, Vimeo, SoundCloud, Dailymotion and Spotify links, Wikipedia articles and GitHub repositories pasted in your channels.",
   "usage": "Automatic. An administrator can block any of these sites in the panel (Plugins → «Sites it may connect to»).",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send",
     "http"

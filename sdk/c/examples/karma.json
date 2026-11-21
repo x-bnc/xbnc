@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Points between people: nick++ and nick--, with a ranking.",
   "usage": "In a channel: nick++, nick--, !karma nick, !karma top. Here: /msg *karma nick.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send"
   ],

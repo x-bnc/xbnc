@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Greets people who join your channels, with a different message the first time and personal greetings.",
   "usage": "Automatic. /msg *greet test #channel nick shows what would be said. {nick} and {channel} are replaced in the messages.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send",
     "presence"

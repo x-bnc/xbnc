@@ -4,7 +4,7 @@
   "version": "1.1.0",
   "description": "Reminds you (or anyone in the channel) after a while or at a time: !remind 10m take the pizza out, !remind 18:30 meeting.",
   "usage": "In a channel: !remind 10m take the pizza out — !remind 2 hours call Bob — !remind 1h30m … — !remind 18:30 meeting — !remind list — !remind clear. Also !recuerda.\n/msg *remind 10m … reminds you privately. Reminders are checked every minute.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": ["send", "timer"],
   "settings": [
     { "key": "trigger", "type": "text", "label": "Extra command", "help": "!remind and !recuerda always work.", "default": "!remind" },

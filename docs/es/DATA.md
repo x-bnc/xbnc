@@ -69,7 +69,7 @@ sudo -u xbnc xbncd import /ruta/a/la/carpeta --apply --logs --utc-offset Europe/
 sudo systemctl reload xbnc
 
 # Registros de una red concreta, aparte
-sudo -u xbnc xbncd import-logs alicia libera /ruta/a/logs/libera --utc-offset America/New_York
+sudo -u xbnc xbncd import-logs alicia ejemplo /ruta/a/logs/ejemplo --utc-offset America/New_York
 ```
 
 La carpeta de registros tiene una subcarpeta por canal o conversación (`#xbnc/`, `bob/`) con ficheros `AAAA-MM-DD.log`. Se reconocen mensajes, acciones (`* nick …`), avisos (`-nick- …`) y entradas, salidas, desconexiones, kicks, cambios de nick, temas y modos. Con una zona horaria con nombre (Europe/Madrid) se aplica el horario de verano de cada día.

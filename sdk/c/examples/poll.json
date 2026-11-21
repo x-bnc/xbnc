@@ -4,7 +4,7 @@
   "version": "1.1.0",
   "description": "!poll Question? | option | option, then !vote N. Closes on its own and announces the winner.",
   "usage": "In a channel: !poll Pizza or sushi? | pizza | sushi (up to 10 options) — vote with !vote 1 — !poll shows the count — !poll end closes it (who started it, or you). It closes on its own after the minutes in the settings.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send",
     "timer"

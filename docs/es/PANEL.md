@@ -105,7 +105,7 @@ En *Tu cuenta → Avisos*, xBNC te avisa de las menciones y los privados.
 
 ```json
 {
-  "network": "undernet",
+  "network": "ejemplo",
   "network_id": 1,
   "conversation": "#xbnc",
   "from": "bob",

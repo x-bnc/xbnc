@@ -48,16 +48,17 @@ mod status_more;
 pub type ClientId = u64;
 
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
-/// Product line shown wherever the version appears: "xBNC 1.0.0 Made by y2k".
-pub const BRAND: &str = concat!("xBNC ", env!("CARGO_PKG_VERSION"), " Made by y2k");
+/// Product line shown wherever the version appears:
+/// "xBNC v1.0.0 - https://xbnc.org" (the version comes from Cargo.toml).
+pub const BRAND: &str = concat!("xBNC v", env!("CARGO_PKG_VERSION"), " - https://xbnc.org");
 /// The project's web site, shown with the version.
 pub const SITE: &str = "https://xbnc.org";
-/// `/msg *status version` and the default CTCP VERSION reply:
-/// "xBNC 1.0.0 Made by y2k - https://xbnc.org".
-pub const BRAND_SITE: &str = concat!("xBNC ", env!("CARGO_PKG_VERSION"), " Made by y2k - https://xbnc.org");
+/// `/msg *status version`, the default CTCP VERSION reply and the QUIT
+/// message xBNC sends when it leaves a network.
+pub const BRAND_SITE: &str = BRAND;
 /// Default of the CTCP module's VERSION reply; `{version}` is replaced by
 /// the running version, so the text never goes stale after an update.
-pub const CTCP_VERSION_DEFAULT: &str = "xBNC {version} Made by y2k - https://xbnc.org";
+pub const CTCP_VERSION_DEFAULT: &str = "xBNC v{version} - https://xbnc.org";
 
 /// The CTCP VERSION reply for a configured text (empty: the default).
 pub fn ctcp_version_reply(configured: &str) -> String {
@@ -1202,7 +1203,7 @@ impl NetActor {
         self.flush_cursors().await;
         let text = self.t("shutting_down", &[]);
         self.notice_all(&text);
-        self.close_upstream(Some("xBNC shutting down"));
+        self.close_upstream(Some(BRAND));
         self.clients.clear();
         // Give the writer task a moment to flush the QUIT.
         tokio::time::sleep(Duration::from_millis(200)).await;
@@ -2245,12 +2246,12 @@ impl NetActor {
     fn control(&mut self, action: NetAction) {
         match action {
             NetAction::Jump => {
-                self.close_upstream(Some("Reconnecting"));
+                self.close_upstream(Some(BRAND));
                 self.backoff = BACKOFF_MIN;
                 self.next_connect = Some(Instant::now());
             }
             NetAction::Disconnect => {
-                self.close_upstream(Some("Disconnected by user"));
+                self.close_upstream(Some(BRAND));
                 self.next_connect = None;
                 let text = self.t("disconnected_panel", &[]);
                 self.notice_all(&text);
@@ -2320,7 +2321,7 @@ impl NetActor {
         let was_enabled = self.net.enabled;
         self.net = net;
         if !self.net.enabled && was_enabled {
-            self.close_upstream(Some("Network disabled"));
+            self.close_upstream(Some(BRAND));
             self.next_connect = None;
             let text = self.t("network_disabled", &[]);
             self.notice_all(&text);
@@ -3180,7 +3181,8 @@ mod tests {
     #[test]
     fn version_texts_carry_the_site() {
         let v = env!("CARGO_PKG_VERSION");
-        assert_eq!(BRAND_SITE, format!("xBNC {v} Made by y2k - https://xbnc.org"));
+        assert_eq!(BRAND, format!("xBNC v{v} - https://xbnc.org"));
+        assert_eq!(BRAND_SITE, BRAND);
         assert_eq!(ctcp_version_reply(""), BRAND_SITE);
         assert_eq!(ctcp_version_reply("  "), BRAND_SITE);
         assert_eq!(ctcp_version_reply(CTCP_VERSION_DEFAULT), BRAND_SITE);

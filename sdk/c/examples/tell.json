@@ -4,7 +4,7 @@
   "version": "1.1.0",
   "description": "!tell nick message: delivers it in the channel when that person speaks or joins.",
   "usage": "In a channel: !tell bob the build is fixed — bob gets it in the channel as soon as he writes something or joins. Works for you and for anyone in the channel.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send",
     "presence"

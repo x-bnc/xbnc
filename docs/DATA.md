@@ -69,7 +69,7 @@ sudo -u xbnc xbncd import /path/to/the/folder --apply --logs --utc-offset Europe
 sudo systemctl reload xbnc
 
 # Logs of one particular network, separately
-sudo -u xbnc xbncd import-logs alice libera /path/to/logs/libera --utc-offset America/New_York
+sudo -u xbnc xbncd import-logs alice example /path/to/logs/example --utc-offset America/New_York
 ```
 
 The logs folder has one sub-folder per channel or conversation (`#xbnc/`, `bob/`) with `YYYY-MM-DD.log` files. Messages, actions (`* nick …`), notices (`-nick- …`) and joins, parts, quits, kicks, nick changes, topics and modes are recognised. With a named time zone (Europe/London) each day's daylight saving time is applied.

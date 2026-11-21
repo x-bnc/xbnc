@@ -4,7 +4,7 @@
   "version": "2.1.0",
   "description": "!seen nick: when someone was last seen and what they were doing, or which channels they are in right now.",
   "usage": "In a channel: !seen bob — when bob was last seen and whether he is here now. /msg *seen bob, or /msg *seen stats.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send",
     "presence"

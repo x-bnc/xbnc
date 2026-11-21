@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Memorable lines of the channel: save them, find them and pull a random one.",
   "usage": "In a channel: !quote, !quote 12, !quote search word, !quote add text, !quote del 12 (also as !cita).",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send"
   ],

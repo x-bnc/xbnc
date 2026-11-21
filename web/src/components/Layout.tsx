@@ -6,7 +6,7 @@ import { useMe, useSession } from "../lib/session";
 import { colorFor, roleLabel } from "../lib/format";
 import { Avatar } from "./ui";
 import { t } from "../lib/i18n";
-import { BRAND } from "../version";
+import { VERSION } from "../version";
 
 type Live = ReturnType<typeof useLive>;
 const LiveCtx = createContext<Live | null>(null);
@@ -135,7 +135,12 @@ export function Layout({ children }: { children: ReactNode }) {
             <LogOut size={18} />
           </button>
         </div>
-        <p className="credit">{BRAND}</p>
+        <p className="credit">
+          xBNC v{VERSION} -{" "}
+          <a href="https://xbnc.org" target="_blank" rel="noopener noreferrer">
+            https://xbnc.org
+          </a>
+        </p>
       </div>
     </nav>
   );

@@ -6,7 +6,7 @@ import { Callout, Field } from "../components/ui";
 import { useTheme } from "../components/Layout";
 import { getLangs, pickLoginLang, t, tk, useLang } from "../lib/i18n";
 import { KeyRound, LogIn } from "lucide-react";
-import { BRAND } from "../version";
+import { VERSION } from "../version";
 import { passkeysSupported, signInWithPasskey, wasCancelled } from "../lib/webauthn";
 
 interface Methods {
@@ -75,7 +75,12 @@ function AuthFrame({ children }: { children: React.ReactNode }) {
           ))}
         </div>
         <div className="auth-card">{children}</div>
-        <p className="credit">{BRAND}</p>
+        <p className="credit">
+          xBNC v{VERSION} -{" "}
+          <a href="https://xbnc.org" target="_blank" rel="noopener noreferrer">
+            https://xbnc.org
+          </a>
+        </p>
       </section>
     </div>
   );

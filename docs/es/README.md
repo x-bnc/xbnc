@@ -24,5 +24,6 @@ La misma documentación, con buscador y en varios idiomas, está publicada como 
 | [PERFORMANCE.md](PERFORMANCE.md) | **Rendimiento.** Mediciones y límites. |
 | [TESTING.md](TESTING.md) | **Pruebas.** Entorno de pruebas, pruebas automáticas, el informe de pruebas y cómo probar la beta. |
 | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | **Problemas frecuentes.** Síntomas, causas y soluciones. |
+| [PROJECT.md](PROJECT.md) | **Proyecto.** Novedades, hoja de ruta, cómo contribuir, política de seguridad y licencia. |
 | [STATUS.md](../STATUS.md) | **Estado de esta versión** (en inglés). Qué incluye, cómo se ha comprobado y los límites conocidos. |
 | [openapi.json](../openapi.json) | **Especificación OpenAPI.** La API REST en OpenAPI 3.1. |

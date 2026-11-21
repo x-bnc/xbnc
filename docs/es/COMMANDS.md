@@ -44,15 +44,15 @@ Si no se indica otra cosa, el comando lo puede usar cualquier cuenta. Los demás
 | `setnick <nick>` | Cambiar el nick guardado de esta red.<br>Ejemplo: `/msg *status setnick y2k`<br>Solo cuentas con permiso de cambios (no el rol limitado). |
 | `connect` | Volver a conectar a la red.<br>Ejemplo: `/msg *status connect`<br>Solo cuentas con permiso de cambios (no el rol limitado). |
 | `disconnect` | Desconectar y quedarse desconectado. xBNC se queda desconectado de esta red hasta que uses connect.<br>Ejemplo: `/msg *status disconnect`<br>Solo cuentas con permiso de cambios (no el rol limitado). |
-| `jump [servidor]` | Reconectar, al siguiente servidor o al que digas. Sin servidor, pasa al siguiente de la lista (servers). Con uno, conecta a ese.<br>Ejemplo: `/msg *status jump irc2.undernet.org`<br>Solo cuentas con permiso de cambios (no el rol limitado). |
+| `jump [servidor]` | Reconectar, al siguiente servidor o al que digas. Sin servidor, pasa al siguiente de la lista (servers). Con uno, conecta a ese.<br>Ejemplo: `/msg *status jump irc2.ejemplo.org`<br>Solo cuentas con permiso de cambios (no el rol limitado). |
 
 #### Servidores, certificados y direcciones
 
 | Comando | Qué hace |
 | --- | --- |
 | `servers` | Servidores de esta red (principal y de reserva). Si un servidor falla, xBNC prueba el siguiente por turnos.<br>Ejemplo: `/msg *status servers`<br>También vale: `listservers` |
-| `addserver <servidor> [[+]puerto] [contraseña]` | Añadir un servidor de reserva. Un + delante del puerto significa TLS. Sin puerto: el del servidor principal. Hasta 20.<br>Ejemplo: `/msg *status addserver irc2.undernet.org 6667`<br>Solo cuentas con permiso de cambios (no el rol limitado). |
-| `delserver <servidor> [puerto]` | Quitar un servidor. Si quitas el principal, el primero de reserva pasa a ser el principal.<br>Ejemplo: `/msg *status delserver irc2.undernet.org`<br>Solo cuentas con permiso de cambios (no el rol limitado). |
+| `addserver <servidor> [[+]puerto] [contraseña]` | Añadir un servidor de reserva. Un + delante del puerto significa TLS. Sin puerto: el del servidor principal. Hasta 20.<br>Ejemplo: `/msg *status addserver irc2.ejemplo.org 6667`<br>Solo cuentas con permiso de cambios (no el rol limitado). |
+| `delserver <servidor> [puerto]` | Quitar un servidor. Si quitas el principal, el primero de reserva pasa a ser el principal.<br>Ejemplo: `/msg *status delserver irc2.ejemplo.org`<br>Solo cuentas con permiso de cambios (no el rol limitado). |
 | `addfingerprint <SHA-256>` | Confiar en el certificado de un servidor por su huella. Para servidores con certificado propio o caducado. 64 dígitos hexadecimales, con o sin dos puntos. Se aplica en la próxima conexión.<br>Ejemplo: `/msg *status addfingerprint 3F:9A:...:C2:1E`<br>También vale: `addtrustedserverfingerprint`<br>Solo cuentas con permiso de cambios (no el rol limitado). |
 | `delfingerprint <SHA-256>` | Dejar de confiar en un certificado.<br>Ejemplo: `/msg *status delfingerprint 3F:9A:...:C2:1E`<br>También vale: `deltrustedserverfingerprint`<br>Solo cuentas con permiso de cambios (no el rol limitado). |
 | `fingerprints` | Certificados de confianza de esta red.<br>Ejemplo: `/msg *status fingerprints`<br>También vale: `listtrustedserverfingerprints` |

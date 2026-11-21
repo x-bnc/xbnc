@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "The channel's memory: short answers to frequent questions that you and your editors keep up to date.",
   "usage": "In a channel: !def word (or ?word), !def word = text, !def -word, !defs. Here: /msg *factoids word.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send"
   ],

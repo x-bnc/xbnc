@@ -43,8 +43,8 @@ On Undernet it uses Login on Connect: the account goes in the server password an
 **Example**
 
 ```text
-Connecting to irc.undernet.org:6667 with Login on Connect…
-*** Your host is now y2k.users.undernet.org
+Connecting to irc.example.org:6667 with Login on Connect…
+*** Your host is now y2k.users.example.org
 * y2k has joined #xbnc
 ```
 
@@ -476,7 +476,7 @@ Always answers VERSION (by default with the xBNC version and its web site), answ
 | Setting | Type | Default | Detail |
 | --- | --- | --- | --- |
 | CTCP requests allowed every 10 seconds (`flood_limit`) | number (1–100) | 5 |   |
-| VERSION reply (`version`) | text | xBNC {version} Made by y2k - https://xbnc.org | {version} is replaced by the xBNC version. Empty: the default text. |
+| VERSION reply (`version`) | text | xBNC v{version} - https://xbnc.org | {version} is replaced by the xBNC version. Empty: the default text. |
 | CTCPs to ignore (`block`) | list | empty | One per line, for example TIME or FINGER. |
 
 **Example**
@@ -551,7 +551,7 @@ The files stay on the server, in the logs folder next to the database (for examp
 **Example**
 
 ```
-/var/lib/xbnc/logs/y2k/undernet/#xbnc/2026-11-11.log
+/var/lib/xbnc/logs/y2k/example/#xbnc/2026-11-11.log
 
 [18:30:12] <bob> hello everyone
 [18:30:20] * carol has joined

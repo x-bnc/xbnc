@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Posts new entries from RSS and Atom feeds (news sites, blogs, YouTube channels, GitHub releases) in your channels.",
   "usage": "Set the feeds in the panel: one per line, \"#channel https://...\". /msg *news list, /msg *news check.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send",
     "timer",

@@ -7,7 +7,7 @@ version = "1.0.0"
 edition = "2021"
 license = "Apache-2.0"
 rust-version = "1.89"
-authors = ["y2k"]
+authors = ["xBNC"]
 
 [profile.release]
 lto = "thin"

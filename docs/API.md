@@ -54,7 +54,7 @@ CSRF=$(python3 -c 'import json;print(json.load(open("login.json"))["csrf"])')
 curl -s -b jar -H "X-CSRF-Token: $CSRF" -H 'Content-Type: application/json' \
   -d '{"username":"bruno","password":"a-long-password","role":"user","max_networks":3}' $B/users
 curl -s -b jar -H "X-CSRF-Token: $CSRF" -H 'Content-Type: application/json' \
-  -d '{"user_id":2,"name":"libera","host":"irc.libera.chat","port":6697,"tls":true,"nick":"bruno",
+  -d '{"user_id":2,"name":"example","host":"irc.example.org","port":6697,"tls":true,"nick":"bruno",
        "sasl_username":"bruno","sasl_password":"secret","channels":["#xbnc","#xbnc-dev"]}' $B/networks
 ```
 

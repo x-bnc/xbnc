@@ -12,9 +12,9 @@ use xbncd::db::{self, Db, NewNetwork};
 #[command(
     name = "xbncd",
     version,
-    long_version = concat!(env!("CARGO_PKG_VERSION"), " (xBNC ", env!("CARGO_PKG_VERSION"), " Made by y2k)"),
-    author = "y2k",
-    about = "xBNC IRC bouncer, made by y2k"
+    long_version = concat!(env!("CARGO_PKG_VERSION"), " (xBNC v", env!("CARGO_PKG_VERSION"), " - https://xbnc.org)"),
+    author = "xBNC",
+    about = "xBNC IRC bouncer - https://xbnc.org"
 )]
 struct Cli {
     /// Configuration file.

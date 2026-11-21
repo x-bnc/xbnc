@@ -10,7 +10,7 @@ En el panel, *Redes → (tu red) → Configuración*. También con la API (`PATC
 
 | Ajuste | Qué es |
 | --- | --- |
-| Nombre corto | El que usas en el login (`alicia/undernet`). Cambiarlo no corta la conexión. |
+| Nombre corto | El que usas en el login (`alicia/ejemplo`). Cambiarlo no corta la conexión. |
 | Servidor y puerto | Dirección de la red. Puerto 6697 con TLS por defecto. |
 | TLS | Conexión cifrada con la red. El certificado del servidor se verifica siempre. |
 | Nick | Tu nick en la red. Si está ocupado al conectar, xBNC añade «\_» y, con [Recuperar nick](MODULES.md#mod-keepnick), vuelve a él en cuanto queda libre. |
@@ -45,7 +45,7 @@ Undernet usa el servicio **X** y no tiene SASL ni TLS. Activa [Login en servicio
 ```text
 *** Tu host es ahora y2k.users.undernet.org
 * y2k ha entrado en #xbnc
-<*status> xBNC 1.0.0 Made by y2k
+<*status> xBNC v1.0.0 - https://xbnc.org
 ```
 
 - Con [Invitación y desbaneo](MODULES.md#mod-invite), si no puedes entrar en un canal tuyo, xBNC pide a X `INVITE` o `UNBAN`.

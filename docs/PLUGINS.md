@@ -639,7 +639,7 @@ And it can only import from the `xbnc` module (neither WASI nor anything else):
 ```json
 {
   "event": "message",
-  "network": "undernet", "nick": "y2k", "connected": true, "clients": 1, "lang": "en",
+  "network": "example", "nick": "y2k", "connected": true, "clients": 1, "lang": "en",
   "config": { "trigger": "!roll" },
   "state": null,
   "command": "PRIVMSG", "conversation": "#xbnc", "channel": true,

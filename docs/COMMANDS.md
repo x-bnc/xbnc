@@ -44,15 +44,15 @@ Unless stated otherwise, any account may use a command. The others say who may: 
 | `setnick <nick>` | Change the nick saved for this network.<br>Example: `/msg *status setnick y2k`<br>Only accounts allowed to make changes (not the limited role). |
 | `connect` | Connect to the network again.<br>Example: `/msg *status connect`<br>Only accounts allowed to make changes (not the limited role). |
 | `disconnect` | Disconnect and stay disconnected. xBNC stays disconnected from this network until you use connect.<br>Example: `/msg *status disconnect`<br>Only accounts allowed to make changes (not the limited role). |
-| `jump [server]` | Reconnect, to the next server or to the one you name. Without a server, goes to the next one of the list (servers). With one, connects to it.<br>Example: `/msg *status jump irc2.undernet.org`<br>Only accounts allowed to make changes (not the limited role). |
+| `jump [server]` | Reconnect, to the next server or to the one you name. Without a server, goes to the next one of the list (servers). With one, connects to it.<br>Example: `/msg *status jump irc2.example.org`<br>Only accounts allowed to make changes (not the limited role). |
 
 #### Servers, certificates and addresses
 
 | Command | What it does |
 | --- | --- |
 | `servers` | Servers of this network (main and backups). If a server fails, xBNC tries the next one in turn.<br>Example: `/msg *status servers`<br>Also accepted: `listservers` |
-| `addserver <server> [[+]port] [password]` | Add a backup server. A + before the port means TLS. Without a port: the same as the main server. Up to 20.<br>Example: `/msg *status addserver irc2.undernet.org 6667`<br>Only accounts allowed to make changes (not the limited role). |
-| `delserver <server> [port]` | Remove a server. If you remove the main server, the first backup becomes the main one.<br>Example: `/msg *status delserver irc2.undernet.org`<br>Only accounts allowed to make changes (not the limited role). |
+| `addserver <server> [[+]port] [password]` | Add a backup server. A + before the port means TLS. Without a port: the same as the main server. Up to 20.<br>Example: `/msg *status addserver irc2.example.org 6667`<br>Only accounts allowed to make changes (not the limited role). |
+| `delserver <server> [port]` | Remove a server. If you remove the main server, the first backup becomes the main one.<br>Example: `/msg *status delserver irc2.example.org`<br>Only accounts allowed to make changes (not the limited role). |
 | `addfingerprint <SHA-256>` | Trust a server certificate by its fingerprint. For servers with a self-signed or expired certificate. 64 hex digits, with or without colons. Applies on the next connection.<br>Example: `/msg *status addfingerprint 3F:9A:...:C2:1E`<br>Also accepted: `addtrustedserverfingerprint`<br>Only accounts allowed to make changes (not the limited role). |
 | `delfingerprint <SHA-256>` | Stop trusting a certificate.<br>Example: `/msg *status delfingerprint 3F:9A:...:C2:1E`<br>Also accepted: `deltrustedserverfingerprint`<br>Only accounts allowed to make changes (not the limited role). |
 | `fingerprints` | Trusted certificates of this network.<br>Example: `/msg *status fingerprints`<br>Also accepted: `listtrustedserverfingerprints` |

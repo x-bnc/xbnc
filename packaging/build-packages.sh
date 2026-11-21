@@ -60,7 +60,7 @@ Priority: optional
 Homepage: https://github.com/
 Description: IRC bouncer with a web panel
  xBNC keeps you connected to IRC networks, stores history for each of your
- devices and is managed from a web panel. Created by y2k.
+ devices and is managed from a web panel. https://xbnc.org
 CTL
 install -m0755 "$ROOT"/packaging/deb/{postinst,prerm,postrm} "$D/DEBIAN/"
 DEB="$OUT/xbnc_${VERSION}_${DEB_ARCH}.deb"

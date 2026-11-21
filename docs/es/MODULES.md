@@ -43,8 +43,8 @@ En Undernet usa Login on Connect: la cuenta va en la contraseña del servidor y 
 **Ejemplo**
 
 ```text
-Conectando a irc.undernet.org:6667 con Login on Connect…
-*** Tu host es ahora y2k.users.undernet.org
+Conectando a irc.ejemplo.org:6667 con Login on Connect…
+*** Tu host es ahora y2k.users.ejemplo.org
 * y2k ha entrado en #xbnc
 ```
 
@@ -476,7 +476,7 @@ Responde siempre a VERSION (por defecto con la versión de xBNC y su web), respo
 | Ajuste | Tipo | Por defecto | Detalle |
 | --- | --- | --- | --- |
 | Peticiones CTCP permitidas cada 10 segundos (`flood_limit`) | número (1–100) | 5 |   |
-| Respuesta a VERSION (`version`) | texto | xBNC {version} Made by y2k - https://xbnc.org | {version} se sustituye por la versión de xBNC. Vacío: el texto por defecto. |
+| Respuesta a VERSION (`version`) | texto | xBNC v{version} - https://xbnc.org | {version} se sustituye por la versión de xBNC. Vacío: el texto por defecto. |
 | CTCP que ignorar (`block`) | lista | vacío | Uno por línea, por ejemplo TIME o FINGER. |
 
 **Ejemplo**
@@ -551,7 +551,7 @@ Los ficheros quedan en el servidor, en la carpeta logs junto a la base de datos 
 **Ejemplo**
 
 ```
-/var/lib/xbnc/logs/y2k/undernet/#xbnc/2026-11-11.log
+/var/lib/xbnc/logs/y2k/ejemplo/#xbnc/2026-11-11.log
 
 [18:30:12] <bob> hola a todos
 [18:30:20] * carol ha entrado

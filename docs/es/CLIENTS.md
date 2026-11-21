@@ -9,14 +9,14 @@ Sirve cualquier cliente que permita indicar servidor, puerto y contraseña de se
 | Qué quieres | Contraseña de servidor |
 | --- | --- |
 | Usuario con una sola red | `alicia:contraseña` |
-| Elegir red | `alicia/undernet:contraseña` |
-| Elegir red e identificar el dispositivo | `alicia/undernet@portatil:contraseña` |
-| El mismo login en otro orden | `alicia@portatil/undernet:contraseña` |
+| Elegir red | `alicia/ejemplo:contraseña` |
+| Elegir red e identificar el dispositivo | `alicia/ejemplo@portatil:contraseña` |
+| El mismo login en otro orden | `alicia@portatil/ejemplo:contraseña` |
 
 - **Servidor:** tu dominio o IP (`sudo xbncd info` lo muestra).
 - **Puerto:** 6697 con SSL desde cualquier sitio; 6667 sin SSL solo desde tu red local.
-- **Contraseña:** la misma con la que entras al panel. También puedes poner `alicia/undernet@portatil` en el campo de usuario (USER) y la contraseña sola en PASS, o entrar con SASL PLAIN desde el cliente.
-- **Una conexión equivale a una red:** para dos redes, crea dos servidores en tu cliente (`alicia/undernet` y `alicia/libera`). Los clientes con `soju.im/bouncer-networks` (Goguma, gamja, Halloy) ven todas tus redes en una sola conexión.
+- **Contraseña:** la misma con la que entras al panel. También puedes poner `alicia/ejemplo@portatil` en el campo de usuario (USER) y la contraseña sola en PASS, o entrar con SASL PLAIN desde el cliente.
+- **Una conexión equivale a una red:** para dos redes, crea dos servidores en tu cliente (`alicia/ejemplo` y `alicia/otra`). Los clientes con `soju.im/bouncer-networks` (Goguma, gamja, Halloy) ven todas tus redes en una sola conexión.
 - **Dispositivo:** la parte `@dispositivo` es opcional pero recomendable. Cada dispositivo (`@portatil`, `@movil`, `@trabajo`) recibe su propio historial pendiente.
 - Si instalaste por IP, el certificado es propio: activa en tu cliente «aceptar certificados no válidos».
 
@@ -36,11 +36,11 @@ Desde casa, el dominio solo funciona si tu router lo admite (se llama NAT loopba
 ### HexChat
 
 ```
-Lista de redes → Añadir: «xBNC Undernet»
+Lista de redes → Añadir: «xBNC Ejemplo»
 Editar → Servidor: bnc.ejemplo.org/6697
 Marca «Usar SSL para todos los servidores»
 Método de inicio de sesión: Contraseña del servidor (/PASS)
-Contraseña: alicia/undernet@hexchat:tu-contraseña
+Contraseña: alicia/ejemplo@hexchat:tu-contraseña
 Con certificado propio: marca «Aceptar certificados SSL no válidos»
 ```
 
@@ -48,7 +48,7 @@ Con certificado propio: marca «Aceptar certificados SSL no válidos»
 
 ```
 Lo más rápido, en cualquier ventana:
-/server bnc.ejemplo.org +6697 alicia/undernet@mirc:tu-contraseña
+/server bnc.ejemplo.org +6697 alicia/ejemplo@mirc:tu-contraseña
 
 El + delante del puerto activa SSL. Con certificado propio, mIRC pregunta la
 primera vez: pulsa Aceptar. Para guardarlo: Archivo → Seleccionar servidor →
@@ -58,20 +58,20 @@ Añadir, con los mismos datos.
 ### WeeChat
 
 ```
-/server add xbnc-undernet bnc.ejemplo.org/6697 -tls
-/set irc.server.xbnc-undernet.password "alicia/undernet@weechat:tu-contraseña"
-/set irc.server.xbnc-undernet.capabilities "server-time,message-tags,batch,draft/chathistory,echo-message"
-/connect xbnc-undernet
+/server add xbnc-ejemplo bnc.ejemplo.org/6697 -tls
+/set irc.server.xbnc-ejemplo.password "alicia/ejemplo@weechat:tu-contraseña"
+/set irc.server.xbnc-ejemplo.capabilities "server-time,message-tags,batch,draft/chathistory,echo-message"
+/connect xbnc-ejemplo
 
-Con certificado propio: /set irc.server.xbnc-undernet.tls_verify off
+Con certificado propio: /set irc.server.xbnc-ejemplo.tls_verify off
 ```
 
 ### irssi
 
 ```
-/network add -nick alicia xbnc-undernet
-/server add -tls -network xbnc-undernet -password alicia/undernet@irssi:tu-contraseña bnc.ejemplo.org 6697
-/connect xbnc-undernet
+/network add -nick alicia xbnc-ejemplo
+/server add -tls -network xbnc-ejemplo -password alicia/ejemplo@irssi:tu-contraseña bnc.ejemplo.org 6697
+/connect xbnc-ejemplo
 
 Con certificado propio, añade -notls_verify al /server add
 ```
@@ -93,7 +93,7 @@ xBNC detecta los errores habituales y te lo dice en el propio cliente:
 | `Closing link: this port uses SSL/TLS. Enable SSL in your IRC client, or connect to port 6667 without SSL.` | Te conectas al 6697 sin SSL. | Activa SSL o usa el 6667 desde casa. |
 | `Closing link: this port only accepts connections from the local network...` | Usas el 6667 desde fuera de tu red. | Usa el 6697 con SSL. |
 | Error de certificado o «certificado no válido» | Certificado propio (instalación por IP). | Acepta el certificado o pasa a un dominio con Let's Encrypt. |
-| `Usuario o contraseña incorrectos (usuario «alice»)…` | Usuario o contraseña incorrectos. | Usa el mismo usuario y contraseña que en el panel: alice/undernet@dispositivo:contraseña. |
+| `Usuario o contraseña incorrectos (usuario «alice»)…` | Usuario o contraseña incorrectos. | Usa el mismo usuario y contraseña que en el panel: alice/ejemplo@dispositivo:contraseña. |
 | `«TU_CONTRASEÑA» es el ejemplo…` | Se copió el ejemplo sin escribir la contraseña. | Escribe tu contraseña después de los dos puntos. No cuenta como intento fallido. |
 | `No hay ninguna red llamada «…» en tu cuenta. Tus redes: …` | La red de la contraseña del servidor no existe (es el nombre corto de la red en el panel). | Usa uno de los nombres de la lista. |
 | `Indica qué red usar en la contraseña del servidor…` | Tienes varias redes y no indicaste cuál. | Añade /red al usuario. |

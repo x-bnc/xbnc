@@ -4,7 +4,7 @@
   "version": "1.1.0",
   "description": "Rolls dice in channels and private messages: !dado, !dado 2d6, !dado d20.",
   "usage": "In a channel or private message: !dado (one six-sided die), !dado 2d6, !dado d20. Also !roll and !dice.\n/msg *dice 3d8 rolls for you alone.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": ["send"],
   "settings": [
     { "key": "trigger", "type": "text", "label": "Extra command", "help": "!dado, !dados, !roll and !dice always work.", "default": "!roll" },

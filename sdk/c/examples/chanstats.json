@@ -4,7 +4,7 @@
   "version": "1.1.0",
   "description": "!stats: messages in the channel and who talks most. !stats nick: one person's count.",
   "usage": "In a channel: !stats shows the messages and who talks most — !stats bob shows one person. /msg *chanstats #channel shows it to you privately. Counts are saved every minute.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send",
     "timer"

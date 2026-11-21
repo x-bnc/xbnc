@@ -170,12 +170,12 @@ impl NetActor {
                     return;
                 }
                 self.say(id, "reconnecting", &[]);
-                self.close_upstream(Some("Reconnecting"));
+                self.close_upstream(Some(super::BRAND));
                 self.backoff = BACKOFF_MIN;
                 self.next_connect = Some(Instant::now());
             }
             "disconnect" => {
-                self.close_upstream(Some("Disconnected by user"));
+                self.close_upstream(Some(super::BRAND));
                 self.next_connect = None;
                 self.say(id, "disconnected_cmd", &[]);
             }

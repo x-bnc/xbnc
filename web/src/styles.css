@@ -1613,6 +1613,14 @@ mark {
   font-size: var(--t-xs, 0.75rem);
   color: var(--ink-3);
 }
+.credit a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.credit a:hover {
+  color: var(--ink-2, inherit);
+}
 .auth-main .credit {
   width: min(400px, 100%);
   margin-top: 14px;

@@ -105,7 +105,7 @@ In *Your account → Notifications*, xBNC tells you about mentions and private m
 
 ```json
 {
-  "network": "undernet",
+  "network": "example",
   "network_id": 1,
   "conversation": "#xbnc",
   "from": "bob",

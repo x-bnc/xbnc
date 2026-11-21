@@ -4,7 +4,7 @@
   "version": "1.1.0",
   "description": "Warns, kicks or bans people who flood or repeat lines in your channels (you must be a channel operator).",
   "usage": "Works by itself in the channels you list in the settings (you must be a channel operator there). /msg *antiflood shows its settings.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "raw",
     "send",

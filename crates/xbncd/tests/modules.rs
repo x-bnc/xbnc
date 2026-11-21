@@ -114,7 +114,7 @@ async fn ctcp_version_is_answered_while_detached() {
     h.ircd.send(":bob!b@fake PRIVMSG alice :\x01VERSION\x01");
     let l = h.ircd.expect("NOTICE bob").await;
     assert!(l.contains("\x01VERSION xBNC "), "{l:?}");
-    assert!(l.contains("Made by y2k - https://xbnc.org\x01"), "{l:?}");
+    assert!(l.contains(concat!("\x01VERSION xBNC v", env!("CARGO_PKG_VERSION"), " - https://xbnc.org\x01")), "{l:?}");
 }
 
 /// The default VERSION reply advertises xBNC even with a client attached
@@ -125,7 +125,7 @@ async fn ctcp_default_version_is_answered_while_attached() {
     let (mut c, _) = Client::login(h.addr, "alice/fake@laptop").await;
     h.ircd.send(":bob!b@fake PRIVMSG alice :\x01VERSION\x01");
     let l = h.ircd.expect("NOTICE bob").await;
-    assert!(l.contains(concat!("\x01VERSION xBNC ", env!("CARGO_PKG_VERSION"), " Made by y2k - https://xbnc.org\x01")), "{l:?}");
+    assert!(l.contains(concat!("\x01VERSION xBNC v", env!("CARGO_PKG_VERSION"), " - https://xbnc.org\x01")), "{l:?}");
     let lines = c.drain(Duration::from_millis(400)).await;
     assert!(!contains(&lines, "\x01VERSION"), "{lines:#?}");
     c.send("PRIVMSG *status :version").await;
@@ -390,4 +390,14 @@ async fn dcc_to_private_addresses_is_refused_by_default() {
     h.ircd
         .send(":mallory!m@fake PRIVMSG alice :\x01DCC CHAT chat 134744072 25\x01");
     c.read_until("reserved").await;
+}
+
+/// xBNC leaves a network with its QUIT message: "xBNC v1.0.0 - https://xbnc.org".
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn quit_message_is_the_brand() {
+    let mut h = Harness::start().await;
+    let (mut c, _) = Client::login(h.addr, "alice/fake@laptop").await;
+    c.send("PRIVMSG *status :disconnect").await;
+    let l = h.ircd.expect("QUIT").await;
+    assert!(l.contains(concat!("QUIT :xBNC v", env!("CARGO_PKG_VERSION"), " - https://xbnc.org")), "{l:?}");
 }

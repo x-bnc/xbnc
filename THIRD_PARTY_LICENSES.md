@@ -3,7 +3,7 @@
 xBNC 1.0.0 is distributed under the Apache License 2.0 (see LICENSE). It is built
 with the components below, each under its own license. Where a component offers
 several licenses ("A OR B"), xBNC uses it under a permissive option compatible
-with Apache-2.0. xBNC is written from scratch by y2k and includes no code from other bouncers.
+with Apache-2.0. xBNC is written from scratch and includes no code from other bouncers.
 
 Generated from `cargo metadata` and `npm ls --omit=dev` for the resolved dependency
 graphs; regenerate it on every release. SQLite is compiled in through

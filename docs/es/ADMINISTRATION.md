@@ -63,9 +63,9 @@ sudo -u xbnc xbncd user add carla --role moderator
 echo 'una-contraseña-larga' | sudo -u xbnc xbncd user add bob --password-stdin
 sudo -u xbnc xbncd user role carla admin
 sudo -u xbnc xbncd user reset-2fa alicia
-sudo -u xbnc xbncd network add alicia libera --host irc.libera.chat --sasl-user alicia
-sudo -u xbnc xbncd network add alicia undernet --host irc.undernet.org --port 6667 --no-tls
-sudo -u xbnc xbncd channel add alicia libera '#xbnc' --key
+sudo -u xbnc xbncd network add alicia otra --host irc.ejemplo.net --sasl-user alicia
+sudo -u xbnc xbncd network add alicia ejemplo --host irc.ejemplo.org --port 6667 --no-tls
+sudo -u xbnc xbncd channel add alicia otra '#xbnc' --key
 sudo -u xbnc xbncd backup /var/lib/xbnc/copia.db
 sudo -u xbnc xbncd import /home/antiguo/.bouncer --logs --utc-offset Europe/Madrid             # vista previa
 sudo -u xbnc xbncd import /home/antiguo/.bouncer --logs --utc-offset Europe/Madrid --apply     # importar
@@ -111,11 +111,11 @@ Cuando una alerta empieza y cuando se resuelve:
   "server": "bnc.ejemplo.org",
   "state": "firing",
   "alert": "network_down",
-  "subject": "alicia/libera",
-  "message": "Network alicia/libera has been disconnected for more than 15 minutes",
+  "subject": "alicia/otra",
+  "message": "Network alicia/otra has been disconnected for more than 15 minutes",
   "since": 1762600000000,
-  "text": "[xBNC bnc.ejemplo.org] firing: Network alicia/libera ...",
-  "content": "[xBNC bnc.ejemplo.org] firing: Network alicia/libera ..."
+  "text": "[xBNC bnc.ejemplo.org] firing: Network alicia/otra ...",
+  "content": "[xBNC bnc.ejemplo.org] firing: Network alicia/otra ..."
 }
 ```
 

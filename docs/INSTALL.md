@@ -293,8 +293,8 @@ sudo ./scripts/uninstall.sh --purge    # also deletes the configuration, the dat
 
 ```sh
 sudo -u xbnc xbncd user add admin --admin
-sudo -u xbnc xbncd network add admin libera --host irc.libera.chat --port 6697 --sasl-user myaccount
-sudo -u xbnc xbncd channel add admin libera '#xbnc'
+sudo -u xbnc xbncd network add admin example --host irc.example.org --port 6697 --sasl-user myaccount
+sudo -u xbnc xbncd channel add admin example '#xbnc'
 sudo systemctl reload xbnc
 ```
 

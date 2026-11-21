@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "The weather now and today's forecast for any city, from Open-Meteo (free, no key).",
   "usage": "In a channel: !weather London (also !tiempo or !clima). Here: /msg *weather Paris.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send",
     "http"

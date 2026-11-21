@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Warns, kicks and finally bans people who write forbidden words in your channels (you need op).",
   "usage": "Set the words in the panel. /msg *badwords test text tells whether a text would be caught.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send",
     "raw",

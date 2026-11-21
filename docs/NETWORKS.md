@@ -10,7 +10,7 @@ In the panel, *Networks → (your network) → Configuration*. Also with the API
 
 | Setting | What it is |
 | --- | --- |
-| Short name | The one you use to log in (`alice/undernet`). Changing it does not cut the connection. |
+| Short name | The one you use to log in (`alice/example`). Changing it does not cut the connection. |
 | Server and port | Address of the network. Port 6697 with TLS by default. |
 | TLS | Encrypted connection to the network. The server's certificate is always verified. |
 | Nick | Your nick on the network. If it is taken when connecting, xBNC adds “\_” and, with [Keep nick](MODULES.md#mod-keepnick), goes back to it as soon as it is free. |
@@ -45,7 +45,7 @@ Undernet uses the **X** service and has neither SASL nor TLS. Turn on [Services 
 ```text
 *** Your host is now y2k.users.undernet.org
 * y2k has joined #xbnc
-<*status> xBNC 1.0.0 Made by y2k
+<*status> xBNC v1.0.0 - https://xbnc.org
 ```
 
 - With [Invite and unban](MODULES.md#mod-invite), if you cannot join one of your channels, xBNC asks X for `INVITE` or `UNBAN`.

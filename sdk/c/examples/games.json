@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Hangman, magic 8 ball and rock-paper-scissors for your channels.",
   "usage": "In a channel: !8ball question, !rps rock, !hangman and !g letter (or the whole word) to play.",
-  "author": "y2k",
+  "author": "xBNC",
   "permissions": [
     "send"
   ],

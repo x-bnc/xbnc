@@ -9,14 +9,14 @@ Any client that lets you set the server, port and server password works. No plug
 | What you want | Server password |
 | --- | --- |
 | A user with a single network | `alice:password` |
-| Choose the network | `alice/undernet:password` |
-| Choose the network and name the device | `alice/undernet@laptop:password` |
-| The same login in another order | `alice@laptop/undernet:password` |
+| Choose the network | `alice/example:password` |
+| Choose the network and name the device | `alice/example@laptop:password` |
+| The same login in another order | `alice@laptop/example:password` |
 
 - **Server:** your domain or IP (`sudo xbncd info` shows it).
 - **Port:** 6697 with SSL from anywhere; 6667 without SSL only from your local network.
-- **Password:** the same one you use for the panel. You can also put `alice/undernet@laptop` in the user field (USER) and the password alone in PASS, or sign in with SASL PLAIN from the client.
-- **One connection is one network:** for two networks, create two servers in your client (`alice/undernet` and `alice/libera`). Clients with `soju.im/bouncer-networks` (Goguma, gamja, Halloy) see all your networks in a single connection.
+- **Password:** the same one you use for the panel. You can also put `alice/example@laptop` in the user field (USER) and the password alone in PASS, or sign in with SASL PLAIN from the client.
+- **One connection is one network:** for two networks, create two servers in your client (`alice/example` and `alice/other`). Clients with `soju.im/bouncer-networks` (Goguma, gamja, Halloy) see all your networks in a single connection.
 - **Device:** the `@device` part is optional but recommended. Each device (`@laptop`, `@phone`, `@work`) gets its own pending history.
 - If you installed by IP, the certificate is self-signed: turn on “accept invalid certificates” in your client.
 
@@ -36,11 +36,11 @@ From home, the domain only works if your router supports it (it is called NAT lo
 ### HexChat
 
 ```
-Network List → Add: "xBNC Undernet"
+Network List → Add: "xBNC Example"
 Edit → Server: bnc.example.org/6697
 Tick "Use SSL for all the servers on this network"
 Login method: Server password (/PASS password)
-Password: alice/undernet@hexchat:your-password
+Password: alice/example@hexchat:your-password
 With a self-signed certificate: tick "Accept invalid SSL certificates"
 ```
 
@@ -48,7 +48,7 @@ With a self-signed certificate: tick "Accept invalid SSL certificates"
 
 ```
 The quickest way, in any window:
-/server bnc.example.org +6697 alice/undernet@mirc:your-password
+/server bnc.example.org +6697 alice/example@mirc:your-password
 
 The + before the port turns on SSL. With a self-signed certificate, mIRC asks
 the first time: click Accept. To save it: File → Select server → Add, with
@@ -58,20 +58,20 @@ the same details.
 ### WeeChat
 
 ```
-/server add xbnc-undernet bnc.example.org/6697 -tls
-/set irc.server.xbnc-undernet.password "alice/undernet@weechat:your-password"
-/set irc.server.xbnc-undernet.capabilities "server-time,message-tags,batch,draft/chathistory,echo-message"
-/connect xbnc-undernet
+/server add xbnc-example bnc.example.org/6697 -tls
+/set irc.server.xbnc-example.password "alice/example@weechat:your-password"
+/set irc.server.xbnc-example.capabilities "server-time,message-tags,batch,draft/chathistory,echo-message"
+/connect xbnc-example
 
-With a self-signed certificate: /set irc.server.xbnc-undernet.tls_verify off
+With a self-signed certificate: /set irc.server.xbnc-example.tls_verify off
 ```
 
 ### irssi
 
 ```
-/network add -nick alice xbnc-undernet
-/server add -tls -network xbnc-undernet -password alice/undernet@irssi:your-password bnc.example.org 6697
-/connect xbnc-undernet
+/network add -nick alice xbnc-example
+/server add -tls -network xbnc-example -password alice/example@irssi:your-password bnc.example.org 6697
+/connect xbnc-example
 
 With a self-signed certificate, add -notls_verify to /server add
 ```
@@ -93,7 +93,7 @@ xBNC spots the usual mistakes and tells you in the client itself:
 | `Closing link: this port uses SSL/TLS. Enable SSL in your IRC client, or connect to port 6667 without SSL.` | You connect to 6697 without SSL. | Turn on SSL or use 6667 from home. |
 | `Closing link: this port only accepts connections from the local network...` | You use 6667 from outside your network. | Use 6697 with SSL. |
 | Certificate error or “invalid certificate” | Self-signed certificate (installation by IP). | Accept the certificate or move to a domain with Let's Encrypt. |
-| `Wrong user or password (user "alice")…` | Wrong user or password. | Use the same user and password as in the panel: alice/undernet@device:password. |
+| `Wrong user or password (user "alice")…` | Wrong user or password. | Use the same user and password as in the panel: alice/example@device:password. |
 | `"YOUR_PASSWORD" is the example…` | The example was copied without writing the password. | Write your password after the colon. This does not count as a failed attempt. |
 | `There is no network called "…" in your account. Your networks: …` | The network in the server password does not exist (it is the short name of the network in the panel). | Use one of the names listed. |
 | `Say which network to use in the server password…` | You have several networks and did not say which. | Add /network to the user. |
