@@ -1,13 +1,15 @@
 <h1 align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/logo-xbnc.png"><img src="docs/images/logo-xbnc-dark.png" alt="xBNC" width="420"></picture></h1>
 
-A modern IRC bouncer written in Rust. It keeps your connections to IRC networks open while your client is closed, stores the history and plays it back to each device exactly once when you come back. Everything is configured from a web panel, or from IRC with `/msg *status` if you prefer.
+A modern IRC bouncer written in Rust. It is **persistent**: it runs on your server and keeps your connections to IRC networks open while your client is closed or your computer is off, stores the history and plays it back to each device exactly once when you come back. Everything is configured from a web panel, or from IRC with `/msg *status` if you prefer.
 
-> **Version 1.0.0, public test release.** It is the first complete version and is open to testing on real networks (Undernet, Libera.Chat, freenode, Rizon, EvilNet, IRCnet and others) before it is declared stable for production. What works, what is missing and the known limits: [docs/STATUS.md](docs/STATUS.md). How to take part in the tests: [Testing the beta](#testing-the-beta).
+Website and documentation: **[xbnc.org](https://xbnc.org)** · [Wiki](https://xbnc.org/wiki/) · [Wiki en español](https://xbnc.org/wiki/es/)
+
+> **Public test release.** This is the first complete version of xBNC, open to testing on real networks (Undernet, Libera.Chat, freenode, Rizon, EvilNet, IRCnet and others) before it is declared stable for production. The current version is on [Releases](https://github.com/x-bnc/xbnc/releases) and the changes in [CHANGELOG.md](CHANGELOG.md). What works, what is missing and the known limits: [docs/STATUS.md](docs/STATUS.md). How to take part in the tests: [Testing the beta](#testing-the-beta).
 
 ## What it does
 
 **Bouncer**
-- Permanent connections to several networks per user, with verified TLS, SASL (PLAIN and EXTERNAL), automatic reconnection, backup servers and flood protection.
+- Permanent connections to several networks per user, with verified TLS, SASL (PLAIN and EXTERNAL), automatic reconnection, backup servers and flood protection. If the server reboots, systemd starts xBNC again and it reconnects by itself.
 - Several devices at once: what you write on one appears on the others, and each one gets what it missed exactly once.
 - Use your usual client (mIRC, HexChat, WeeChat, irssi…) with server, port and password. Modern clients also get history (`CHATHISTORY`), read markers and all your networks in a single connection.
 - Full IRCv3 with servers and clients (`multi-prefix`, `extended-join`, `away-notify`, `account-notify`, `chghost`, `setname`…). Clients that do not ask for it receive plain old IRC.
@@ -35,28 +37,53 @@ A modern IRC bouncer written in Rust. It keeps your connections to IRC networks 
 
 ## Requirements
 
-- Any Linux with systemd: Debian, Ubuntu, Fedora, Rocky, Alma, RHEL, Arch, openSUSE and others. Nothing has to be installed first.
-- On 64-bit PCs and servers (x86_64) the program comes ready-made in `bin/` and runs on any distribution from 2019 on (glibc 2.28 or later).
-- On other machines (ARM) or older systems the installer builds it by itself: `scripts/prereqs.sh` installs the build tools with the system's package manager (apt, dnf, yum, pacman, zypper or apk) and Rust with rustup. Building needs 2 GB of memory (swap included) and 3 GB of disk.
-- 1 CPU and 512 MB of RAM are enough for personal use.
+- Any Linux with systemd: Debian, Ubuntu, Fedora, Rocky, Alma, RHEL, Arch, openSUSE and others.
+- **git**, to download the code (`sudo apt install git`, `sudo dnf install git`…). The installer takes care of everything else.
+- To build xBNC: about **2 GB of memory** (swap counts; the installer warns below that and explains how to add it) and **3 GB of free disk**. `scripts/prereqs.sh` installs the build tools with the system's package manager (apt, dnf, yum, pacman, zypper or apk) and Rust with rustup; the installer runs it by itself. Building is only needed when installing or updating.
+- To run it: 1 CPU and 512 MB of RAM are enough for personal use.
+- Ports: with the installer's recommended answer, **8443** for the panel and IRC with SSL together; with one port each, 8443 for the panel and 6697 for IRC. Also 6667 without SSL (local network only) and 50000-50100 for DCC.
 
 The web panel comes already built inside the source code: Node.js and npm are not needed.
 
 ## Installation
 
 ```bash
-unzip xbnc-1.0.0.zip && cd xbnc
+# 1. Download the code (as a normal user, not as root)
+git clone https://github.com/x-bnc/xbnc.git
+
+# 2. Go into its folder
+cd xbnc
+
+# 3. Install it
 sudo ./scripts/install.sh
 ```
 
-The installer asks whether you want to use a domain, creates the certificate (self-signed or from Let's Encrypt), opens the ports and, at the end, shows the panel address and the one-time code to create your account. No file needs editing.
+The code does not include the compiled program, so the first time the installer builds it on your server (several minutes; more on a small VPS). It asks for its language, whether you want to use a domain and which ports you want, creates the certificate (self-signed or from Let's Encrypt), opens the ports and installs the service, which starts by itself at every boot. At the end it shows the panel address, the IRC port and the one-time code to create your account. No file needs editing.
+
+New to Linux servers? Follow the **[step-by-step guide for beginners](https://xbnc.org/wiki/#beginner-guide)** ([en español](https://xbnc.org/wiki/es/#beginner-guide)).
+
+**With the .zip of a release:** each stable version on [Releases](https://github.com/x-bnc/xbnc/releases) also has a `.zip` with the program already built for 64-bit PCs and servers (x86_64, glibc 2.28 or later), so nothing has to be compiled: unzip it, go into the `xbnc` folder and run the same `sudo ./scripts/install.sh`. The .zip only exists when a stable version has been published; `git clone` always works.
 
 - With a domain and Let's Encrypt, without questions: `sudo ./scripts/install.sh --domain bnc.example.org --letsencrypt you@example.org`
 - With the panel at `https://bnc.example.org` behind Nginx: add `--nginx`.
-- Updating an existing installation: unpack the new version and run `sudo ./scripts/update.sh`. It makes a backup first and, if the service does not start, goes back to the previous version. It does not touch users, networks or history.
+- Every option: `./scripts/install.sh --help`. Without a terminal (or with `--non-interactive`) it asks nothing; `--language CODE` chooses the language (English by default).
 - Redoing the configuration (for example, to move from an IP to a domain): `sudo ./scripts/install.sh --reconfigure`.
-- Every option: `./scripts/install.sh --help`. To build from the source code even on x86_64: `--build`.
-- The installer asks first for its language, which is also xBNC's default language: English (the default), Spanish, or any other language file in `locales/`. Without a terminal it uses English; `--language CODE` chooses it.
+
+**Updating** makes a backup first and, if the service does not start, goes back to the previous version. It does not touch users, networks or history.
+
+```bash
+# Installed with git clone: download the changes and build them
+cd xbnc
+git pull
+sudo ./scripts/update.sh --build
+
+# Installed with the .zip: unpack the new one in an empty folder, then
+sudo ./scripts/update.sh
+```
+
+After `git pull`, always use `--build`: without it, `update.sh` reuses the program built by the previous installation, which is the old version.
+
+What each script in `scripts/` is for (install, update, backup, restore, uninstall…): [The scripts folder](https://xbnc.org/wiki/#scripts).
 
 ## Connecting your client
 
@@ -66,7 +93,7 @@ The installer asks whether you want to use a domain, creates the certificate (se
 | Choose the network | `alice/libera:password` |
 | Choose the network and name the device | `alice/libera@laptop:password` |
 
-Port 6697 with SSL (or 6667 without SSL, only from your local network). The panel shows these details ready to copy on each network's page.
+Use the IRC port with SSL that the installer showed: 8443 if you chose one port for the panel and IRC, 6697 if you chose one each (or 6667 without SSL, only from your local network). The panel shows these details ready to copy on each network's page, and `sudo xbncd info` shows them on the server.
 
 ## Testing the beta
 
@@ -82,12 +109,12 @@ Every text lives in `locales/<code>.json` (English is the base). To add a langua
 
 ## Documentation
 
-The complete documentation is in [docs/](docs/README.md), and in Spanish in [docs/es/](docs/es/README.md): installation, clients, networks, every `*status` command, the panel, the 24 modules, the 18 plugins and how to write new ones, security, configuration, administration, data and migration, the REST API ([docs/openapi.json](docs/openapi.json)), architecture, threat model, performance, testing and common problems. The status of this version is in [docs/STATUS.md](docs/STATUS.md) and the changes in [CHANGELOG.md](CHANGELOG.md).
+The complete documentation, with search and in English and Spanish, is the **[xBNC wiki](https://xbnc.org/wiki/)**: installation, clients, networks, every `*status` command, the panel, the 24 modules, the 18 plugins and how to write new ones, security, configuration, administration, data and migration, the REST API, architecture, threat model, performance, testing and common problems.
 
-The same documentation, with search and in English and Spanish, is published as the **xBNC wiki**, a website of its own (a separate project, `xbnc-wiki`), so anyone can read it without installing xBNC. The files of `docs/` and `docs/es/` are generated from the wiki.
+The same documentation is in this repository in [docs/](docs/README.md), and in Spanish in [docs/es/](docs/es/README.md), generated from the wiki, with the REST API in [docs/openapi.json](docs/openapi.json). The status of this version is in [docs/STATUS.md](docs/STATUS.md) and the changes in [CHANGELOG.md](CHANGELOG.md).
 
-From the program itself, the panel explains every module and plugin, and `/msg *status help` and `/msg *plugin help` answer from IRC.
+From the program itself, the panel explains every module and plugin, and from IRC `/msg *status help` answers, as does each plugin with its own name (for example `/msg *poll help`).
 
 ## License
 
-Made by **y2k**. Apache License 2.0. See [LICENSE](LICENSE), [NOTICE](NOTICE) and [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md). xBNC is written from scratch and contains no code from other bouncers.
+**xBNC** — [https://xbnc.org](https://xbnc.org). Apache License 2.0. See [LICENSE](LICENSE), [NOTICE](NOTICE) and [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md). xBNC is written from scratch and contains no code from other bouncers.
