@@ -3,6 +3,8 @@
 *Parte de la documentación de xBNC 1.0.0. El mismo contenido, con buscador, está publicado como la wiki de xBNC, una web aparte. Estos ficheros se generan a partir de la wiki; para cambiarlos, cambia la wiki.*
 
 - [Instalación](#install)
+- [Guía paso a paso para principiantes](#beginner-guide)
+- [La carpeta scripts](#scripts)
 - [Primeros pasos](#first-steps)
 
 <a id="install"></a>
@@ -11,47 +13,91 @@
 
 ### Requisitos
 
-- Cualquier Linux con systemd: Debian, Ubuntu, Fedora, Rocky, Alma, RHEL, Arch, openSUSE y otros. No hace falta instalar nada antes.
-- En PC y servidores de 64 bits (x86\_64, lo normal en un VPS) el programa viene ya compilado dentro del .zip, en `bin/`, y funciona en cualquier distribución de 2019 en adelante (glibc 2.28 o posterior).
-- En otras máquinas (ARM, como una Raspberry Pi o un VPS ARM) o en sistemas más antiguos, el instalador lo compila solo: instala las herramientas de compilación con el gestor de paquetes del sistema y Rust con rustup, el instalador oficial (ver *Compilar desde el código fuente*, más abajo). Mientras compila necesita 2 GB de memoria (contando la swap) y 3 GB de disco.
-- 1 CPU y 512 MB de RAM para uso personal. Medido: 2 000 usuarios con sus redes y clientes en unos 150 MB (ver [Rendimiento](PERFORMANCE.md#performance)).
-- Puertos: 6697 (IRC con TLS), 6667 (IRC sin TLS, solo red local), 8443 (panel). Con Let's Encrypt, también el 80; con Nginx, el 443.
+- Cualquier Linux con systemd: Debian, Ubuntu, Fedora, Rocky, Alma, RHEL, Arch, openSUSE y otros.
+- **git**, para descargar el código de GitHub (`sudo apt install git`, `sudo dnf install git`…). Del resto se encarga el instalador.
+- Para compilar xBNC: unos **2 GB de memoria** (la swap cuenta; el instalador avisa si hay menos y explica cómo añadirla) y **3 GB de disco libre**. Compilar solo hace falta al instalar o actualizar; para funcionar, xBNC necesita mucho menos (siguiente punto).
+- Para funcionar: 1 CPU y 512 MB de RAM para uso personal. Medido: 2 000 usuarios con sus redes y clientes en unos 150 MB (ver [Rendimiento](PERFORMANCE.md#performance)).
+- Puertos: con la respuesta recomendada del instalador, el **8443** para el panel e IRC con SSL a la vez; con un puerto para cada cosa, el 8443 para el panel y el 6697 para IRC con SSL. Además, el 6667 para IRC sin SSL (solo red local) y el 50000-50100 para DCC. Con Let's Encrypt, también el 80; con Nginx, el 80 y el 443.
 
 El panel web viene ya compilado dentro del código: no hace falta Node.js ni npm.
 
-### Instalar
+### Instalar desde GitHub
 
 ```sh
-# 1. Descomprimir el .zip (como usuario normal)
-unzip xbnc-1.0.0.zip && cd xbnc
+# 1. Descargar el código (como usuario normal, no como root)
+git clone https://github.com/x-bnc/xbnc.git
 
-# 2. Instalarlo
+# 2. Entrar en su carpeta
+cd xbnc
+
+# 3. Instalarlo
 sudo ./scripts/install.sh
 ```
 
-Eso es todo. El instalador usa el programa ya compilado cuando hay uno para tu máquina y, si no, lo compila antes (la primera vez tarda unos minutos).
+Eso es todo. El código de GitHub no trae el programa compilado, así que la primera vez el instalador lo compila en tu servidor: instala las herramientas de compilación y Rust, compila xBNC (varios minutos; más en un VPS pequeño) y lo instala. Si nunca has montado un servidor, sigue la [guía paso a paso](#beginner-guide).
 
-Ejecutado en una terminal y sin opciones, el instalador pregunta primero su idioma, que también será el idioma predeterminado de xBNC: inglés (por defecto), español o cualquier otro fichero de idioma de `locales/`. Después te pregunta si quieres usar un dominio, el correo para Let's Encrypt y si quieres el panel en `https://tudominio` con Nginx. Al terminar muestra la dirección del panel y el código de un solo uso para crear tu cuenta:
+### Con el .zip de una versión
+
+Cada versión estable publicada en [GitHub Releases](https://github.com/x-bnc/xbnc/releases) tiene también un `.zip` con el programa ya compilado para PC y servidores de 64 bits (x86\_64, lo normal en un VPS), en `bin/` y comprobado con `bin/SHA256SUMS`. Funciona en cualquier distribución de 2019 en adelante (glibc 2.28 o posterior) y no hay que compilar nada:
+
+```sh
+unzip xbnc-1.0.0.zip && cd xbnc
+sudo ./scripts/install.sh
+```
+
+> El .zip solo existe cuando se ha publicado una versión estable en Releases. `git clone` funciona siempre: solo tarda más porque compila el programa.
+
+### Las preguntas del instalador
+
+Ejecutado en una terminal y sin opciones, el instalador pregunta:
+
+1. **El idioma** del instalador, que también será el idioma predeterminado de xBNC: inglés (por defecto), español o cualquier otro fichero de idioma de `locales/`.
+2. **Si quieres usar un dominio.** Por defecto no: xBNC funciona con la IP de la máquina, que detecta solo. Con dominio pregunta además si pedir un certificado gratuito de Let's Encrypt, el correo para sus avisos, si se puede llegar al puerto 80 desde internet (si no, el proveedor de DNS y su fichero de credenciales) y si servir el panel en `https://tudominio` con Nginx.
+3. **Los puertos.** Un puerto para el panel e IRC, el 8443 por defecto (los navegadores ven el panel y los clientes IRC el bouncer, con el mismo certificado), o uno para cada cosa: el 8443 para el panel y el 6697 para IRC. Con Nginx solo pregunta el puerto IRC (6697). Rechaza los puertos que ya usa otro programa y, para el panel, los que los navegadores no abren (el 6667 y el 6697, los habituales de IRC, están entre ellos).
+
+Con `--non-interactive`, o sin terminal, no pregunta nada: usa las opciones que le des y, sin opciones de puertos, pone el panel en el 8443 e IRC en el 6697. En todos los casos añade además el puerto 6667 sin SSL para la red local; `--plain-port` lo cambia o lo quita.
+
+Al terminar muestra un resumen como este (aquí, instalado por IP con las respuestas predeterminadas):
 
 ```
-  Panel:   https://bnc.ejemplo.org:8443
-  IRC:     bnc.ejemplo.org, puerto 6697 (SSL)
-  Código para crear tu cuenta:  K7QM-2XPA-9DWE
+  ┌──────────────────────────────────────────────────────────────
+  │  xBNC está instalado y funcionando
+  │
+  │  1. Abre el panel:  https://203.0.113.10:8443  (el mismo puerto que IRC)
+  │     El navegador avisará del certificado (es propio): pulsa
+  │     «Avanzado» y «Continuar» / «Aceptar el riesgo».
+  │  2. Escribe el código de instalación:  K7QM-2XPA-9DWE
+  │     y crea tu usuario administrador.
+  │  3. Añade tus redes en «Redes → Añadir red».
+  │
+  │  Cliente IRC (HexChat, mIRC, WeeChat, irssi…):
+  │    Servidor 203.0.113.10, puerto 8443 con SSL
+  │    Desde tu red local: servidor 203.0.113.10, puerto 6667 sin SSL
+  │    Contraseña del servidor: tu usuario/tu red@dispositivo:tu contraseña
+  │    (el usuario y la contraseña del paso 2 y la red del paso 3).
+  │    El panel te la da lista para copiar en «Redes → tu red», y
+  │    «sudo xbncd info» la muestra con tus usuarios y redes reales.
+  └──────────────────────────────────────────────────────────────
+
+  Más adelante:
+    sudo xbncd info          dirección del panel y puertos
+    sudo xbncd setup-code    código de instalación
 ```
 
-Abre el panel, escribe el código y crea el primer administrador (será superadministrador). Para volver a ver la dirección y los puertos: `sudo xbncd info`; para volver a ver el código: `sudo xbncd setup-code`.
+Abre el panel, escribe el código y crea el primer administrador (será superadministrador). La línea «Desde tu red local» es para una máquina en casa; en un VPS, no le hagas caso. Para volver a ver la dirección y los puertos: `sudo xbncd info`; para volver a ver el código: `sudo xbncd setup-code`.
 
 ### Qué hace el instalador
 
-1. Busca el programa: el ya compilado para esta máquina en `bin/`, comprobado con `bin/SHA256SUMS`, o lo compila (ver más abajo).
-2. Comprueba el sistema y, si usas dominio, que el DNS apunta a esta máquina y qué puertos tienes que abrir en el router.
-3. Crea el usuario del sistema `xbnc`, sin privilegios, y las carpetas con sus permisos.
-4. Instala el binario en `/usr/local/bin/xbncd` y el servicio de systemd con medidas de aislamiento (`ProtectSystem=strict`, `NoNewPrivileges`, sin capacidades, filtro de llamadas al sistema).
-5. Crea el certificado: propio para la IP (o el dominio), o de Let's Encrypt con renovación automática. La renovación recarga xBNC (y Nginx, si lo usa).
-6. Escribe `/etc/xbnc/xbnc.toml` con la versión en la cabecera, crea la base de datos y la clave secreta.
-7. Con `--nginx`, instala y configura Nginx: redirección del puerto 80, el panel en el 443, WebSockets y subida de plugins y copias de seguridad.
-8. Pregunta los puertos: uno para el panel e IRC (los navegadores ven el panel y los clientes IRC el bouncer, con el mismo certificado) o uno para cada cosa. Rechaza los puertos que los navegadores no abren (el 6667 y el 6697, los habituales de IRC, están entre ellos) y los que ya usa otro programa.
-9. Abre los puertos en ufw o firewalld (también el rango de DCC, 50000-50100) y arranca el servicio.
+1. Hace las preguntas de arriba y, si usas dominio, comprueba que el DNS apunta a esta máquina y te dice qué puertos tienes que abrir en el router.
+2. Busca el programa: el ya compilado para esta máquina en `bin/` (solo en el .zip de una versión), comprobado con `bin/SHA256SUMS`, o lo compila (ver más abajo).
+3. Instala lo que necesita con el gestor de paquetes del sistema: `ca-certificates` y `openssl`, además de `certbot` con Let's Encrypt y `nginx` con `--nginx`.
+4. Crea el usuario del sistema `xbnc`, sin privilegios, y las carpetas con sus permisos.
+5. Instala el binario en `/usr/local/bin/xbncd` y la documentación en `/usr/local/share/doc/xbnc`.
+6. Crea el certificado: propio para 10 años, para la IP (o el dominio) y las demás direcciones de la máquina, o de Let's Encrypt con renovación automática. Cada renovación copia el certificado nuevo, reinicia xBNC y recarga Nginx si lo usa.
+7. Escribe `/etc/xbnc/xbnc.toml` con la versión en la cabecera, crea la base de datos y la clave secreta.
+8. Con `--nginx`, configura Nginx: redirección del puerto 80, el panel en el 443, WebSockets y subida de plugins y copias de seguridad.
+9. Abre los puertos en ufw o firewalld: el puerto IRC, el del panel cuando es otro distinto, el rango de DCC (50000-50100) y el 80 y el 443 cuando hacen falta. Con ufw, el 6667 solo se abre a las redes privadas.
+10. Instala el servicio de systemd con medidas de aislamiento (`ProtectSystem=strict`, `NoNewPrivileges`, sin capacidades, filtro de llamadas al sistema) y lo arranca. Arranca solo en cada inicio del sistema y se reinicia si falla.
 
 ### Opciones del instalador
 
@@ -78,16 +124,16 @@ Abre el panel, escribe el código y crea el primer administrador (será superadm
 | `--non-interactive` | No preguntar nada (por defecto pregunta si se ejecuta en una terminal). |
 | `--hostname NOMBRE` | Otro nombre de --domain (sintaxis antigua); con una IP equivale a --ip. |
 
-Para cambiar los puertos de una instalación existente, añade `--reconfigure`: sin él, el instalador conserva la configuración y rechaza las opciones de puertos que no se aplicarían.
+Para cambiar los puertos de una instalación existente, añade `--reconfigure`: sin él, el instalador conserva la configuración y rechaza las opciones de puertos que no se aplicarían. `--reconfigure` vuelve a escribir `xbnc.toml` con las respuestas y opciones de esa ejecución, no con el fichero actual: en una terminal vuelve a hacer las preguntas, y sin terminal (o con `--non-interactive`) los puertos que no indiques toman sus valores por defecto (8443 para el panel y 6697 para IRC). Los cambios que hiciste a mano en `xbnc.toml` quedan en la copia que guarda (`xbnc.toml.bak-FECHA`).
 
 ### Compilar desde el código fuente
 
-El instalador lo hace solo cuando no hay un programa ya compilado para tu máquina, o con `--build`. Ejecuta `scripts/prereqs.sh`, que:
+El instalador lo hace solo cuando no hay un programa ya compilado para tu máquina (siempre con `git clone`), o con `--build`. Ejecuta `scripts/prereqs.sh`, que:
 
 1. Instala el compilador de C, `make`, `pkg-config` y `curl` con el gestor de paquetes del sistema: apt, dnf, yum, pacman, zypper o apk.
-2. Instala Rust con rustup, el instalador oficial, para el usuario que descomprimió el .zip, en su carpeta personal (`~/.cargo`). El Rust que traen muchas distribuciones es demasiado antiguo, así que solo se usa si es al menos la versión 1.89; si no, se instala rustup a su lado. Si Rust ya estaba instalado con rustup pero es antiguo, se actualiza.
+2. Instala Rust con rustup, el instalador oficial, para el dueño de la carpeta xbnc (el usuario que la clonó o la descomprimió), en su carpeta personal (`~/.cargo`). El Rust que traen muchas distribuciones es demasiado antiguo, así que solo se usa si es al menos la versión 1.89; si no, se instala rustup a su lado. Si Rust ya estaba instalado con rustup pero es antiguo, se actualiza.
 
-Después compila xBNC como ese usuario (nunca como root) con `cargo build --release --locked`, que usa exactamente las versiones de las bibliotecas con las que se ha probado. Avisa si la máquina tiene menos de 2 GB de memoria y explica cómo añadir swap.
+Después compila xBNC como ese usuario (no como el que ejecutó sudo) con `cargo build --release --locked`, que usa exactamente las versiones de las bibliotecas con las que se ha probado. Avisa si la máquina tiene menos de 2 GB de memoria y explica cómo añadir swap.
 
 Para ver qué falta sin instalar nada: `./scripts/prereqs.sh --check`. Para prepararlo todo y compilar a mano:
 
@@ -127,6 +173,7 @@ sudo ./scripts/install.sh --domain bnc.ejemplo.org --letsencrypt tu@correo.org -
 | Ruta | Contenido |
 | --- | --- |
 | `/usr/local/bin/xbncd` | El programa. |
+| `/usr/local/share/doc/xbnc/` | La documentación, la lista de cambios, la licencia y los ficheros de idioma de la versión instalada. |
 | `/etc/xbnc/xbnc.toml` | Configuración del proceso (root:xbnc, 0640). |
 | `/etc/xbnc/tls/` | Certificado TLS: fullchain.pem y privkey.pem (root:xbnc, 0750). |
 | `/etc/xbnc/locales/` | Idiomas adicionales y correcciones de traducción (ver [Traducir xBNC](TRANSLATIONS.md#translations)). |
@@ -139,8 +186,8 @@ El servicio corre como el usuario sin privilegios `xbnc`. `sudo systemctl status
 
 ### Usarlo desde fuera de casa
 
-- Abre en el router el puerto **6697** hacia la máquina de xBNC y conéctate a tu IP pública o a un nombre de DNS dinámico (DuckDNS y similares). El 6667 no hace falta abrirlo: desde fuera xBNC lo rechaza.
-- Si no quieres abrir el panel (8443) a internet, administra con un túnel SSH: `ssh -L 8443:127.0.0.1:8443 usuario@tu-ip-publica` y abre `https://localhost:8443`.
+- Abre en el router el puerto IRC con SSL hacia la máquina de xBNC (el 8443 si elegiste un solo puerto para el panel e IRC, el 6697 si elegiste uno para cada cosa; el instalador te dice cuál) y conéctate a tu IP pública o a un nombre de DNS dinámico (DuckDNS y similares). El 6667 no hace falta abrirlo: desde fuera xBNC lo rechaza.
+- Con un puerto para cada cosa, si no quieres abrir el panel (8443) a internet, administra con un túnel SSH: `ssh -L 8443:127.0.0.1:8443 usuario@tu-ip-publica` y abre `https://localhost:8443`. Con un solo puerto, el panel e IRC van juntos: al abrir el puerto se abren los dos.
 - Con un dominio que apunte a tu casa, reinstala con `--reconfigure --domain … --letsencrypt …` para quitar los avisos de certificado.
 
 ### Panel detrás de tu propio Nginx
@@ -243,11 +290,20 @@ Abre `https://bnc.ejemplo.org:8443/`, escribe el código y crea tu cuenta. La te
 ### Actualizar
 
 ```sh
-unzip xbnc-nueva.zip && cd xbnc     # o git pull
+# Instalado con git clone: descargar los cambios y compilarlos
+cd ~/xbnc
+git pull
+sudo ./scripts/update.sh --build
+
+# Instalado con el .zip: descomprimir el nuevo en una carpeta vacía
+mkdir ~/xbnc-nueva && cd ~/xbnc-nueva
+unzip ~/xbnc-VERSION-NUEVA.zip && cd xbnc
 sudo ./scripts/update.sh
 ```
 
 `update.sh` toma el programa nuevo igual que el instalador (el ya compilado de `bin/`, o lo compila; `--build` obliga a compilar), lo comprueba junto con la configuración, hace una copia de seguridad, para el servicio, cambia el binario y lo arranca. Si no arranca, vuelve al binario anterior **y** a la base de datos de antes de actualizar (un binario nuevo puede haber actualizado el esquema, y uno antiguo se niega a abrir un esquema más nuevo). Nunca se actualiza nada solo. Con `--binary RUTA` instala otro binario.
+
+> Después de `git pull`, usa siempre `--build`: sin él, update.sh toma el programa ya compilado en `target/` por la instalación anterior, que es la versión antigua.
 
 Si además quieres rehacer la configuración (por ejemplo, para pasar a dominio), ejecuta después `sudo ./scripts/install.sh --reconfigure`.
 
@@ -258,7 +314,194 @@ sudo ./scripts/uninstall.sh            # quita el servicio y el binario; conserv
 sudo ./scripts/uninstall.sh --purge    # borra también la configuración, los datos y el usuario xbnc
 ```
 
-> El puerto 6667 sin SSL solo acepta conexiones de tu red local (direcciones privadas, loopback, enlace local, CGNAT/Tailscale e IPv6 ULA). Desde internet xBNC lo rechaza con un mensaje que indica el 6697.
+> El puerto 6667 sin SSL solo acepta conexiones de tu red local (direcciones privadas, loopback, enlace local, CGNAT/Tailscale e IPv6 ULA). Desde internet xBNC lo rechaza con un mensaje que indica el puerto con SSL.
+
+<a id="beginner-guide"></a>
+
+## Guía paso a paso para principiantes
+
+Esta guía es para quien nunca ha montado un servidor. Va desde cero hasta chatear a través de xBNC, paso a paso. Copia cada comando, pégalo en la terminal y pulsa Intro.
+
+### Qué necesitas
+
+- **Un servidor Linux encendido siempre.** xBNC es persistente porque vive allí y no en tu ordenador. Lo más fácil es alquilar un VPS (un servidor virtual pequeño, unos pocos euros al mes) con Debian 12 o Ubuntu 24.04. También vale una Raspberry Pi o un ordenador de casa que no se apague nunca.
+- **Al menos 1 GB de RAM.** Compilar xBNC necesita unos 2 GB contando la swap, y el paso 4 explica cómo añadir swap si te falta.
+- **La dirección IP del servidor y acceso como root** (o un usuario con sudo). Tu proveedor de VPS te da las dos cosas al crearlo.
+- **Un cliente IRC** en el ordenador o el móvil (HexChat, mIRC, WeeChat, irssi, Goguma…), o solo el navegador: el panel tiene chat web.
+
+### Paso 1. Conéctate al servidor
+
+Abre una terminal: en Windows, *PowerShell* o *Terminal de Windows*; en macOS y Linux, *Terminal*. Conéctate por SSH con la IP de tu servidor (aquí 203.0.113.10 como ejemplo):
+
+```sh
+ssh root@203.0.113.10
+```
+
+La primera vez pregunta si confías en el servidor: escribe `yes`. Después escribe la contraseña (mientras escribes no aparece nada; es normal).
+
+### Paso 2. Crea un usuario normal
+
+No instales como root: el instalador compila xBNC como el dueño de su carpeta, y es más seguro hacerlo con un usuario normal. Si tu proveedor ya te dio un usuario con sudo, sáltate este paso.
+
+```sh
+# Debian y Ubuntu
+adduser alicia
+usermod -aG sudo alicia
+
+# Fedora, Rocky, Alma y RHEL
+adduser alicia && passwd alicia
+usermod -aG wheel alicia
+
+# Después, en cualquier sistema, entra como ese usuario
+su - alicia
+```
+
+Pon tu propio nombre en lugar de `alicia`. A partir de aquí, los comandos que empiezan por `sudo` te pedirán la contraseña de ese usuario.
+
+### Paso 3. Instala git
+
+git es el programa que descarga el código de GitHub.
+
+```sh
+sudo apt update && sudo apt install -y git      # Debian y Ubuntu
+sudo dnf install -y git                         # Fedora, Rocky, Alma y RHEL
+sudo pacman -S git                              # Arch
+sudo zypper install git                         # openSUSE
+```
+
+Ejecuta solo la línea de tu sistema.
+
+### Paso 4. Comprueba la memoria y el disco
+
+```sh
+free -h      # memoria: suma el "total" de Mem y de Swap
+df -h ~      # disco: "Disp" (o "Avail") debe ser al menos 3G
+```
+
+Si la memoria y la swap juntas suman menos de 2 GB, añade 2 GB de swap (un fichero en el disco que hace de memoria extra). Solo hace falta para compilar, pero no molesta dejarla:
+
+```sh
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+```
+
+### Paso 5. Descarga xBNC
+
+```sh
+cd ~
+git clone https://github.com/x-bnc/xbnc.git
+cd xbnc
+```
+
+Ahora tienes una carpeta llamada `xbnc` en tu carpeta personal con todo el código, y estás dentro de ella. No la borres: sirve para actualizar.
+
+### Paso 6. Ejecuta el instalador
+
+```sh
+sudo ./scripts/install.sh
+```
+
+El instalador hace unas pocas preguntas. Si no estás seguro, pulsa Intro: toma el valor que aparece entre corchetes, que es el recomendado.
+
+| Pregunta | Qué contestar |
+| --- | --- |
+| Idioma | El idioma del instalador, que también será el idioma predeterminado de xBNC. Escribe el número del idioma; el 1, inglés, es el predeterminado. |
+| ¿Quieres usar un dominio? | Si no tienes dominio, contesta que no (lo predeterminado): xBNC funciona con la IP. Si tienes uno (bnc.ejemplo.org) y ya apunta a este servidor, contesta que sí y escríbelo. |
+| ¿Pedir un certificado gratuito de Let's Encrypt? | Solo con dominio. Sí consigue un certificado en el que confían navegadores y clientes, sin avisos. Pide un correo para sus avisos. |
+| ¿Se puede llegar al puerto 80 de esta máquina desde internet? | Solo con Let's Encrypt, que comprueba el dominio por el puerto 80. Si no puedes abrirlo, contesta que no: entonces pide tu proveedor de DNS (Cloudflare, DigitalOcean, OVH, Linode o RFC 2136) y su fichero de credenciales. |
+| ¿Servir el panel en https://DOMINIO con Nginx? | Solo con dominio y Let's Encrypt. Sí deja el panel en una dirección normal, sin número de puerto. |
+| ¿Usar un solo puerto para el panel e IRC? | Sí (lo predeterminado): el panel y los clientes IRC comparten el puerto 8443. No: un puerto para cada uno (8443 para el panel y 6697 para IRC). Con Nginx no se pregunta: el panel va en el 443 y solo pide el puerto IRC (6697). |
+| Puerto… | Pulsa Intro para aceptar el puerto propuesto. Si otro programa lo está usando, el instalador lo dice y pide otro. |
+
+Después trabaja solo: instala las herramientas de compilación y Rust, muestra *Compilando xBNC como alicia (tarda unos minutos)* y, al terminar, crea el certificado, abre los puertos en el cortafuegos e instala y arranca el servicio. Al final muestra un resumen como este:
+
+```
+  ┌──────────────────────────────────────────────────────────────
+  │  xBNC está instalado y funcionando
+  │
+  │  1. Abre el panel:  https://203.0.113.10:8443  (el mismo puerto que IRC)
+  │     El navegador avisará del certificado (es propio): pulsa
+  │     «Avanzado» y «Continuar» / «Aceptar el riesgo».
+  │  2. Escribe el código de instalación:  K7QM-2XPA-9DWE
+  │     y crea tu usuario administrador.
+  │  3. Añade tus redes en «Redes → Añadir red».
+  │
+  │  Cliente IRC (HexChat, mIRC, WeeChat, irssi…):
+  │    Servidor 203.0.113.10, puerto 8443 con SSL
+  │    Desde tu red local: servidor 203.0.113.10, puerto 6667 sin SSL
+  │    Contraseña del servidor: tu usuario/tu red@dispositivo:tu contraseña
+  │    (el usuario y la contraseña del paso 2 y la red del paso 3).
+  │    El panel te la da lista para copiar en «Redes → tu red», y
+  │    «sudo xbncd info» la muestra con tus usuarios y redes reales.
+  └──────────────────────────────────────────────────────────────
+
+  Más adelante:
+    sudo xbncd info          dirección del panel y puertos
+    sudo xbncd setup-code    código de instalación
+```
+
+Apunta la dirección del panel, el código y el puerto IRC. En un VPS, no hagas caso de la línea «Desde tu red local»: es para una máquina en casa. Si los pierdes: `sudo xbncd info` muestra la dirección del panel, los puertos IRC y la contraseña del servidor de cada red, y `sudo xbncd setup-code` muestra el código.
+
+### Paso 7. Abre el panel y crea tu cuenta
+
+1. Abre la dirección del panel en el navegador.
+2. Si instalaste con la IP, el navegador avisa de que la conexión no es privada. Es lo esperado: el certificado lo ha hecho tu propio servidor y no una autoridad. Elige *Configuración avanzada* y continúa al sitio. Con dominio y Let's Encrypt no hay aviso.
+3. Escribe el código y crea tu usuario y contraseña. Esta primera cuenta es la de superadministrador.
+4. Recomendado: activa la verificación en dos pasos en *Tu cuenta*.
+
+### Paso 8. Añade tu red IRC
+
+En *Redes → Añadir red*, elige tu red de la lista (o escribe su servidor, por ejemplo `irc.ejemplo.org`), tu nick, cómo te identificas y los canales, por ejemplo `#xbnc`. En cuanto la guardas, xBNC se conecta a la red y entra en los canales, aunque no haya ningún cliente conectado. Ver [Primeros pasos](#first-steps).
+
+### Paso 9. Conecta tu cliente IRC
+
+En el panel, *Redes → tu red → Conecta tu cliente IRC* muestra tus datos exactos, con los pasos para HexChat, mIRC, WeeChat e irssi. En resumen:
+
+- **Servidor:** la IP o el dominio del resumen. **Puerto:** el de la línea «puerto … con SSL» del resumen (el 8443 si elegiste un solo puerto, el 6697 si elegiste uno para cada cosa), con SSL activado.
+- **Contraseña del servidor:** `alicia/red:tu-contraseña`, con tu usuario, el nombre de la red en xBNC y la contraseña del panel.
+- Si instalaste con la IP, activa «aceptar certificados no válidos» en el cliente, por lo mismo que en el paso 7.
+
+Más detalles en [Conectar tu cliente IRC](CLIENTS.md#clients).
+
+### Paso 10. Comprueba que es persistente
+
+Cierra el cliente IRC, o apaga el ordenador, y vuelve al cabo de un rato. Tu nick ha seguido en los canales y, al conectarte de nuevo, recibes los mensajes que te perdiste. Eso es lo que hace un bouncer.
+
+### Comandos útiles para después
+
+| Para… | Ejecuta |
+| --- | --- |
+| Ver si xBNC está funcionando | `sudo systemctl status xbnc` |
+| Ver la dirección del panel, los puertos IRC y las contraseñas del servidor | `sudo xbncd info` |
+| Ver la versión instalada | `xbncd --version` |
+| Ver los últimos mensajes del registro | `sudo journalctl -u xbnc -n 50` |
+| Reiniciar xBNC | `sudo systemctl restart xbnc` |
+| Actualizar a la última versión | `cd ~/xbnc && git pull && sudo ./scripts/update.sh --build` |
+| Hacer una copia de seguridad | `cd ~/xbnc && sudo ./scripts/backup.sh` |
+
+Si algo falla, mira en [Problemas frecuentes](TROUBLESHOOTING.md#troubleshooting). Cada script está explicado en [La carpeta scripts](#scripts).
+
+<a id="scripts"></a>
+
+## La carpeta scripts
+
+La carpeta `scripts/` del código tiene todo lo necesario para instalar y cuidar xBNC. Ejecútalos desde la carpeta `xbnc`, con `sudo`.
+
+| Script | Para qué sirve | Cómo se usa |
+| --- | --- | --- |
+| `install.sh` | Instala xBNC: el programa, el usuario del sistema, el servicio, el certificado, la configuración y el cortafuegos. También cambia una instalación existente con `--reconfigure`. | `sudo ./scripts/install.sh`<br>Opciones en [Instalación](#install). |
+| `update.sh` | Actualiza a una versión nueva: comprueba el programa nuevo y la configuración, hace una copia de seguridad, cambia el binario y reinicia. Si xBNC no arranca, vuelve solo a la versión anterior. Solo se ejecuta cuando tú lo llamas. | `sudo ./scripts/update.sh` con el .zip.<br>`git pull` y después `sudo ./scripts/update.sh --build` con git: --build compila el código nuevo. |
+| `backup.sh` | Hace una copia de seguridad coherente con xBNC en marcha: la base de datos, la clave secreta y `/etc/xbnc`, en un .tar.gz en `/var/backups/xbnc`. El fichero tiene permisos 0600 porque contiene credenciales: guárdalo en un sitio seguro. | `sudo ./scripts/backup.sh [CARPETA] [--keep N]`<br>`--keep` guarda solo las N últimas (14 por defecto). |
+| `restore.sh` | Restaura una copia hecha con backup.sh. Antes de sustituir nada guarda la base de datos y la clave actuales como `*.pre-restore-FECHA`. | `sudo ./scripts/restore.sh FICHERO [--with-config] [--yes]`<br>`--with-config` restaura también `/etc/xbnc`. |
+| `uninstall.sh` | Quita el servicio y el programa. Por defecto conserva la configuración y los datos, por si vuelves a instalar. | `sudo ./scripts/uninstall.sh`<br>`--purge` borra también la configuración, los datos y el usuario xbnc, después de pedirte que escribas `delete` (`--purge --yes` no pregunta). Las copias de /var/backups/xbnc se conservan. |
+| `prereqs.sh` | Instala lo necesario para compilar: el compilador de C, make, pkg-config, curl y Rust. El instalador y update.sh lo ejecutan solos cuando tienen que compilar. | `./scripts/prereqs.sh --check` solo dice lo que falta.<br>`sudo ./scripts/prereqs.sh` lo instala. |
+| `binary.sh` | Busca el programa que instalar (el ya compilado de `bin/` del .zip) o lo compila, y antes comprueba la memoria y el disco. Forma parte de install.sh y update.sh. | No se ejecuta a mano. |
+| `i18n.sh` | Carga los textos del instalador desde los ficheros de idioma de `locales/`, para que los scripts hablen tu idioma. Forma parte de los demás scripts. | No se ejecuta a mano. |
+
+> Las copias de seguridad contienen la clave secreta y la configuración con credenciales. No las compartas ni las dejes en una carpeta pública.
 
 <a id="first-steps"></a>
 

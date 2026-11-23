@@ -5,7 +5,7 @@ The same documentation, with search and in several languages, is published as th
 | File | What it covers |
 | --- | --- |
 | [OVERVIEW.md](OVERVIEW.md) | **What xBNC is.** What xBNC does and how it works. |
-| [INSTALL.md](INSTALL.md) | **Installation and first steps.** Installing xBNC on a server and the first minutes after. |
+| [INSTALL.md](INSTALL.md) | **Installation and first steps.** Installing xBNC on a server (with a step-by-step guide for beginners and what each script is for) and the first minutes after. |
 | [CLIENTS.md](CLIENTS.md) | **Connecting your IRC client.** HexChat, mIRC, WeeChat, irssi, mobile apps and others. |
 | [NETWORKS.md](NETWORKS.md) | **Networks.** Adding IRC networks, servers, services login and identities. |
 | [COMMANDS.md](COMMANDS.md) | **IRC commands.** Every `/msg *status` command. |
@@ -22,7 +22,7 @@ The same documentation, with search and in several languages, is published as th
 | [ARCHITECTURE.md](ARCHITECTURE.md) | **Architecture.** How the code is organised. |
 | [THREAT_MODEL.md](THREAT_MODEL.md) | **Threat model.** What xBNC protects, against whom and how. |
 | [PERFORMANCE.md](PERFORMANCE.md) | **Performance.** Measurements and limits. |
-| [TESTING.md](TESTING.md) | **Testing.** Test environment, automatic tests, the test report and how to test the beta. |
+| [TESTING.md](TESTING.md) | **Testing.** Test environment, automatic tests, the test report and the tests on real networks. |
 | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | **Common problems.** Symptoms, causes and solutions. |
 | [PROJECT.md](PROJECT.md) | **Project.** What's new, roadmap, contributing, security policy and licence. |
 | [STATUS.md](STATUS.md) | **Status of this version.** What is included, how it was checked and the known limits. |

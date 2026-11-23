@@ -10,11 +10,13 @@ Always start with the log and with `*status`: `sudo journalctl -u xbnc -n 100 --
 
 | Symptom | Likely cause | Solution |
 | --- | --- | --- |
-| “The build failed” and “Killed” in the output | The machine ran out of memory while building (it needs about 2 GB, swap included). | Add swap and run the installer again: sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile |
+| “The build failed” and “SIGKILL” or “Killed” in the output | The machine ran out of memory while building (it needs about 2 GB, swap included). | Add swap and run the installer again: sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile |
 | “The ready-made binary does not run on this system” | The system is older than 2019 (glibc older than 2.28). | Nothing to do: the installer builds it by itself. It takes a few minutes. |
-| “Rust could not be installed” | The server cannot reach https://sh.rustup.rs (firewall or proxy). | Allow HTTPS to sh.rustup.rs and static.rust-lang.org, or install Rust by hand and run the installer again. On x86\_64 this step is not needed: the program comes ready-made. |
-| “about 3 GB of free space are needed” | Not enough disk to build. | Free space, or unpack the .zip on a disk with more room. |
-| “systemd is required” | The system does not use systemd (Alpine, containers). | Use Docker (see Docker above) or a distribution with systemd. |
+| “Rust could not be installed” | The server cannot reach https://sh.rustup.rs (firewall or proxy). | Allow HTTPS to sh.rustup.rs and static.rust-lang.org, or install Rust by hand and run the installer again. With the .zip of a release, on x86\_64, this step is not needed: the program comes ready-made. |
+| “about 3 GB of free space are needed” | Not enough disk to build. | Free space, or put the xbnc folder on a disk with more room. |
+| “systemd is required” | The system does not use systemd (Alpine, containers). | Use Docker (see Docker in Installation) or a distribution with systemd. |
+| After git pull and update.sh, the version is still the old one | Without --build, update.sh takes the program already built in target/ by the previous installation. | Run sudo ./scripts/update.sh --build. |
+| The service keeps restarting and the log says “cannot listen on 0.0.0.0:PORT” … “Address already in use” | Another program already uses that port. The installer checks the panel and IRC ports, but not 6667 without SSL, which is often taken by an IRC server on the same machine. | See which program uses it: sudo ss -ltnp \| grep PORT. Then change the port, for example sudo ./scripts/install.sh --reconfigure --plain-port 6668 (or --plain-port off), or stop the other program. |
 
 ### You cannot connect
 
@@ -29,10 +31,10 @@ Always start with the log and with `*status`: `sudo journalctl -u xbnc -n 100 --
 | Your account has no networks yet | The account has no network, or it is disabled. | Add one in Networks → Add network, or enable it. |
 | From home, the domain does not connect | Your router does not support NAT loopback (hairpin NAT). | From home use the local IP of the xBNC machine (From your local network, in the panel). |
 | By the local IP, the client rejects the certificate | The certificate is for the domain (Let's Encrypt), not for the IP. | Use port 6667 without SSL from home, or turn on “accept invalid certificates”. |
-| this port uses SSL/TLS. Enable SSL… | You connect to 6697 without SSL. | Turn on SSL or use 6667 from your local network. |
-| this port only accepts connections from the local network | You use 6667 from outside. | Use 6697 with SSL. |
-| The client does not connect and nothing appears in the log | The client does not reach the machine (IP, port or firewall). | sudo xbncd info; from the client: openssl s\_client -connect IP:6697 (Linux) or Test-NetConnection IP -Port 6697 (Windows). |
-| Log: client sent TLS to a plain-text port | The client has SSL on against 6667. | Turn SSL off or use 6697. |
+| this port uses SSL/TLS. Enable SSL… | Your client connects without SSL to the port that uses SSL (8443 or 6697). | Turn on SSL or use 6667 from your local network. |
+| this port only accepts connections from the local network | You use 6667 from outside. | Use the port with SSL (8443 or 6697). |
+| The client does not connect and nothing appears in the log | The client does not reach the machine (IP, port or firewall). | sudo xbncd info shows the right port; from the client: openssl s\_client -connect IP:PORT (Linux or macOS) or Test-NetConnection IP -Port PORT (Windows). |
+| Log: client sent TLS to a plain-text port | The client has SSL on against 6667. | Turn SSL off or use the port with SSL. |
 | Log: TLS handshake failed | The client does not accept the self-signed certificate. | Turn on “accept invalid certificates” or use --domain with --letsencrypt. |
 
 ### Problems with a network

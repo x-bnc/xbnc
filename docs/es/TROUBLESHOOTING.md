@@ -10,11 +10,13 @@ Empieza siempre por el registro y por `*status`: `sudo journalctl -u xbnc -n 100
 
 | Síntoma | Causa probable | Solución |
 | --- | --- | --- |
-| «La compilación ha fallado» y «Killed» en la salida | La máquina se quedó sin memoria al compilar (necesita unos 2 GB, contando la swap). | Añade swap y vuelve a ejecutar el instalador: sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile |
+| «La compilación ha fallado» y «SIGKILL» o «Killed» en la salida | La máquina se quedó sin memoria al compilar (necesita unos 2 GB, contando la swap). | Añade swap y vuelve a ejecutar el instalador: sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile |
 | «El binario preparado no funciona en este sistema» | El sistema es anterior a 2019 (glibc anterior a 2.28). | No hay que hacer nada: el instalador lo compila solo. Tarda unos minutos. |
-| «No se pudo instalar Rust» | El servidor no llega a https://sh.rustup.rs (cortafuegos o proxy). | Permite HTTPS hacia sh.rustup.rs y static.rust-lang.org, o instala Rust a mano y vuelve a ejecutar el instalador. En x86\_64 este paso no hace falta: el programa viene ya compilado. |
-| «Hacen falta unos 3 GB libres» | No hay disco suficiente para compilar. | Libera espacio, o descomprime el .zip en un disco con más sitio. |
-| «Se necesita systemd» | El sistema no usa systemd (Alpine, contenedores). | Usa Docker (ver Docker más arriba) o una distribución con systemd. |
+| «No se pudo instalar Rust» | El servidor no llega a https://sh.rustup.rs (cortafuegos o proxy). | Permite HTTPS hacia sh.rustup.rs y static.rust-lang.org, o instala Rust a mano y vuelve a ejecutar el instalador. Con el .zip de una versión, en x86\_64, este paso no hace falta: el programa viene ya compilado. |
+| «Hacen falta unos 3 GB libres» | No hay disco suficiente para compilar. | Libera espacio, o pon la carpeta xbnc en un disco con más sitio. |
+| «Se necesita systemd» | El sistema no usa systemd (Alpine, contenedores). | Usa Docker (ver Docker en Instalación) o una distribución con systemd. |
+| Después de git pull y update.sh, la versión sigue siendo la antigua | Sin --build, update.sh toma el programa ya compilado en target/ por la instalación anterior. | Ejecuta sudo ./scripts/update.sh --build. |
+| El servicio se reinicia una y otra vez y el registro dice «cannot listen on 0.0.0.0:PUERTO» … «Address already in use» | Otro programa ya usa ese puerto. El instalador comprueba los puertos del panel e IRC, pero no el 6667 sin SSL, que a menudo lo ocupa un servidor IRC en la misma máquina. | Mira qué programa lo usa: sudo ss -ltnp \| grep PUERTO. Después cambia el puerto, por ejemplo sudo ./scripts/install.sh --reconfigure --plain-port 6668 (o --plain-port off), o para el otro programa. |
 
 ### No puedes conectar
 
@@ -29,10 +31,10 @@ Empieza siempre por el registro y por `*status`: `sudo journalctl -u xbnc -n 100
 | Tu cuenta todavía no tiene redes | La cuenta no tiene ninguna red, o está desactivada. | Añade una en Redes → Añadir red, o actívala. |
 | Desde casa, el dominio no conecta | Tu router no admite NAT loopback (hairpin NAT). | Desde casa usa la IP local de la máquina de xBNC (Desde tu red local, en el panel). |
 | Por la IP local, el cliente rechaza el certificado | El certificado es del dominio (Let's Encrypt), no de la IP. | Desde casa usa el puerto 6667 sin SSL, o activa «aceptar certificados no válidos». |
-| this port uses SSL/TLS. Enable SSL… | Conectas al 6697 sin SSL. | Activa SSL o usa el 6667 desde tu red local. |
-| this port only accepts connections from the local network | Usas el 6667 desde fuera. | Usa el 6697 con SSL. |
-| El cliente no conecta y en el registro no aparece nada | El cliente no llega a la máquina (IP, puerto o cortafuegos). | sudo xbncd info; desde el cliente: openssl s\_client -connect IP:6697 (Linux) o Test-NetConnection IP -Port 6697 (Windows). |
-| Registro: client sent TLS to a plain-text port | El cliente tiene SSL activado contra el 6667. | Desactiva SSL o usa el 6697. |
+| this port uses SSL/TLS. Enable SSL… | Tu cliente se conecta sin SSL al puerto que usa SSL (8443 o 6697). | Activa SSL o usa el 6667 desde tu red local. |
+| this port only accepts connections from the local network | Usas el 6667 desde fuera. | Usa el puerto con SSL (8443 o 6697). |
+| El cliente no conecta y en el registro no aparece nada | El cliente no llega a la máquina (IP, puerto o cortafuegos). | sudo xbncd info muestra el puerto correcto; desde el cliente: openssl s\_client -connect IP:PUERTO (Linux o macOS) o Test-NetConnection IP -Port PUERTO (Windows). |
+| Registro: client sent TLS to a plain-text port | El cliente tiene SSL activado contra el 6667. | Desactiva SSL o usa el puerto con SSL. |
 | Registro: TLS handshake failed | El cliente no acepta el certificado propio. | Activa «aceptar certificados no válidos» o usa --domain con --letsencrypt. |
 
 ### Problemas con una red

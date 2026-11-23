@@ -77,11 +77,11 @@ sudo systemctl reload xbnc
 | Script | Uso |
 | --- | --- |
 | `scripts/install.sh` | Instala o reconfigura el servicio (ver [Instalación](INSTALL.md#install)). |
-| `scripts/update.sh [--binary RUTA] [--build]` | Actualiza el binario con copia previa y vuelta atrás automática. |
+| `scripts/update.sh [--binary RUTA] [--build]` | Actualiza el binario con copia previa y vuelta atrás automática. Después de git pull, usa --build (ver [Instalación](INSTALL.md#install)). |
 | `scripts/prereqs.sh [--check]` | Instala lo necesario para compilar xBNC (herramientas y Rust), o con --check solo dice qué falta. |
 | `scripts/backup.sh [CARPETA] [--keep N]` | Copia en caliente: base de datos, clave secreta y /etc/xbnc en un .tar.gz 0600 (en /var/backups/xbnc, conserva 14). |
 | `scripts/restore.sh ARCHIVO [--with-config] [--yes]` | Restaura una copia de backup.sh. Guarda los ficheros actuales como \*.pre-restore-FECHA. |
-| `scripts/uninstall.sh [--purge]` | Quita el servicio y el binario; con --purge, también configuración, datos y el usuario xbnc. |
+| `scripts/uninstall.sh [--purge [--yes]]` | Quita el servicio y el binario; con --purge, también configuración, datos y el usuario xbnc (pide confirmación salvo con --yes). |
 
 <a id="monitoring"></a>
 
@@ -184,7 +184,7 @@ Con `[updates] repository` (o `url`) en `xbnc.toml`, xBNC consulta una vez al d�
 
 ### Actualizar
 
-En esta beta, xBNC se instala desde el .zip: se actualiza descomprimiendo el nuevo y ejecutando `scripts/update.sh` (ver [Instalación](INSTALL.md#install)).
+xBNC se instala desde GitHub con `git clone` o desde el .zip de una versión. Para actualizar: `git pull` en la carpeta xbnc y `sudo ./scripts/update.sh --build`, o descomprimir el nuevo .zip y ejecutar `sudo ./scripts/update.sh` (ver [Instalación](INSTALL.md#install)).
 
 ### Actualizar desde el panel (instalaciones con paquete)
 
@@ -203,4 +203,4 @@ XBNC_RELEASE_KEY="$(cat xbnc-release.key)" xbncd release sign xbnc_1.0.0_amd64.d
 xbncd release verify --public-key "BASE64..." xbnc_1.0.0_amd64.deb
 ```
 
-El repositorio incluye un flujo que compila y firma paquetes .deb y .rpm y una imagen de contenedor (`.github/workflows/release.yml`). Necesita la clave como secreto del repositorio (`XBNC_RELEASE_KEY`) y la clave pública como variable (`XBNC_RELEASE_PUBLIC_KEY`). Durante la beta xBNC se publica solo como un .zip con el código fuente, así que el flujo solo se ejecuta cuando se lanza a mano desde la pestaña *Actions*.
+El repositorio incluye un flujo que compila y firma paquetes .deb y .rpm y una imagen de contenedor (`.github/workflows/release.yml`). Necesita la clave como secreto del repositorio (`XBNC_RELEASE_KEY`) y la clave pública como variable (`XBNC_RELEASE_PUBLIC_KEY`). xBNC se publica como un .zip con el código fuente (y el programa ya compilado para x86\_64), así que el flujo solo se ejecuta cuando se lanza a mano desde la pestaña *Actions*.

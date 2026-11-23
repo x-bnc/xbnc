@@ -4,7 +4,7 @@
 
 - [Entorno de pruebas](#test-environment)
 - [Informe para pruebas](#test-report)
-- [Probar la beta](#beta)
+- [Probado en redes reales](#beta)
 
 <a id="test-environment"></a>
 
@@ -39,7 +39,7 @@ Incluyen el protocolo, las unidades, la API contra un bouncer real, IRC de extre
 
 ### Pruebas en redes reales
 
-El plan de pruebas por red, módulo y plugin está en `testenv/real/PLAN.md`. Ver [Probar la beta](#beta).
+El plan de pruebas por red, módulo y plugin está en `testenv/real/PLAN.md`. Ver [Probado en redes reales](#beta).
 
 ### Los conjuntos de tests
 
@@ -164,16 +164,16 @@ En *Tu cuenta → Informe para pruebas → Descargar informe* (o `GET /api/v1/di
 
 <a id="beta"></a>
 
-## Probar la beta
+## Probado en redes reales
 
-La versión 1.0.0 está en pruebas en redes reales (Undernet, Libera.Chat, freenode, Rizon, EvilNet, IRCnet y otras) antes de declararla estable.
+Antes de declararla estable, la versión 1.0.0 pasó todo el plan de pruebas en redes reales (`testenv/real/PLAN.md`) en Undernet, Libera.Chat, freenode, Rizon, EvilNet, IRCnet y otras: el instalador en x86\_64 y en ARM (Raspberry Pi) con systemd real; TLS y SASL (PLAIN y EXTERNAL con certificado de cliente); el login con los servicios; invitación y desbaneo; los módulos y los plugins oficiales, también los que usan la web; FiSH con clientes reales; DCC; el importador. Lo que salió se corrigió antes de publicarla.
 
-1. Instálala y añade tus redes.
-2. Sigue el plan de pruebas de `testenv/real/PLAN.md`: una sección por red, módulo y plugin.
-3. Si algo falla, descarga el [informe para pruebas](#test-report) de *Tu cuenta*.
-4. Envíalo con lo que hiciste, lo que esperabas, lo que pasó, la red, el cliente, la hora aproximada, la versión (`/msg *status version`) y los avisos del registro (`sudo journalctl -u xbnc --since "1 hour ago" | grep -E "WARN|ERROR"`; revísalo antes de enviarlo).
+### Avisar de un problema
 
-Si el proyecto está en GitHub, usa la plantilla de incidencia «Informe de prueba». Los fallos de seguridad no se publican: sigue `SECURITY.md`.
+1. Descarga el [informe para pruebas](#test-report) de *Tu cuenta*: no contiene contraseñas, mensajes ni nicks de otras personas.
+2. Envíalo con lo que hiciste, lo que esperabas, lo que pasó, la red, el cliente, la hora aproximada, la versión (`/msg *status version`) y los avisos del registro (`sudo journalctl -u xbnc --since "1 hour ago" | grep -E "WARN|ERROR"`; revísalo antes de enviarlo).
+
+En GitHub, usa la plantilla de incidencia «Informe de prueba». Los fallos de seguridad no se publican: sigue `SECURITY.md`.
 
 ### Límites conocidos
 
@@ -184,5 +184,5 @@ Si el proyecto está en GitHub, usa la plantilla de incidencia «Informe de prue
 - La búsqueda por trozos de palabra solo se usa si no hay coincidencias por palabra completa.
 - Si el proceso se corta de golpe, se pueden repetir unos segundos de historial.
 - En un idioma añadido como fichero, las respuestas de los plugins oficiales salen en inglés (hablan inglés y español).
-- En esta beta la instalación es desde el código; no hay paquetes .deb ni .rpm publicados.
-- Pendiente de comprobar en redes reales: login con X, NickServ, Q y AuthServ; invitación y desbaneo; plugins con acceso web; FiSH con clientes reales; instalador con systemd real y Let's Encrypt; DCC entre redes; SASL EXTERNAL; importador con instalaciones reales.
+- La instalación es desde el código (`git clone`) o desde el .zip de una versión; no hay paquetes .deb ni .rpm publicados.
+- Pendiente todavía: una auditoría de seguridad externa y una prueba de carga en hardware dedicado.

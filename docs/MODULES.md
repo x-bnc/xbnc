@@ -112,7 +112,8 @@ Checks every 30 seconds whether your nick is free and takes it back as soon as w
 **Example**
 
 ```text
-<*status> Your nick y2k is taken; connected as y2k_. I will take it back as soon as it is free.
+Nickname y2k is already in use: you are y2k_ for now.
+* y2k has quit (Ping timeout)
 * y2k_ is now known as y2k
 ```
 
@@ -203,7 +204,7 @@ If you are left alone in a channel without op, leaves and joins again to get it.
 
 ```text
 * bob has left #xbnc
-<*status> You are alone in #xbnc without op: leaving and joining again.
+<*status> Alone in #xbnc without op: leaving and joining again to get it.
 * y2k has joined #xbnc (with op)
 ```
 
@@ -281,9 +282,9 @@ Marks you away when you close all your clients and, when you come back, sums up 
 
 ```
 Away message: Back soon
-Nick while away: {nick}|away
+Nick while you are away: {nick}|away
 
-When you return, *status sums up: “While you were away: 3 private messages (bob, carol) and 2 mentions in #xbnc”.
+When you return, *status sums up: “While you were away: 3 private message(s) and 2 mention(s) in #xbnc.”
 ```
 
 From IRC: `/msg *status enable away` and `/msg *status get away`
@@ -483,8 +484,8 @@ Always answers VERSION (by default with the xBNC version and its web site), answ
 
 ```
 CTCP requests allowed every 10 seconds: 5
-Reply to VERSION: mIRC v7.77
-CTCP to ignore:
+VERSION reply: mIRC v7.77
+CTCPs to ignore:
 FINGER
 TIME
 ```
@@ -527,7 +528,7 @@ Modern clients get them as real events; the rest as messages from \*events when 
 **Example**
 
 ```
-With “Store kicks, nick changes, topics and modes” on, when the history is played back
+With “Keep kicks, nick changes, topics and modes” on, when the history is played back
 you also see: “bob changed the topic to: Meeting at 20:00”.
 ```
 

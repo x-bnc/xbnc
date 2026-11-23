@@ -4,7 +4,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versio
 
 ## [1.0.0] - 2026-11-21
 
-First complete version, ready for testing on real networks (`testenv/real/PLAN.md`).
+First complete version and the first stable one, tested on real networks with the whole test plan (`testenv/real/PLAN.md`).
 
 ### Added
 
@@ -99,9 +99,10 @@ First complete version, ready for testing on real networks (`testenv/real/PLAN.m
 - Lines that are not UTF-8 are decoded as Windows-1252 instead of showing “�”.
 - The panel and the server messages are written in English, with Spanish as a translation.
 - Saved channels are listed in their joining order instead of alphabetically.
-- The release workflow (`.github/workflows/release.yml`), which builds .deb and .rpm packages and container images, only runs when started by hand: during the beta xBNC is published as a source .zip.
+- The release workflow (`.github/workflows/release.yml`), which builds .deb and .rpm packages and container images, only runs when started by hand: xBNC is published as a source .zip with the ready-made program for x86_64.
 - The sign-in page uses the xBNC colours (yellow and black) in the light and dark themes, with the xBNC logo and an IRC window of the `#xbnc` channel.
 - Every example channel in the panel, the help, the plugins and the documentation is `#xbnc` (and `#xbnc-dev` when a second one is needed).
+- The documentation installs from GitHub with `git clone` (the installer builds the program, since the repository does not include `bin/`), with the .zip of a release as the alternative with the ready-made program; after `git pull`, updates use `scripts/update.sh --build`. New in the wiki: a step-by-step guide for beginners and what each script of `scripts/` is for.
 - The wiki is no longer inside the app: it is a separate project (`xbnc-wiki`).
 
 ## [0.8.1] - 2026-11-11

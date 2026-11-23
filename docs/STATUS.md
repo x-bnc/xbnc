@@ -1,8 +1,8 @@
 # Status of version 1.0.0
 
-Version 1.0.0 is the first complete version of xBNC and is a **test release (beta)**. Everything planned is implemented and covered by automatic tests. What is left before declaring it stable cannot be done without other people: testing it on real networks with real users and an external security audit.
+Version 1.0.0 is the first complete version of xBNC and the first **stable** one. Everything planned is implemented, covered by automatic tests and tested on real networks with the whole test plan. What is still left needs people outside the project: an external security audit.
 
-This page lists what is included, how it was checked and the known limits. The test plan for real networks is in [testenv/real/PLAN.md](../testenv/real/PLAN.md).
+This page lists what is included, how it was checked and the known limits. The test plan for real networks, which version 1.0.0 passed, is in [testenv/real/PLAN.md](../testenv/real/PLAN.md).
 
 ## What is included
 
@@ -20,14 +20,14 @@ This page lists what is included, how it was checked and the known limits. The t
 | Users and access | Complete | Five roles, quotas of networks, devices and history, Argon2id, two-step verification, passkeys, OpenID Connect and LDAP. |
 | Data | Complete | SQLite or PostgreSQL, active/standby high availability, backups from the panel, per-channel retention, full-text search (and by pieces of words), per-user time zone. |
 | Migration | Complete | From another bouncer: users, networks, channels, equivalent modules and logs, with time zone and daylight saving time. |
-| Installation | Complete | `scripts/install.sh` without editing files and without installing anything first: the program ready-made for x86_64 (glibc 2.28 or later) or built by itself on any other Linux with systemd (`scripts/prereqs.sh` installs the build tools and Rust), IP or domain, own certificate or Let's Encrypt, optional Nginx, firewall and systemd. |
+| Installation | Complete | From GitHub with `git clone` and `scripts/install.sh`, without editing files: the installer builds the program on any Linux with systemd (`scripts/prereqs.sh` installs the build tools and Rust; it needs about 2 GB of memory counting swap and 3 GB of disk). The .zip of each release also brings the program ready-made for x86_64 (glibc 2.28 or later). IP or domain, own certificate or Let's Encrypt, optional Nginx, firewall and systemd. |
 | Documentation | Complete | The wiki (a separate website, in English and Spanish), the documentation in `docs/` in English and in `docs/es/` in Spanish (generated from the wiki), `README.md`, `CHANGELOG.md`, `SECURITY.md`, `TRANSLATING.md` and the test plan. |
-| Tests on real networks | **Pending** | It is the goal of this beta. The panel generates a test report (*Your account → Test report*). |
+| Tests on real networks | Done | The whole test plan (`testenv/real/PLAN.md`) on Undernet, Libera.Chat, freenode, Rizon, EvilNet, IRCnet and others. Problems can be reported with the test report of the panel (*Your account → Test report*). |
 | External audit | **Pending** | It has to be done by someone outside the project. |
 
 ## How it was checked
 
-- **257 automatic tests**, which pass with SQLite and with PostgreSQL: protocol, units, the API against a real bouncer, IRC end to end, every `*status` command, switching to a backup server, the trusted certificate (with a real TLS handshake), upgrading the database, modules and plugins against a simulated IRC server, panel and SSO. One more (`real_ircd`) only runs against a real IRC server; CI runs it against Ergo, InspIRCd, UnrealIRCd, Solanum and miniircd. The details are in [TESTING.md](TESTING.md).
+- **More than 270 automatic tests**, which pass with SQLite and with PostgreSQL: protocol, units, the API against a real bouncer, IRC end to end, every `*status` command, switching to a backup server, the trusted certificate (with a real TLS handshake), upgrading the database, modules and plugins against a simulated IRC server, panel and SSO. One more (`real_ircd`) only runs against a real IRC server; CI runs it against Ergo, InspIRCd, UnrealIRCd, Solanum and miniircd. The details are in [TESTING.md](TESTING.md).
 - **Manual tests on a real IRC server (InspIRCd)** with xBNC and several clients: official plugins; the modules of 1.0 (character encoding, removing colours, FiSH in both directions, ignore, detached channels, getting op back, scheduled tasks); earlier modules (auto op, aliases, watch words, rejoin after a kick, away); IRCv3 towards the clients; the help and the `*status` commands in Spanish and in English, including `shutdown`.
 - **Internal security review** of the new code of 1.0. It fixed three points before publishing:
   - on networks without services the password is never sent to whoever uses the nick “NickServ”;
@@ -40,14 +40,11 @@ This page lists what is included, how it was checked and the known limits. The t
 
 ## Known limits
 
-**Still to be checked on real networks** (covered by the test plan):
+**Tested on real networks** with the whole test plan before declaring it stable: the installer on x86_64 and on ARM (Raspberry Pi) with real systemd; TLS and SASL (PLAIN, and EXTERNAL with a client certificate generated in the panel); login with the services (X, NickServ, Q, AuthServ) and invite and unban; the modules and the official plugins, including the ones with web access; FiSH against HexChat in channels and in private (with DH1080 key exchange); DCC sending and receiving through xBNC; the importer. What came up was fixed before publishing it.
 
-- Login with X, NickServ, Q and AuthServ, and invite and unban with X or ChanServ: there were no network services here.
-- The plugins with web access (link titles, weather and news): their requests were tested, not the answers of the real sites.
-- FiSH against real mIRC, HexChat or WeeChat: it was tested against an independent implementation in Python.
-- The installer with real systemd, Let's Encrypt and Nginx.
-- DCC with real clients on different networks, and SASL EXTERNAL against a real network.
-- The importer with a real installation of another bouncer.
+**Not done yet:**
+
+- An external security audit: it has to be done by someone outside the project.
 - A load test on dedicated hardware: the current measurement is 2,000 users on 2 vCPU with everything on the same machine (see [PERFORMANCE.md](PERFORMANCE.md)).
 
 **Design limits:**
@@ -59,9 +56,9 @@ This page lists what is included, how it was checked and the known limits. The t
 - Search by pieces of words is only used when there are no whole-word matches.
 - If the process stops abruptly, up to about 5 seconds of history may be repeated.
 - In a language added as a file, the replies of the official plugins come in English (they speak English and Spanish).
-- No `.deb` or `.rpm` packages and no ready-made Docker image are published in this beta: xBNC is published as a source .zip and installed from the source code (with `scripts/install.sh`, or with `docker compose up -d --build`, which builds the image from the source; see [INSTALL.md](INSTALL.md)).
+- No `.deb` or `.rpm` packages and no ready-made Docker image are published: xBNC is installed from the source code with `git clone` and `scripts/install.sh` (or from the .zip of a release, which also brings the program ready-made for x86_64), or with `docker compose up -d --build`, which builds the image from the source (see [INSTALL.md](INSTALL.md)).
 
 ## Next step
 
-1. Tests on real networks with [testenv/real/PLAN.md](../testenv/real/PLAN.md) and fixing what comes up.
-2. External audit and the stable version.
+1. Version 1.1.0: see the [roadmap](PROJECT.md#roadmap).
+2. An external security audit.

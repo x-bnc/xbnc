@@ -112,7 +112,8 @@ Comprueba cada 30 segundos si tu nick está libre y lo recupera al momento cuand
 **Ejemplo**
 
 ```text
-<*status> Tu nick y2k está ocupado; conectado como y2k_. Lo recupero en cuanto quede libre.
+El nick y2k ya está en uso: de momento eres y2k_.
+* y2k ha salido (Ping timeout)
 * y2k_ ahora se llama y2k
 ```
 
@@ -203,7 +204,7 @@ Si te quedas solo en un canal sin op, sales y vuelves a entrar para conseguirlo.
 
 ```text
 * bob ha salido de #xbnc
-<*status> Te has quedado solo en #xbnc sin op: salgo y vuelvo a entrar.
+<*status> Solo en #xbnc y sin op: sales y vuelves a entrar para conseguirlo.
 * y2k ha entrado en #xbnc (con op)
 ```
 
@@ -283,7 +284,7 @@ Te marca como ausente cuando cierras todos tus clientes y, al volver, te resume 
 Mensaje de ausencia: Vuelvo enseguida
 Nick mientras estás ausente: {nick}|away
 
-Al volver, *status te resume: «Mientras no estabas: 3 privados (bob, carol) y 2 menciones en #xbnc».
+Al volver, *status te resume: «Mientras no estabas: 3 mensaje(s) privado(s) y 2 mención(es) en #xbnc.»
 ```
 
 Desde IRC: `/msg *status enable away` y `/msg *status get away`

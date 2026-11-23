@@ -19,7 +19,7 @@ sudo ./scripts/backup.sh /mnt/copias --keep 30
 # Cada noche a las 3:30
 echo '30 3 * * * root /ruta/a/xbnc/scripts/backup.sh >/dev/null' | sudo tee /etc/cron.d/xbnc-backup
 
-# Restaurar (para el servicio, guarda lo actual como *.pre-restore-FECHA, restaura y arranca)
+# Restaurar (pide confirmación salvo con --yes; para el servicio, guarda lo actual como *.pre-restore-FECHA, restaura y arranca)
 sudo ./scripts/restore.sh /var/backups/xbnc/xbnc-20261108T033000Z.tar.gz
 sudo ./scripts/restore.sh ARCHIVO --with-config    # también /etc/xbnc
 

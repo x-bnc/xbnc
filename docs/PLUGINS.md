@@ -46,7 +46,7 @@ In a channel: !trivia to start, !trivia stop, !trivia top (also as !trivial). An
 <y2k> Trivia starts! 10 questions; answer by writing in the channel.
 <y2k> Question 1/10: What is the capital of Japan?
 <bob> tokyo
-<y2k> Correct, bob! It was “Tokyo”. You have 1 point.
+<y2k> Correct, bob! It was "Tokyo". You have 1 point.
 ```
 
 | Setting | Default | Detail |
@@ -107,7 +107,7 @@ Automatic. An administrator can block any of these sites in the panel (Plugins �
 
 ```text
 <bob> look at this https://www.youtube.com/watch?v=…
-<y2k> YouTube: How to set up an IRC bouncer in 5 minutes
+<y2k> [YouTube] How to set up an IRC bouncer in 5 minutes · Example Channel
 ```
 
 | Setting | Default | Detail |
@@ -135,6 +135,7 @@ In a channel: !def word (or ?word), !def word = text, !def -word, !defs. Here: /
 
 ```text
 <y2k> !def rules = Be respectful and do not flood.
+<y2k> Saved: rules
 <carol> ?rules
 <y2k> rules: Be respectful and do not flood.
 ```
@@ -221,6 +222,7 @@ In a channel: nick++, nick--, !karma nick, !karma top. Here: /msg \*karma nick.
 <bob> carol++
 <y2k> carol has 1 karma.
 <carol> !karma top
+<y2k> Most karma: carol (1)
 ```
 
 | Setting | Default | Detail |
@@ -310,7 +312,7 @@ In a channel: !8ball question, !rps rock, !hangman and !g letter (or the whole w
 <bob> !rps rock
 <y2k> rock against scissors: you win, bob!
 <bob> !8ball will it work?
-<y2k> The 8 ball says: “Ask again later”.
+<y2k> The 8 ball says: "Ask again later".
 ```
 
 | Setting | Default | Detail |
@@ -366,8 +368,9 @@ In a channel: !poll Pizza or sushi? \| pizza \| sushi (up to 10 options) — vot
 
 ```text
 <carol> !poll Coffee or tea? | coffee | tea
+<y2k> Poll by carol: Coffee or tea? — 1) coffee 2) tea. Vote with !vote N. Closes in 1 h.
 <bob> !vote 2
-<*poll> Vote recorded in #xbnc: 2) tea. You can change it by voting again.
+-y2k- Vote counted in #xbnc: 2) tea. You can change it by voting again.
 ```
 
 | Setting | Default | Detail |
@@ -398,8 +401,8 @@ In a channel: !remind 10m take the pizza out — !remind 2 hours call Bob — !r
 
 ```text
 <bob> !remind in 10 minutes take the pizza out
-<y2k> bob: OK, I will remind you in 10 minutes.
-<y2k> bob: take the pizza out
+<y2k> bob: OK, I will remind you in 10 min.
+<y2k> bob: reminder: take the pizza out
 ```
 
 | Setting | Default | Detail |
@@ -428,9 +431,9 @@ In a channel: !tell bob the build is fixed — bob gets it in the channel as soo
 
 ```text
 <y2k> !tell carol the build is fixed
-<y2k> y2k: OK, I will tell carol as soon as she speaks or joins the channel.
+<y2k> y2k: OK, I will tell carol as soon as they write or join the channel.
 * carol has joined #xbnc
-<y2k> carol: y2k left you a message 5 minutes ago: the build is fixed
+<y2k> carol: y2k left you a message 5 min ago: the build is fixed
 ```
 
 | Setting | Default | Detail |
@@ -519,7 +522,7 @@ In a channel: !seen bob — when bob was last seen and whether he is here now. /
 
 ```text
 <bob> !seen carol
-<y2k> carol was last seen 2 hours ago, in #xbnc saying “off to dinner”.
+<y2k> carol was last seen 2 h 14 min ago, talking in #xbnc: "off to dinner".
 ```
 
 | Setting | Default | Detail |
@@ -551,7 +554,7 @@ Works by itself in the channels you list in the settings (you must be a channel 
 <spam> a
 <spam> a
 <spam> a
-* spam was kicked from #xbnc by y2k (flood)
+* spam was kicked from #xbnc by y2k (No flooding, please)
 ```
 
 | Setting | Default | Detail |

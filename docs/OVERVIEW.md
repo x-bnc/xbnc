@@ -13,6 +13,13 @@ xBNC is an **IRC bouncer**: a program that stays connected to your IRC networks 
 
 You install it on a server of your own (a VPS, a Raspberry Pi, a computer at home), use it with your usual IRC client and configure everything from a web panel, or from IRC with `/msg *status`. It is a single program written in Rust, with the panel built in.
 
+### Persistent: it keeps working while you are away
+
+- xBNC runs on your server as a system service, not on your computer. Closing the IRC client, switching off the computer or losing coverage on the phone does not take you off IRC: your nick stays in its channels.
+- While you are away it stores every message of your channels and private conversations in its database, marks you as away, identifies you to the network services and runs your modules and plugins.
+- When you come back, each device receives what it missed, with the original time and without repeating what it already saw.
+- If the network drops the connection, xBNC reconnects by itself and joins your channels again. If the server reboots, systemd starts xBNC again and it reconnects; if xBNC stops because of an error, systemd restarts it. The history is on disk, so nothing stored is lost.
+
 - **24** native modules, configured per network
 - **18** official WebAssembly plugins
 - **2+** languages: English and Spanish built in, and any other with a translation file
@@ -31,7 +38,7 @@ You install it on a server of your own (a VPS, a Raspberry Pi, a computer at hom
 - **Administration:** web panel, REST API with tokens, WebSocket, Prometheus metrics with a Grafana dashboard, alerts in the panel, over IRC and by webhook.
 - **Security:** Argon2id, encrypted credentials, brute-force blocking, CSRF, CSP, an unprivileged service, sandboxed plugins and continuous *fuzzing*.
 
-> **Version 1.0.0, test release.** It is the first complete version and is being tested on real networks before it is declared stable. See [Testing the beta](TESTING.md#beta) to take part.
+> **Version 1.0.0, stable.** It is the first complete version of xBNC, tested on real networks before being declared stable. What was tested and how to report a problem: [Tested on real networks](TESTING.md#beta).
 
 <a id="how-it-works"></a>
 

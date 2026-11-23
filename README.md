@@ -4,7 +4,7 @@ A modern IRC bouncer written in Rust. It is **persistent**: it runs on your serv
 
 Website and documentation: **[xbnc.org](https://xbnc.org)** · [Wiki](https://xbnc.org/wiki/) · [Wiki en español](https://xbnc.org/wiki/es/)
 
-> **Public test release.** This is the first complete version of xBNC, open to testing on real networks (Undernet, Libera.Chat, freenode, Rizon, EvilNet, IRCnet and others) before it is declared stable for production. The current version is on [Releases](https://github.com/x-bnc/xbnc/releases) and the changes in [CHANGELOG.md](CHANGELOG.md). What works, what is missing and the known limits: [docs/STATUS.md](docs/STATUS.md). How to take part in the tests: [Testing the beta](#testing-the-beta).
+> **Stable release.** The first complete version of xBNC, tested on real networks (Undernet, Libera.Chat, freenode, Rizon, EvilNet, IRCnet and others) before being declared stable. The current version is on [Releases](https://github.com/x-bnc/xbnc/releases) and the changes in [CHANGELOG.md](CHANGELOG.md). What was tested and the known limits: [docs/STATUS.md](docs/STATUS.md). Found a problem? See [Reporting a problem](#reporting-a-problem).
 
 ## What it does
 
@@ -95,11 +95,12 @@ What each script in `scripts/` is for (install, update, backup, restore, uninsta
 
 Use the IRC port with SSL that the installer showed: 8443 if you chose one port for the panel and IRC, 6697 if you chose one each (or 6667 without SSL, only from your local network). The panel shows these details ready to copy on each network's page, and `sudo xbncd info` shows them on the server.
 
-## Testing the beta
+## Reporting a problem
 
-1. Install xBNC as explained above and add your networks from **Networks → Add network**.
-2. Follow the checklist in [testenv/real/PLAN.md](testenv/real/PLAN.md). It has one section per network and one per module and plugin.
-3. When something fails or is unclear, download the report from **Your account → Test report** and send it with what you did, what you expected and what happened. The report contains no passwords, messages or other people's nicks.
+1. Download the report from **Your account → Test report** in the panel. It contains no passwords, messages or other people's nicks.
+2. Open an [issue](https://github.com/x-bnc/xbnc/issues) with the report and with what you did, what you expected and what happened.
+
+The real-network test plan that version 1.0.0 passed is in [testenv/real/PLAN.md](testenv/real/PLAN.md), if you want to test xBNC on your own networks.
 
 Security flaws are not made public: follow [SECURITY.md](SECURITY.md).
 

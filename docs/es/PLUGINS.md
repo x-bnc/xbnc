@@ -107,7 +107,7 @@ Automático. Un administrador puede bloquear cualquiera de estos sitios en el pa
 
 ```text
 <bob> mirad esto https://www.youtube.com/watch?v=…
-<y2k> YouTube: Cómo montar un bouncer IRC en 5 minutos
+<y2k> [YouTube] Cómo montar un bouncer IRC en 5 minutos · Canal de ejemplo
 ```
 
 | Ajuste | Por defecto | Detalle |
@@ -135,6 +135,7 @@ En un canal: !def palabra (o ?palabra), !def palabra = texto, !def -palabra, !de
 
 ```text
 <y2k> !def normas = Sé respetuoso y no hagas flood.
+<y2k> Guardado: normas
 <carol> ?normas
 <y2k> normas: Sé respetuoso y no hagas flood.
 ```
@@ -221,6 +222,7 @@ En un canal: nick++, nick--, !karma nick, !karma top. Aquí: /msg \*karma nick.
 <bob> carol++
 <y2k> carol tiene 1 de karma.
 <carol> !karma top
+<y2k> Más karma: carol (1)
 ```
 
 | Ajuste | Por defecto | Detalle |
@@ -366,8 +368,9 @@ En un canal: !poll ¿Pizza o sushi? \| pizza \| sushi (hasta 10 opciones) — vo
 
 ```text
 <carol> !poll ¿Café o té? | café | té
+<y2k> Encuesta de carol: ¿Café o té? — 1) café 2) té. Vota con !vote N. Se cierra en 1 h.
 <bob> !vote 2
-<*poll> Voto registrado en #xbnc: 2) té. Puedes cambiarlo votando otra vez.
+-y2k- Voto registrado en #xbnc: 2) té. Puedes cambiarlo votando otra vez.
 ```
 
 | Ajuste | Por defecto | Detalle |
@@ -398,8 +401,8 @@ En un canal: !recuerda 10m sacar la pizza — !recuerda 2 horas llamar a Bob —
 
 ```text
 <bob> !recuerda en 10 minutos sacar la pizza
-<y2k> bob: vale, te lo recuerdo dentro de 10 minutos.
-<y2k> bob: sacar la pizza
+<y2k> bob: vale, te lo recuerdo dentro de 10 min.
+<y2k> bob: recordatorio: sacar la pizza
 ```
 
 | Ajuste | Por defecto | Detalle |
@@ -430,7 +433,7 @@ En un canal: !tell bob el build está arreglado — bob lo recibe en el canal en
 <y2k> !tell carol el build está arreglado
 <y2k> y2k: vale, se lo diré a carol en cuanto escriba o entre en el canal.
 * carol ha entrado en #xbnc
-<y2k> carol: y2k te dejó un mensaje hace 5 minutos: el build está arreglado
+<y2k> carol: y2k te dejó un mensaje hace 5 min: el build está arreglado
 ```
 
 | Ajuste | Por defecto | Detalle |
@@ -519,7 +522,7 @@ En un canal: !seen bob — cuándo se vio a bob por última vez y si está ahora
 
 ```text
 <bob> !seen carol
-<y2k> carol fue visto por última vez hace 2 horas, en #xbnc diciendo «me voy a cenar».
+<y2k> carol fue visto por última vez hace 2 h 14 min, escribiendo en #xbnc: «me voy a cenar».
 ```
 
 | Ajuste | Por defecto | Detalle |
@@ -551,7 +554,7 @@ Funciona solo, en los canales que pongas en los ajustes (tienes que ser operador
 <spam> a
 <spam> a
 <spam> a
-* spam ha sido expulsado de #xbnc por y2k (flood)
+* spam ha sido expulsado de #xbnc por y2k (Sin flood, por favor)
 ```
 
 | Ajuste | Por defecto | Detalle |

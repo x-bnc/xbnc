@@ -13,6 +13,13 @@ xBNC es un **bouncer IRC**: un programa que se queda conectado a tus redes IRC l
 
 Se instala en un servidor propio (un VPS, una Raspberry Pi, un ordenador de casa), se usa con tu cliente IRC de siempre y se configura entero desde un panel web, o desde IRC con `/msg *status`. Es un único programa escrito en Rust, con el panel incluido dentro.
 
+### Persistente: sigue funcionando mientras no estás
+
+- xBNC funciona en tu servidor como un servicio del sistema, no en tu ordenador. Cerrar el cliente IRC, apagar el ordenador o quedarte sin cobertura en el móvil no te saca de IRC: tu nick sigue en sus canales.
+- Mientras no estás, guarda en su base de datos todos los mensajes de tus canales y conversaciones privadas, te marca como ausente, te identifica en los servicios de la red y ejecuta tus módulos y plugins.
+- Cuando vuelves, cada dispositivo recibe lo que se perdió, con la hora original y sin repetir lo que ya vio.
+- Si la red corta la conexión, xBNC se reconecta solo y vuelve a entrar en tus canales. Si el servidor se reinicia, systemd vuelve a arrancar xBNC y este se reconecta; si xBNC se para por un error, systemd lo reinicia. El historial está en disco, así que no se pierde nada de lo guardado.
+
 - **24** módulos nativos configurables por red
 - **18** plugins oficiales en WebAssembly
 - **2+** idiomas: inglés y español incluidos, y cualquier otro con un fichero de traducción
@@ -31,7 +38,7 @@ Se instala en un servidor propio (un VPS, una Raspberry Pi, un ordenador de casa
 - **Administración:** panel web, API REST con tokens, WebSocket, métricas para Prometheus con panel de Grafana, alertas por panel, IRC y webhook.
 - **Seguridad:** Argon2id, credenciales cifradas, bloqueo de fuerza bruta, CSRF, CSP, servicio sin privilegios, plugins aislados y *fuzzing* continuo.
 
-> **Versión 1.0.0, beta de pruebas.** Es la primera versión completa y se está probando en redes reales antes de declararla estable. Consulta [Probar la beta](TESTING.md#beta) para participar.
+> **Versión 1.0.0, estable.** Es la primera versión completa de xBNC, probada en redes reales antes de declararla estable. Qué se ha probado y cómo avisar de un problema: [Probado en redes reales](TESTING.md#beta).
 
 <a id="how-it-works"></a>
 

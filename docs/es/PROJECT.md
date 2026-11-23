@@ -14,7 +14,7 @@
 
 xBNC 1.0.0, publicada el 21 de noviembre de 2026. Estas son las notas de esta versión, las mismas que en la versión de GitHub. El historial completo está en [CHANGELOG.es.md](https://github.com/x-bnc/xbnc/blob/main/CHANGELOG.es.md), y cada versión con su descarga en [Releases](https://github.com/x-bnc/xbnc/releases).
 
-Primera versión completa, lista para probar en redes reales (`testenv/real/PLAN.md`).
+Primera versión completa y la primera estable, probada en redes reales con todo el plan de pruebas (`testenv/real/PLAN.md`).
 
 ### Añadido
 
@@ -109,9 +109,10 @@ Primera versión completa, lista para probar en redes reales (`testenv/real/PLAN
 - Las líneas que no son UTF-8 se decodifican como Windows-1252 en lugar de mostrar «�».
 - El panel y los mensajes del servidor se escriben en inglés, con el español como traducción.
 - Los canales guardados se listan en su orden de entrada en lugar de por orden alfabético.
-- El flujo de publicación (`.github/workflows/release.yml`), que genera paquetes .deb y .rpm e imágenes de contenedor, solo se ejecuta cuando se lanza a mano: durante la beta xBNC se publica como un .zip con el código.
+- El flujo de publicación (`.github/workflows/release.yml`), que genera paquetes .deb y .rpm e imágenes de contenedor, solo se ejecuta cuando se lanza a mano: xBNC se publica como un .zip con el código y el programa ya compilado para x86\_64.
 - La página de acceso usa los colores de xBNC (amarillo y negro) en los temas claro y oscuro, con el logo de xBNC y una ventana IRC del canal `#xbnc`.
 - Todos los canales de ejemplo del panel, la ayuda, los plugins y la documentación son `#xbnc` (y `#xbnc-dev` cuando hace falta un segundo).
+- La documentación instala desde GitHub con `git clone` (el instalador compila el programa, porque el repositorio no incluye `bin/`), con el .zip de una versión como alternativa con el programa ya compilado; después de `git pull`, se actualiza con `scripts/update.sh --build`. Nuevo en la wiki: una guía paso a paso para principiantes y para qué sirve cada script de `scripts/`.
 - La wiki ya no está dentro de la app: es un proyecto aparte (`xbnc-wiki`).
 
 <a id="roadmap"></a>

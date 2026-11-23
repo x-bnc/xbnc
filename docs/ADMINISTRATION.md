@@ -78,11 +78,11 @@ sudo systemctl reload xbnc
 | Script | Use |
 | --- | --- |
 | `scripts/install.sh` | Installs or reconfigures the service (see [Installation](INSTALL.md#install)). |
-| `scripts/update.sh [--binary PATH] [--build]` | Updates the binary with a backup first and automatic rollback. |
+| `scripts/update.sh [--binary PATH] [--build]` | Updates the binary with a backup first and automatic rollback. After git pull, use --build (see [Installation](INSTALL.md#install)). |
 | `scripts/prereqs.sh [--check]` | Installs what is needed to build xBNC (build tools and Rust), or with --check only says what is missing. |
 | `scripts/backup.sh [FOLDER] [--keep N]` | Live backup: database, secret key and /etc/xbnc in a 0600 .tar.gz (in /var/backups/xbnc, keeps 14). |
 | `scripts/restore.sh ARCHIVE [--with-config] [--yes]` | Restores a backup.sh copy. Keeps the current files as \*.pre-restore-DATE. |
-| `scripts/uninstall.sh [--purge]` | Removes the service and the binary; with --purge, also configuration, data and the xbnc user. |
+| `scripts/uninstall.sh [--purge [--yes]]` | Removes the service and the binary; with --purge, also configuration, data and the xbnc user (it asks for confirmation unless --yes is given). |
 
 <a id="monitoring"></a>
 
@@ -185,7 +185,7 @@ With `[updates] repository` (or `url`) in `xbnc.toml`, xBNC checks the latest pu
 
 ### Updating
 
-In this beta, xBNC is installed from the .zip: it is updated by unpacking the new one and running `scripts/update.sh` (see [Installation](INSTALL.md#install)).
+xBNC is installed from GitHub with `git clone` or from the .zip of a release. To update: `git pull` in the xbnc folder and `sudo ./scripts/update.sh --build`, or unpack the new .zip and run `sudo ./scripts/update.sh` (see [Installation](INSTALL.md#install)).
 
 ### Updating from the panel (package installations)
 
@@ -204,4 +204,4 @@ XBNC_RELEASE_KEY="$(cat xbnc-release.key)" xbncd release sign xbnc_1.0.0_amd64.d
 xbncd release verify --public-key "BASE64..." xbnc_1.0.0_amd64.deb
 ```
 
-The repository includes a workflow that builds and signs .deb and .rpm packages and a container image (`.github/workflows/release.yml`). It needs the key as a repository secret (`XBNC_RELEASE_KEY`) and the public key as a variable (`XBNC_RELEASE_PUBLIC_KEY`). During the beta xBNC is published only as a source .zip, so the workflow only runs when it is started by hand from the *Actions* tab.
+The repository includes a workflow that builds and signs .deb and .rpm packages and a container image (`.github/workflows/release.yml`). It needs the key as a repository secret (`XBNC_RELEASE_KEY`) and the public key as a variable (`XBNC_RELEASE_PUBLIC_KEY`). xBNC is published as a source .zip (with the ready-made program for x86\_64), so the workflow only runs when it is started by hand from the *Actions* tab.

@@ -4,7 +4,7 @@
 
 - [Test environment](#test-environment)
 - [Test report](#test-report)
-- [Testing the beta](#beta)
+- [Tested on real networks](#beta)
 
 <a id="test-environment"></a>
 
@@ -39,7 +39,7 @@ They cover the protocol, the units, the API against a real bouncer, IRC end to e
 
 ### Tests on real networks
 
-The test plan per network, module and plugin is in `testenv/real/PLAN.md`. See [Testing the beta](#beta).
+The test plan per network, module and plugin is in `testenv/real/PLAN.md`. See [Tested on real networks](#beta).
 
 ### The test sets
 
@@ -164,16 +164,16 @@ In *Your account → Test report → Download report* (or `GET /api/v1/diagnosti
 
 <a id="beta"></a>
 
-## Testing the beta
+## Tested on real networks
 
-Version 1.0.0 is being tested on real networks (Undernet, Libera.Chat, freenode, Rizon, EvilNet, IRCnet and others) before it is declared stable.
+Before being declared stable, version 1.0.0 went through the whole real-network test plan (`testenv/real/PLAN.md`) on Undernet, Libera.Chat, freenode, Rizon, EvilNet, IRCnet and others: the installer on x86\_64 and on ARM (Raspberry Pi) with real systemd; TLS and SASL (PLAIN and EXTERNAL with a client certificate); login with the services; invite and unban; the modules and the official plugins, including the ones with web access; FiSH against real clients; DCC; the importer. What came up was fixed before publishing it.
 
-1. Install it and add your networks.
-2. Follow the test plan in `testenv/real/PLAN.md`: one section per network, module and plugin.
-3. If something fails, download the [test report](#test-report) from *Your account*.
-4. Send it with what you did, what you expected, what happened, the network, the client, the approximate time, the version (`/msg *status version`) and the warnings of the log (`sudo journalctl -u xbnc --since "1 hour ago" | grep -E "WARN|ERROR"`; review it before sending it).
+### Reporting a problem
 
-If the project is on GitHub, use the “Test report” issue template. Security flaws are not made public: follow `SECURITY.md`.
+1. Download the [test report](#test-report) from *Your account*: it contains no passwords, messages or other people's nicks.
+2. Send it with what you did, what you expected, what happened, the network, the client, the approximate time, the version (`/msg *status version`) and the warnings of the log (`sudo journalctl -u xbnc --since "1 hour ago" | grep -E "WARN|ERROR"`; review it before sending it).
+
+On GitHub, use the “Test report” issue template. Security flaws are not made public: follow `SECURITY.md`.
 
 ### Known limits
 
@@ -184,5 +184,5 @@ If the project is on GitHub, use the “Test report” issue template. Security 
 - Search by pieces of words is only used when there are no whole-word matches.
 - If the process stops abruptly, a few seconds of history may be repeated.
 - In a language added as a file, the replies of the official plugins come in English (they speak English and Spanish).
-- In this beta installation is from the source code; no .deb or .rpm packages are published.
-- Still to be checked on real networks: login with X, NickServ, Q and AuthServ; invite and unban; plugins with web access; FiSH with real clients; installer with real systemd and Let's Encrypt; DCC between networks; SASL EXTERNAL; importer with real installations.
+- Installation is from the source code (`git clone`) or from the .zip of a release; no .deb or .rpm packages are published.
+- Not done yet: an external security audit and a load test on dedicated hardware.

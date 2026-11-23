@@ -57,7 +57,7 @@ Un administrador solo gestiona roles por debajo del suyo; nadie puede cambiarse 
 | Panel: CSRF y origen | Token CSRF obligatorio en toda petición que cambia algo; peticiones y WebSockets con Origin de otro sitio rechazados. |
 | Panel: cabeceras | CSP estricta sin scripts externos ni en línea, X-Frame-Options: DENY, nosniff, Referrer-Policy: no-referrer, HSTS con TLS y Cache-Control: no-store en la API. |
 | Panel: abuso | 20 peticiones por segundo por IP, cuerpos de hasta 256 KB (4 MB para plugins), 64 conexiones por IP y 4 096 en total, cierre tras 2 minutos sin tráfico y 10 s para el saludo TLS. Con trust\_proxy se usa la IP real detrás de Nginx. |
-| Primer acceso | La primera cuenta solo se crea con un código de un solo uso que el servicio escribe en su registro. |
+| Primer acceso | La primera cuenta solo se crea con un código de un solo uso que el servicio escribe en su registro y en un fichero privado (0600) de su carpeta de datos, que sudo xbncd setup-code muestra. |
 | Secretos en la API | Las contraseñas nunca se devuelven; solo se indica si existen. |
 | Tokens de API | 256 bits con prefijo xbnc\_; solo se guarda su SHA-256. Alcance, caducidad, último uso e IP visibles, revocación inmediata. |
 | Módulos | Compilados dentro del programa: no se carga código externo. Op automático: \*!\*@\* se rechaza; con clave, desafío aleatorio respondido con HMAC-SHA256 y comparado en tiempo constante. |

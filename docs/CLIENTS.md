@@ -14,7 +14,7 @@ Any client that lets you set the server, port and server password works. No plug
 | The same login in another order | `alice@laptop/example:password` |
 
 - **Server:** your domain or IP (`sudo xbncd info` shows it).
-- **Port:** 6697 with SSL from anywhere; 6667 without SSL only from your local network.
+- **Port:** the IRC port with SSL, from anywhere: 8443 if you chose one port for the panel and IRC when installing, 6697 if you chose one each. 6667 without SSL, only from your local network. The examples on this page use 6697: put yours.
 - **Password:** the same one you use for the panel. You can also put `alice/example@laptop` in the user field (USER) and the password alone in PASS, or sign in with SASL PLAIN from the client.
 - **One connection is one network:** for two networks, create two servers in your client (`alice/example` and `alice/other`). Clients with `soju.im/bouncer-networks` (Goguma, gamja, Halloy) see all your networks in a single connection.
 - **Device:** the `@device` part is optional but recommended. Each device (`@laptop`, `@phone`, `@work`) gets its own pending history.
@@ -28,8 +28,8 @@ With a domain, the server is not always the same:
 
 | Where you are | Server | Port |
 | --- | --- | --- |
-| Anywhere (the internet) | Your domain, for example `bnc.example.org` | 6697 with SSL. The router must forward 6697 to the xBNC machine. |
-| At home (the same network as xBNC) | The local IP of the xBNC machine, for example `192.168.1.50` | 6667 without SSL. 6697 also works, but the domain's certificate is not valid for the IP: turn on “accept invalid certificates”. |
+| Anywhere (the internet) | Your domain, for example `bnc.example.org` | The IRC port with SSL (8443 or 6697). The router must forward it to the xBNC machine. |
+| At home (the same network as xBNC) | The local IP of the xBNC machine, for example `192.168.1.50` | 6667 without SSL. The port with SSL also works, but the domain's certificate is not valid for the IP: turn on “accept invalid certificates”. |
 
 From home, the domain only works if your router supports it (it is called NAT loopback or hairpin NAT); many do not, and the connection just fails. That is why the panel has the two options, *From the internet* and *From your local network*, with the right data for each.
 
@@ -90,8 +90,8 @@ xBNC spots the usual mistakes and tells you in the client itself:
 
 | What you see in the client | What is happening | What to do |
 | --- | --- | --- |
-| `Closing link: this port uses SSL/TLS. Enable SSL in your IRC client, or connect to port 6667 without SSL.` | You connect to 6697 without SSL. | Turn on SSL or use 6667 from home. |
-| `Closing link: this port only accepts connections from the local network...` | You use 6667 from outside your network. | Use 6697 with SSL. |
+| `Closing link: this port uses SSL/TLS. Enable SSL in your IRC client, or connect to port 6667 without SSL.` | Your client connects without SSL to the port that uses SSL. | Turn on SSL or use 6667 from home. |
+| `Closing link: this port only accepts connections from the local network...` | You use 6667 from outside your network. | Use the port with SSL (8443 or 6697). |
 | Certificate error or “invalid certificate” | Self-signed certificate (installation by IP). | Accept the certificate or move to a domain with Let's Encrypt. |
 | `Wrong user or password (user "alice")…` | Wrong user or password. | Use the same user and password as in the panel: alice/example@device:password. |
 | `"YOUR_PASSWORD" is the example…` | The example was copied without writing the password. | Write your password after the colon. This does not count as a failed attempt. |
@@ -114,4 +114,4 @@ They are sent before joining channels, and they are stored encrypted. When the c
 
 ### Client compatibility
 
-The automatic tests use a standard IRC client, a client with every IRCv3 capability and a classic client without any. HexChat, mIRC, WeeChat and irssi have been used by hand with xBNC; the other clients in the list follow the same standards but have not been checked one by one. If something does not work with a particular client, report it with the client's name and version (see [Testing the beta](TESTING.md#beta)).
+The automatic tests use a standard IRC client, a client with every IRCv3 capability and a classic client without any. HexChat, mIRC, WeeChat and irssi have been used by hand with xBNC; the other clients in the list follow the same standards but have not been checked one by one. If something does not work with a particular client, report it with the client's name and version (see [Reporting a problem](TESTING.md#beta)).
